@@ -645,105 +645,107 @@
                 class="w-full px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple"
               />
 
-              <div class="grid grid-cols-2 gap-3">
-                <select v-model="category" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="">Product category</option>
-                  <option>Supplement</option>
-                  <option>Beverage</option>
-                  <option>Food</option>
-                  <option>Snack</option>
-                  <option>Sauce / condiment</option>
-                  <option>Functional food</option>
-                  <option>Cosmetic / personal care</option>
-                  <option>Other</option>
-                </select>
-                <select v-model="country" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="">Target country</option>
-                  <option>Japan</option>
-                  <option>South Korea</option>
-                  <option>EU</option>
-                  <option>Germany</option>
-                  <option>Nordics</option>
-                  <option>USA</option>
-                </select>
+              <!-- Compact summary when arrived via the hero configurator -->
+              <div v-if="viaConfigurator" class="p-4 rounded-lg bg-ice-white border border-black/[0.08]">
+                <div class="flex items-center justify-between mb-3">
+                  <div class="font-mono text-[10px] tracking-widest text-graphite/55">YOUR PICKS</div>
+                  <button
+                    type="button"
+                    @click="editConfigurator"
+                    class="font-mono text-[10px] tracking-widest text-signal-purple hover:text-primary-black transition-colors"
+                  >
+                    ↩ EDIT
+                  </button>
+                </div>
+                <div class="grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <div class="font-mono text-[10px] text-graphite/55">COUNTRY</div>
+                    <div class="text-sm font-medium text-primary-black">{{ country }}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-graphite/55">STYLE</div>
+                    <div class="text-sm font-medium text-primary-black">{{ visualStyleMode }}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-graphite/55">CATEGORY</div>
+                    <div class="text-sm font-medium text-primary-black">{{ category || '—' }}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-graphite/55">BRAND TYPE</div>
+                    <div class="text-sm font-medium text-primary-black">{{ brandType }}</div>
+                  </div>
+                  <div>
+                    <div class="font-mono text-[10px] text-graphite/55">TIER</div>
+                    <div class="text-sm font-medium text-primary-black capitalize">{{ priceTier }}</div>
+                  </div>
+                </div>
               </div>
 
-              <div class="grid grid-cols-2 gap-3">
-                <select v-model="brandType" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option>Own brand</option>
-                  <option>Private label</option>
-                  <option>White label</option>
-                  <option>Distributor / importer brand</option>
-                  <option>Retailer brand</option>
-                </select>
-                <select v-model="visualStyleMode" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option>Keep current brand style</option>
-                  <option>Clean Premium</option>
-                  <option>Stylish Premium</option>
-                  <option>Bold Retail</option>
-                  <option>Clinical / Scientific</option>
-                  <option>Natural / Organic</option>
-                  <option>Luxury Minimal</option>
-                  <option>Trend-led / D2C</option>
-                </select>
-              </div>
-              <p class="text-[11px] text-graphite/55 leading-snug">
-                Private label is treated as a <strong class="font-medium">brand type</strong>, not a product category.
-                Style mode controls whether the adaptation is clean, bold, clinical, natural, luxury, or visually expressive.
-              </p>
+              <!-- Full form (fallback) when modal opened directly without the configurator -->
+              <div v-else class="space-y-3">
+                <div class="grid grid-cols-2 gap-3">
+                  <select v-model="category" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option value="">Product category</option>
+                    <option>Supplement</option>
+                    <option>Beverage</option>
+                    <option>Food</option>
+                    <option>Snack</option>
+                    <option>Sauce / condiment</option>
+                    <option>Functional food</option>
+                    <option>Cosmetic / personal care</option>
+                    <option>Other</option>
+                  </select>
+                  <select v-model="country" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option value="">Target country</option>
+                    <option>Japan</option>
+                    <option>South Korea</option>
+                    <option>EU</option>
+                    <option>Germany</option>
+                    <option>Nordics</option>
+                    <option>USA</option>
+                  </select>
+                </div>
 
-              <div class="grid grid-cols-2 gap-3">
-                <select v-model="currentMarket" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="">Current market</option>
-                  <option>Norway</option>
-                  <option>Sweden</option>
-                  <option>Denmark</option>
-                  <option>Germany</option>
-                  <option>USA</option>
-                  <option>South Korea</option>
-                  <option>Japan</option>
-                  <option>Other</option>
-                </select>
-                <select v-model="targetChannel" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="supermarket">Channel: Supermarket</option>
-                  <option value="pharmacy">Channel: Pharmacy</option>
-                  <option value="convenience">Channel: Convenience</option>
-                  <option value="amazon">Channel: Amazon / e-com</option>
-                  <option value="specialty">Channel: Specialty</option>
-                  <option value="b2b">Channel: B2B / distributor</option>
-                </select>
-              </div>
+                <div class="grid grid-cols-2 gap-3">
+                  <select v-model="brandType" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option>Own brand</option>
+                    <option>Private label</option>
+                    <option>White label</option>
+                    <option>Distributor / importer brand</option>
+                    <option>Retailer brand</option>
+                  </select>
+                  <select v-model="visualStyleMode" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option>Keep current brand style</option>
+                    <option>Clean Premium</option>
+                    <option>Stylish Premium</option>
+                    <option>Bold Retail</option>
+                    <option>Clinical / Scientific</option>
+                    <option>Natural / Organic</option>
+                    <option>Luxury Minimal</option>
+                    <option>Trend-led / D2C</option>
+                  </select>
+                </div>
+                <p class="text-[11px] text-graphite/55 leading-snug">
+                  Private label is treated as a <strong class="font-medium">brand type</strong>, not a product category.
+                </p>
 
-              <div class="grid grid-cols-2 gap-3">
-                <select v-model="targetBuyer" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="mass">Buyer: Mass</option>
-                  <option value="premium">Buyer: Premium</option>
-                  <option value="health-conscious">Buyer: Health-conscious</option>
-                  <option value="athletes">Buyer: Athletes</option>
-                  <option value="parents">Buyer: Parents</option>
-                  <option value="elderly">Buyer: Elderly</option>
-                  <option value="gen-z">Buyer: Gen Z</option>
-                  <option value="tourists">Buyer: Tourists</option>
-                  <option value="business">Buyer: Business / B2B</option>
-                </select>
-                <select v-model="priceTier" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                  <option value="budget">Tier: Budget</option>
-                  <option value="mainstream">Tier: Mainstream</option>
-                  <option value="premium">Tier: Premium</option>
-                  <option value="luxury">Tier: Luxury</option>
-                </select>
+                <div class="grid grid-cols-2 gap-3">
+                  <select v-model="targetChannel" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option value="supermarket">Channel: Supermarket</option>
+                    <option value="pharmacy">Channel: Pharmacy</option>
+                    <option value="convenience">Channel: Convenience</option>
+                    <option value="amazon">Channel: Amazon / e-com</option>
+                    <option value="specialty">Channel: Specialty</option>
+                    <option value="b2b">Channel: B2B / distributor</option>
+                  </select>
+                  <select v-model="priceTier" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                    <option value="budget">Tier: Budget</option>
+                    <option value="mainstream">Tier: Mainstream</option>
+                    <option value="premium">Tier: Premium</option>
+                    <option value="luxury">Tier: Luxury</option>
+                  </select>
+                </div>
               </div>
-
-              <select v-model="brandGoal" class="w-full px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
-                <option value="trust">Brand goal: Trust</option>
-                <option value="premium">Brand goal: Premium</option>
-                <option value="functional">Brand goal: Functional</option>
-                <option value="natural">Brand goal: Natural</option>
-                <option value="fun">Brand goal: Fun</option>
-                <option value="clinical">Brand goal: Clinical</option>
-                <option value="local">Brand goal: Local</option>
-                <option value="export">Brand goal: Export-ready</option>
-              </select>
 
               <details class="border border-black/[0.08] rounded-md group">
                 <summary class="px-3 py-2 text-xs text-graphite/70 cursor-pointer select-none flex items-center justify-between">
@@ -1223,10 +1225,15 @@ const TIER_TO_PRICE_TIER = {
   launch_pack: 'luxury',
 }
 
+// Tracks whether the modal was opened via the hero configurator. When true,
+// the modal hides the duplicate dropdowns and shows a compact summary of
+// the configurator picks.
+const viaConfigurator = ref(false)
+
 function submitConfigurator() {
   if (!cfgTargetCountry.value) return
   // Pre-fill the existing upload modal with the configurator selections so
-  // the user only has to add a label image + product name from there.
+  // the user only has to add a product name from there.
   country.value = cfgTargetCountry.value
   visualStyleMode.value = PRODUCT_STYLE_TO_STYLE_MODE[cfgProductStyle.value] || 'Keep current brand style'
   const buyerFields = BUYER_TYPE_TO_FIELDS[cfgBuyerType.value] || BUYER_TYPE_TO_FIELDS['Other']
@@ -1236,7 +1243,17 @@ function submitConfigurator() {
   if (cfgAdvancedDetails.value && !claimsOnPack.value) {
     claimsOnPack.value = cfgAdvancedDetails.value
   }
+  viaConfigurator.value = true
   openUpload()
+}
+
+function editConfigurator() {
+  closeUpload()
+  // Smooth scroll back to the hero configurator
+  setTimeout(() => {
+    const el = document.getElementById('configurator')
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, 250)
 }
 
 const uploadOpen = ref(false)
@@ -1355,6 +1372,7 @@ function closeUpload() {
     mockupImage.value = null
     mockupUnlocked.value = false
     exportState.value = 'idle'
+    viaConfigurator.value = false
   }, 200)
 }
 
@@ -1374,6 +1392,7 @@ function resetAnalysis() {
   mockupError.value = ''
   mockupUnlocked.value = false
   exportState.value = 'idle'
+  viaConfigurator.value = false
 }
 
 function handleFile(e) {
