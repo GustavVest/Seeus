@@ -179,76 +179,99 @@
                   </p>
                 </div>
 
-                <!-- Step 2: Product Style -->
+                <!-- Step 2: Origin country -->
                 <div>
                   <label class="font-display text-base text-primary-black font-semibold">
                     <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">02</span>
-                    Product style
+                    Product origin country
                   </label>
                   <select
-                    v-model="cfgProductStyle"
+                    v-model="cfgOriginCountry"
                     class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
                   >
-                    <option>Clean premium</option>
-                    <option>Nordic minimal</option>
-                    <option>Modern retail</option>
-                    <option>Natural / organic</option>
-                    <option>Scientific supplement</option>
-                    <option>Bold commercial</option>
-                    <option>Custom style</option>
+                    <option value="">Where is it produced / sold today?</option>
+                    <option>Norway</option>
+                    <option>Sweden</option>
+                    <option>Denmark</option>
+                    <option>Lithuania</option>
+                    <option>Germany</option>
+                    <option>United Kingdom</option>
+                    <option>USA</option>
+                    <option>South Korea</option>
+                    <option>Japan</option>
+                    <option>Other</option>
                   </select>
-                  <p class="mt-2 text-xs text-graphite/60">
-                    We adapt the label tone, claims style, and visual direction to the market and product category.
-                  </p>
                 </div>
 
-                <!-- Step 3: Tier (cards) -->
-                <div>
-                  <label class="font-display text-base text-primary-black font-semibold">
-                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">03</span>
-                    Tier
-                  </label>
-                  <div class="mt-3 grid sm:grid-cols-3 gap-2">
-                    <button
-                      v-for="t in tierOptions"
-                      :key="t.id"
-                      type="button"
-                      @click="cfgTier = t.id"
-                      :class="[
-                        'text-left p-3 rounded-lg border-2 transition-colors',
-                        cfgTier === t.id
-                          ? 'border-signal-purple bg-signal-purple/5'
-                          : 'border-black/[0.08] bg-white hover:border-black/30',
-                      ]"
+                <div class="grid grid-cols-2 gap-3">
+                  <!-- Step 3: Category -->
+                  <div>
+                    <label class="font-display text-sm text-primary-black font-semibold">
+                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">03</span>
+                      Category
+                    </label>
+                    <select
+                      v-model="cfgCategory"
+                      class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
                     >
-                      <div class="flex items-center justify-between">
-                        <span class="font-display text-sm font-semibold text-primary-black">{{ t.name }}</span>
-                        <span v-if="cfgTier === t.id" class="text-signal-purple text-xs">✓</span>
-                      </div>
-                      <p class="mt-1 text-[11px] text-graphite/70 leading-snug">{{ t.tagline }}</p>
-                    </button>
+                      <option value="">Pick one…</option>
+                      <option>Food</option>
+                      <option>Beverage</option>
+                      <option>Supplement</option>
+                      <option>Cosmetic</option>
+                      <option>Private label</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <!-- Step 4: Adaptation type -->
+                  <div>
+                    <label class="font-display text-sm text-primary-black font-semibold">
+                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">04</span>
+                      Adaptation
+                    </label>
+                    <select
+                      v-model="cfgAdaptationType"
+                      class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                    >
+                      <option value="auto">Automatic market adaptation</option>
+                      <option value="keep">Keep original style</option>
+                      <option value="custom">Let me choose the style</option>
+                    </select>
                   </div>
                 </div>
 
-                <!-- Step 4: Buyer Type -->
+                <!-- Sub-dropdown when user picks "custom" -->
+                <div v-if="cfgAdaptationType === 'custom'">
+                  <label class="font-mono text-[10px] tracking-widest text-graphite/55">CUSTOM STYLE</label>
+                  <select
+                    v-model="cfgCustomStyle"
+                    class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                  >
+                    <option>Clean Premium</option>
+                    <option>Nordic minimal</option>
+                    <option>Modern retail</option>
+                    <option>Natural / Organic</option>
+                    <option>Scientific supplement</option>
+                    <option>Bold commercial</option>
+                    <option>Luxury Minimal</option>
+                    <option>Trend-led / D2C</option>
+                  </select>
+                </div>
+
+                <!-- Step 5: Email -->
                 <div>
                   <label class="font-display text-base text-primary-black font-semibold">
-                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">04</span>
-                    Buyer type
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">05</span>
+                    Email
                   </label>
-                  <select
-                    v-model="cfgBuyerType"
-                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
-                  >
-                    <option>Food producer</option>
-                    <option>Supplement brand</option>
-                    <option>Beverage company</option>
-                    <option>Private label manufacturer</option>
-                    <option>Distributor / importer</option>
-                    <option>Other</option>
-                  </select>
+                  <input
+                    v-model="cfgEmail"
+                    type="email"
+                    placeholder="you@company.com"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
+                  />
                   <p class="mt-2 text-xs text-graphite/60">
-                    This helps tailor the output to the person who needs to approve, sell, or distribute the product.
+                    We'll send your free market-fit summary to this address.
                   </p>
                 </div>
 
@@ -271,14 +294,14 @@
                 <!-- Submit -->
                 <button
                   @click="submitConfigurator"
-                  :disabled="!cfgTargetCountry"
+                  :disabled="!canSubmitConfigurator"
                   class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-4 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
                 >
-                  Create market-ready label
+                  Analyze market fit
                   <span class="text-base leading-none">→</span>
                 </button>
                 <p class="text-[11px] text-graphite/55 text-center -mt-3">
-                  Next step: upload your existing label so we can adapt it.
+                  Free first analysis · Full report unlock €49.
                 </p>
               </div>
             </div>
@@ -580,6 +603,124 @@
             <p class="mt-2 text-sm text-graphite/75 leading-relaxed flex-1">{{ v.body }}</p>
             <div class="mt-5 pt-4 border-t border-black/[0.06]">
               <div class="font-mono text-[10px] tracking-widest text-signal-purple">{{ v.metric.toUpperCase() }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ROI / SAVINGS CALCULATOR ===== -->
+    <section class="py-24 lg:py-32">
+      <div class="max-w-6xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl mb-10 lg:mb-14">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">SAVINGS CALCULATOR</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            See how much time your team can save.
+          </h2>
+          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Estimate how much time and cost you normally spend on market research, label adaptation, and marketing development before launch.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
+          <!-- Input card -->
+          <div class="rounded-2xl border border-black/[0.08] bg-white p-6 lg:p-7 space-y-5">
+            <label class="block">
+              <span class="text-xs font-mono tracking-widest text-graphite/55">PEOPLE ON MARKETING / PRODUCT DEV</span>
+              <input
+                v-model.number="roiTeamSize"
+                type="number"
+                min="1"
+                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
+              />
+            </label>
+
+            <label class="block">
+              <span class="text-xs font-mono tracking-widest text-graphite/55">EXTERNAL MARKETING AGENCY?</span>
+              <div class="mt-2 grid grid-cols-2 gap-2">
+                <button
+                  type="button"
+                  @click="roiUsesAgency = true"
+                  :class="[
+                    'px-4 py-2.5 rounded-md text-sm font-medium border transition-colors',
+                    roiUsesAgency ? 'bg-primary-black text-ice-white border-primary-black' : 'bg-white text-graphite border-black/15 hover:border-black/30',
+                  ]"
+                >Yes</button>
+                <button
+                  type="button"
+                  @click="roiUsesAgency = false"
+                  :class="[
+                    'px-4 py-2.5 rounded-md text-sm font-medium border transition-colors',
+                    roiUsesAgency === false ? 'bg-primary-black text-ice-white border-primary-black' : 'bg-white text-graphite border-black/15 hover:border-black/30',
+                  ]"
+                >No</button>
+              </div>
+            </label>
+
+            <label class="block">
+              <span class="text-xs font-mono tracking-widest text-graphite/55">HOURS PER PRODUCT (RESEARCH + LABEL ADAPTATION)</span>
+              <input
+                v-model.number="roiHoursPerProduct"
+                type="number"
+                min="0"
+                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
+              />
+            </label>
+
+            <label class="block">
+              <span class="text-xs font-mono tracking-widest text-graphite/55">SKUs LAUNCHED / ADAPTED PER MONTH</span>
+              <input
+                v-model.number="roiSkusPerMonth"
+                type="number"
+                min="0"
+                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
+              />
+            </label>
+
+            <label class="block">
+              <span class="text-xs font-mono tracking-widest text-graphite/55">HOURLY COST (€, OPTIONAL)</span>
+              <input
+                v-model.number="roiHourlyCost"
+                type="number"
+                min="0"
+                placeholder="Leave blank for time-only estimate"
+                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
+              />
+              <p class="mt-1.5 text-[11px] text-graphite/55">
+                Either internal cost or agency hourly rate, whichever applies.
+              </p>
+            </label>
+          </div>
+
+          <!-- Output card -->
+          <div class="rounded-2xl bg-primary-black text-ice-white p-7 lg:p-9 sticky top-28">
+            <div class="font-mono text-[10px] tracking-widest text-electric-violet mb-3">ESTIMATED IMPACT</div>
+
+            <div class="space-y-7">
+              <div>
+                <div class="font-mono text-[10px] tracking-widest text-ice-white/55 mb-1">TIME SAVED · PER MONTH</div>
+                <div class="font-display text-5xl font-medium tracking-tight tabular-nums">
+                  {{ roiHoursSavedMonthly[0] }}<span class="text-2xl text-ice-white/60">–</span>{{ roiHoursSavedMonthly[1] }}
+                  <span class="text-2xl text-ice-white/60 ml-2">hours</span>
+                </div>
+                <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">
+                  Roughly {{ roiHoursPerSku[0] }}–{{ roiHoursPerSku[1] }} hours saved per SKU on early-stage market adaptation work.
+                </p>
+              </div>
+
+              <div v-if="roiValueMonthly[1] > 0" class="pt-5 border-t border-ice-white/15">
+                <div class="font-mono text-[10px] tracking-widest text-ice-white/55 mb-1">ESTIMATED VALUE · PER MONTH</div>
+                <div class="font-display text-4xl font-medium tracking-tight tabular-nums">
+                  €{{ roiValueMonthly[0].toLocaleString() }}<span class="text-2xl text-ice-white/60">–</span>€{{ roiValueMonthly[1].toLocaleString() }}
+                </div>
+                <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">
+                  Based on your {{ roiUsesAgency ? 'agency' : 'internal' }} hourly cost. ORAMA INTEL can reduce early market adaptation work before you involve designers, agencies, or distributors.
+                </p>
+              </div>
+
+              <p class="text-[11px] text-ice-white/45 leading-relaxed pt-4 border-t border-ice-white/10">
+                Estimated only. Actual savings depend on product complexity, market, and the work your team already does in-house. ORAMA INTEL may reduce — not eliminate — early-stage marketing and adaptation work.
+              </p>
             </div>
           </div>
         </div>
@@ -1398,11 +1539,13 @@ import PrivateLabelRenderer from '../components/PrivateLabelRenderer.vue'
 // relative "/api/..." URLs hit Vite's proxy → localhost:5001.
 const API_BASE = import.meta.env.VITE_API_BASE || ''
 
-// ---- 4-step hero configurator (lightweight; pre-fills the upload modal) ----
+// ---- Hero configurator (origin / target / category / adaptation / email) ----
 const cfgTargetCountry = ref('')
-const cfgProductStyle = ref('Clean premium')
-const cfgTier = ref('premium')
-const cfgBuyerType = ref('Food producer')
+const cfgOriginCountry = ref('')
+const cfgCategory = ref('')
+const cfgAdaptationType = ref('auto')   // 'auto' | 'keep' | 'custom'
+const cfgCustomStyle = ref('Clean Premium')
+const cfgEmail = ref('')
 const cfgAdvancedDetails = ref('')
 
 // Hero dropzone — shares selectedFile state with the modal so the file
@@ -1438,38 +1581,40 @@ function handleHeroDrop(e) {
   if (f && _validateHeroFile(f)) selectedFile.value = f
 }
 
-const tierOptions = [
-  { id: 'starter',     name: 'Starter',     tagline: 'For early validation. Localized label direction + key wording.' },
-  { id: 'premium',     name: 'Premium',     tagline: 'For serious launches. Full rewrite + positioning + risk notes.' },
-  { id: 'launch_pack', name: 'Launch Pack', tagline: 'For sales / distributor outreach. Label + page copy + pitch.' },
-]
-
-// Map the lightweight product-style label to the canonical visual style mode.
-const PRODUCT_STYLE_TO_STYLE_MODE = {
-  'Clean premium':         'Clean Premium',
-  'Nordic minimal':        'Luxury Minimal',
-  'Modern retail':         'Bold Retail',
-  'Natural / organic':     'Natural / Organic',
-  'Scientific supplement': 'Clinical / Scientific',
-  'Bold commercial':       'Bold Retail',
-  'Custom style':          'Keep current brand style',
+// Auto-pick a visual style per target market when the user chooses
+// "Automatic market adaptation". Falls back to a sensible default.
+const COUNTRY_AUTO_STYLE = {
+  Japan:           'Clean Premium',
+  'South Korea':   'Trend-led / D2C',
+  Germany:         'Natural / Organic',
+  Nordics:         'Luxury Minimal',
+  Lithuania:       'Clean Premium',
+  Norway:          'Luxury Minimal',
+  Sweden:          'Luxury Minimal',
+  Denmark:         'Clean Premium',
+  USA:             'Bold Retail',
+  EU:              'Clean Premium',
+  'United Kingdom': 'Bold Retail',
 }
 
-// Map the lightweight buyer-type label to (brandType, productCategory).
-const BUYER_TYPE_TO_FIELDS = {
-  'Food producer':                { brandType: 'Own brand',                     category: 'Food' },
-  'Supplement brand':             { brandType: 'Own brand',                     category: 'Supplement' },
-  'Beverage company':             { brandType: 'Own brand',                     category: 'Beverage' },
-  'Private label manufacturer':   { brandType: 'Private label',                 category: '' },
-  'Distributor / importer':       { brandType: 'Distributor / importer brand',  category: '' },
-  'Other':                        { brandType: 'Own brand',                     category: '' },
+// Map the simplified category onto the backend's brandType + product_category.
+const CATEGORY_TO_FIELDS = {
+  'Food':         { brandType: 'Own brand',     category: 'Food' },
+  'Beverage':     { brandType: 'Own brand',     category: 'Beverage' },
+  'Supplement':   { brandType: 'Own brand',     category: 'Supplement' },
+  'Cosmetic':     { brandType: 'Own brand',     category: 'Cosmetic / personal care' },
+  'Private label':{ brandType: 'Private label', category: 'Other' },
+  'Other':        { brandType: 'Own brand',     category: 'Other' },
 }
 
-const TIER_TO_PRICE_TIER = {
-  starter: 'mainstream',
-  premium: 'premium',
-  launch_pack: 'luxury',
-}
+const canSubmitConfigurator = computed(
+  () =>
+    !!selectedFile.value &&
+    !!cfgTargetCountry.value &&
+    !!cfgCategory.value &&
+    !!cfgEmail.value &&
+    /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cfgEmail.value)
+)
 
 // Tracks whether the modal was opened via the hero configurator. When true,
 // the modal hides the duplicate dropdowns and shows a compact summary of
@@ -1477,18 +1622,42 @@ const TIER_TO_PRICE_TIER = {
 const viaConfigurator = ref(false)
 
 function submitConfigurator() {
-  if (!cfgTargetCountry.value) return
-  // Pre-fill the existing upload modal with the configurator selections so
-  // the user only has to add a product name from there.
+  if (!canSubmitConfigurator.value) return
+
+  // Pre-fill the existing upload modal so the user doesn't re-enter anything.
   country.value = cfgTargetCountry.value
-  visualStyleMode.value = PRODUCT_STYLE_TO_STYLE_MODE[cfgProductStyle.value] || 'Keep current brand style'
-  const buyerFields = BUYER_TYPE_TO_FIELDS[cfgBuyerType.value] || BUYER_TYPE_TO_FIELDS['Other']
-  brandType.value = buyerFields.brandType
-  if (buyerFields.category) category.value = buyerFields.category
-  priceTier.value = TIER_TO_PRICE_TIER[cfgTier.value] || 'premium'
+  currentMarket.value = cfgOriginCountry.value
+  const catFields = CATEGORY_TO_FIELDS[cfgCategory.value] || CATEGORY_TO_FIELDS['Other']
+  category.value = catFields.category
+  brandType.value = catFields.brandType
+
+  // Adaptation type → visual style mode
+  if (cfgAdaptationType.value === 'keep') {
+    visualStyleMode.value = 'Keep current brand style'
+  } else if (cfgAdaptationType.value === 'auto') {
+    visualStyleMode.value = COUNTRY_AUTO_STYLE[cfgTargetCountry.value] || 'Clean Premium'
+  } else {
+    visualStyleMode.value = cfgCustomStyle.value || 'Clean Premium'
+  }
+
   if (cfgAdvancedDetails.value && !claimsOnPack.value) {
     claimsOnPack.value = cfgAdvancedDetails.value
   }
+
+  // Fire-and-forget: capture the email as a lead. Failure here doesn't block
+  // the analysis flow (silently logs server-side when Resend isn't configured).
+  if (cfgEmail.value) {
+    fetch(`${API_BASE}/api/checklist/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: cfgEmail.value.trim(),
+        company: '',
+        category: cfgCategory.value,
+      }),
+    }).catch(() => { /* silent */ })
+  }
+
   viaConfigurator.value = true
   openUpload()
 }
@@ -2266,6 +2435,34 @@ function handleTierCta(tier) {
   }
   openUpload()
 }
+
+// ROI / savings calculator state
+const roiTeamSize = ref(3)
+const roiUsesAgency = ref(false)
+const roiHoursPerProduct = ref(20)
+const roiSkusPerMonth = ref(2)
+const roiHourlyCost = ref(null)
+
+// Conservative range: ORAMA INTEL replaces ~30–50 % of early-stage market
+// adaptation work for the team that runs it.
+const roiSavingsLow = 0.30
+const roiSavingsHigh = 0.50
+
+const roiHoursPerSku = computed(() => {
+  const h = Math.max(0, Number(roiHoursPerProduct.value) || 0)
+  return [Math.round(h * roiSavingsLow), Math.round(h * roiSavingsHigh)]
+})
+const roiHoursSavedMonthly = computed(() => {
+  const skus = Math.max(0, Number(roiSkusPerMonth.value) || 0)
+  const [lo, hi] = roiHoursPerSku.value
+  return [lo * skus, hi * skus]
+})
+const roiValueMonthly = computed(() => {
+  const cost = Number(roiHourlyCost.value) || 0
+  if (!cost) return [0, 0]
+  const [lo, hi] = roiHoursSavedMonthly.value
+  return [lo * cost, hi * cost]
+})
 
 const valueCards = [
   { title: 'Save research time',     body: 'Reduce hours spent comparing local competitors, wording, and shelf positioning before a launch.', metric: '5–10 hours saved per product' },
