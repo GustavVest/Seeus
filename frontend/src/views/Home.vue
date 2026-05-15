@@ -758,7 +758,10 @@
               <span v-if="!checklistSubmitted" class="text-base leading-none">→</span>
             </button>
             <p v-if="checklistSubmitted" class="text-xs text-graphite/65 text-center">
-              Checklist request received. You can now use the scoring list to evaluate your label before entering a new market.
+              Checklist request received. Check your inbox — the scoring list is on its way.
+            </p>
+            <p v-if="checklistError && !checklistSubmitted" class="text-xs text-risk-red text-center flex items-center justify-center gap-1.5">
+              <span>⚠</span>{{ checklistError }}
             </p>
           </form>
         </div>
@@ -2271,20 +2274,29 @@ const checklistEmail = ref('')
 const checklistCompany = ref('')
 const checklistCategory = ref('')
 const checklistSubmitted = ref(false)
+const checklistError = ref('')
 
-function submitChecklist() {
+async function submitChecklist() {
   if (!checklistEmail.value) return
-  // TODO: connect to an email provider (Mailchimp / Brevo / Resend / ConvertKit /
-  // HubSpot / Supabase) to actually deliver the checklist + capture the lead.
-  // For now we record "request received" without claiming the email was sent.
-  if (import.meta.env.DEV) {
-    console.log('[checklist] request received', {
-      email: checklistEmail.value,
-      company: checklistCompany.value,
-      category: checklistCategory.value,
+  checklistError.value = ''
+  try {
+    const resp = await fetch(`${API_BASE}/api/checklist/subscribe`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: checklistEmail.value.trim(),
+        company: checklistCompany.value.trim(),
+        category: checklistCategory.value,
+      }),
     })
+    const data = await resp.json().catch(() => ({}))
+    if (!resp.ok) {
+      throw new Error(data.error || `HTTP ${resp.status}`)
+    }
+    checklistSubmitted.value = true
+  } catch (err) {
+    checklistError.value = (err && err.message) || 'Couldn\'t submit. Please try again.'
   }
-  checklistSubmitted.value = true
 }
 </script>
 

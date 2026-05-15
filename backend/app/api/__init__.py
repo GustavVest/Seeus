@@ -6,6 +6,7 @@ from flask import Blueprint
 
 # Active blueprints (current ORAMA INTEL product).
 label_bp = Blueprint('label', __name__)
+checklist_bp = Blueprint('checklist', __name__)
 
 # Legacy blueprints kept as dormant files but NOT imported, so the heavy
 # zep_cloud + camel-ai dependency chain isn't loaded at boot. To revive,
@@ -18,4 +19,5 @@ label_bp = Blueprint('label', __name__)
 # from . import report  # noqa: E402, F401
 
 from . import label  # noqa: E402, F401
+from . import checklist  # noqa: E402, F401
 

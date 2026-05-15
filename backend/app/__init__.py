@@ -63,8 +63,9 @@ def create_app(config_class=Config):
     
     # Register active blueprints. Legacy blueprints (graph/simulation/report)
     # are commented out — see app/api/__init__.py for details.
-    from .api import label_bp
+    from .api import label_bp, checklist_bp
     app.register_blueprint(label_bp, url_prefix='/api/label')
+    app.register_blueprint(checklist_bp, url_prefix='/api/checklist')
     
     # 健康检查
     @app.route('/health')

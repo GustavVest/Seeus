@@ -38,3 +38,8 @@ gunicorn>=21.2.0
 # ============= Image handling =============
 # Pillow is used by the mockup placeholder + image-edit byte handling.
 Pillow>=10.0.0
+
+# ============= Email / lead capture =============
+# Resend powers the free-checklist email and lead list. Falls back to
+# silent in-app capture if RESEND_API_KEY is not set.
+resend>=2.0.0
