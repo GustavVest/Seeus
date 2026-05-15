@@ -1658,8 +1658,17 @@ function submitConfigurator() {
     }).catch(() => { /* silent */ })
   }
 
+  // Default product name so the analyze call doesn't 400. The user can
+  // edit it in the modal afterwards if they want.
+  if (!productName.value) {
+    productName.value = `${cfgCategory.value || 'Product'} for ${cfgTargetCountry.value}`
+  }
+
   viaConfigurator.value = true
   openUpload()
+  // Kick off the analysis immediately so the modal shows "Analyzing →
+  // Result" rather than another form step.
+  runAnalysis()
 }
 
 function editConfigurator() {
@@ -1835,9 +1844,10 @@ async function runAnalysis() {
   analysisFallback.value = false
   analysisFallbackReason.value = ''
 
-  // Visual progress runs against an expected ceiling; the real call may
-  // finish earlier or later. Cap at 95% until the response arrives.
-  const expectedDuration = 6000
+  // Visual progress runs against an expected ceiling. Real backend
+  // typically returns < 1 s, so keep this short — otherwise the UI feels
+  // slower than it actually is.
+  const expectedDuration = 1800
   const start = performance.now()
   analysisIntervalId = setInterval(() => {
     const elapsed = performance.now() - start
