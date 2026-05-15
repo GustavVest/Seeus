@@ -582,21 +582,44 @@
 
           <!-- ===== IDLE: UPLOAD FORM ===== -->
           <div v-if="analysisState === 'idle'">
-            <div class="font-mono text-[10px] tracking-widest text-signal-purple mb-2">UPLOAD</div>
+            <div class="font-mono text-[10px] tracking-widest text-signal-purple mb-2">CONFIRM DETAILS</div>
             <h3 class="font-display text-2xl text-primary-black font-medium tracking-tight">
-              Upload your product label
+              Add product details
             </h3>
             <p class="mt-2 text-sm text-graphite/70">
-              PDF, PNG, or JPG. One label per analysis.
+              We'll run the 8-agent analysis on the file you uploaded.
             </p>
 
+            <!-- File already attached (typical case — user uploaded from the homepage) -->
+            <div
+              v-if="selectedFile"
+              class="mt-5 flex items-center gap-3 px-4 py-3 rounded-lg border border-market-green/40 bg-market-green/5"
+            >
+              <span class="flex-shrink-0 w-8 h-8 rounded-md bg-market-green text-ice-white text-sm flex items-center justify-center font-mono">✓</span>
+              <div class="min-w-0 flex-1">
+                <div class="font-mono text-[10px] tracking-widest text-market-green mb-0.5">ATTACHED</div>
+                <p class="text-sm font-medium text-primary-black truncate">{{ selectedFile.name }}</p>
+                <p class="text-[11px] text-graphite/55">{{ formatBytes(selectedFile.size) }}</p>
+              </div>
+              <label class="flex-shrink-0 font-mono text-[10px] tracking-widest text-graphite/55 hover:text-signal-purple cursor-pointer transition-colors">
+                <input
+                  type="file"
+                  accept=".pdf,.png,.jpg,.jpeg,.webp"
+                  class="hidden"
+                  @change="handleFile"
+                />
+                ↻ REPLACE
+              </label>
+            </div>
+
+            <!-- Fallback dropzone (rare — user opened modal without first uploading on hero) -->
             <label
+              v-else
               :class="[
-                'mt-6 block border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors',
+                'mt-5 block border-2 border-dashed rounded-lg p-6 text-center cursor-pointer transition-colors',
                 dragOver
                   ? 'border-signal-purple bg-signal-purple/5'
                   : 'border-black/15 hover:border-signal-purple/50 hover:bg-signal-purple/[0.03]',
-                selectedFile ? 'border-market-green/60 bg-market-green/5' : '',
               ]"
               @dragover.prevent="dragOver = true"
               @dragleave.prevent="dragOver = false"
@@ -605,20 +628,13 @@
               <input
                 ref="fileInputRef"
                 type="file"
-                accept=".pdf,.png,.jpg,.jpeg"
+                accept=".pdf,.png,.jpg,.jpeg,.webp"
                 class="hidden"
                 @change="handleFile"
               />
-              <div v-if="!selectedFile">
-                <div class="w-10 h-10 mx-auto mb-3 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/50">↑</div>
-                <p class="text-sm font-medium text-primary-black">Drop your label here</p>
-                <p class="text-xs text-graphite/55 mt-1">or click to browse</p>
-              </div>
-              <div v-else class="text-left">
-                <div class="font-mono text-[10px] tracking-widest text-market-green mb-1">SELECTED</div>
-                <p class="text-sm font-medium text-primary-black break-all">{{ selectedFile.name }}</p>
-                <p class="text-xs text-graphite/55 mt-1">{{ formatBytes(selectedFile.size) }}</p>
-              </div>
+              <div class="w-8 h-8 mx-auto mb-2 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/50 text-sm">↑</div>
+              <p class="text-sm font-medium text-primary-black">Drop your label here</p>
+              <p class="text-[11px] text-graphite/55 mt-1">PDF, PNG, JPG, or WEBP · max 15&nbsp;MB</p>
             </label>
 
             <div class="mt-5 space-y-3">
