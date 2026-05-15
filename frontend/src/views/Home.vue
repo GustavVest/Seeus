@@ -415,7 +415,7 @@
 
     <!-- ===== STAT STRIP (avg savings + live founder count) ===== -->
     <section class="py-16 lg:py-20">
-      <div :class="['max-w-5xl mx-auto px-6 lg:px-10 grid gap-12', liveLeadsCount > 0 ? 'md:grid-cols-2' : 'md:grid-cols-1']">
+      <div class="max-w-5xl mx-auto px-6 lg:px-10 grid gap-12 md:grid-cols-2">
         <div class="text-center">
           <span class="font-mono text-xs tracking-widest text-signal-purple">AVERAGE IMPACT</span>
           <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight">
@@ -428,13 +428,14 @@
             Based on internal customer data. Your number depends on team size and SKU volume.
           </p>
         </div>
-        <div v-if="liveLeadsCount > 0" class="text-center">
+        <div class="text-center">
           <span class="font-mono text-xs tracking-widest text-signal-purple">FOUNDERS ON BOARD</span>
           <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight tabular-nums">
             {{ liveLeadsCount.toLocaleString() }}
           </h2>
           <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
-            Founders have run their label through ORAMA INTEL.
+            <template v-if="liveLeadsCount > 0">Founders have run their label through ORAMA INTEL.</template>
+            <template v-else>Just launched. You could be the first founder to run a label through ORAMA INTEL.</template>
           </p>
           <p class="mt-2 text-[11px] text-graphite/45">
             Live count, refreshed every minute.
