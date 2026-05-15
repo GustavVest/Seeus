@@ -173,6 +173,17 @@ def synthesize(
         to_market_reference_insights(market_references) if market_references else {}
     )
 
+    # Surface the recommended label copy in the brief so the image prompt
+    # can render the same headline/subhead/bullets the analysis recommended.
+    recommended_label_copy_for_brief = {
+        'frontLabelHeadline': headline or '',
+        'subheadline': sub or '',
+        'benefitBullets': agent_outputs['buyerMotivation']
+            .get('detail', {})
+            .get('missingElements', [])[:3],
+        'trustMarkers': trust_markers[:4],
+    }
+
     adaptation_brief = {
         'productName': input.get('product_name', ''),
         'category': input.get('product_category', ''),
@@ -191,6 +202,7 @@ def synthesize(
         'styleConstraints': style_constraints,
         'forbiddenChanges': forbidden_changes,
         'marketReferenceInsights': market_reference_insights,
+        'recommendedLabelCopy': recommended_label_copy_for_brief,
     }
 
     report: FinalReport = {

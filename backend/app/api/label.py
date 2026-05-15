@@ -399,7 +399,16 @@ def _build_label_only_mockup_prompt(brief: dict) -> str:
         palette_extras.append(f"Metallic accent: {palette['metallicAccent']}")
     palette_extras_block = '\n'.join(palette_extras) if palette_extras else ''
 
-    return f"""You are creating a professional market-adapted product label concept.
+    # Recommended label copy surfaced from the analysis report.
+    rec_copy = brief.get('recommendedLabelCopy') or {}
+    front_headline = (rec_copy.get('frontLabelHeadline') or '').strip() or '(none provided — keep the existing headline)'
+    subheadline = (rec_copy.get('subheadline') or '').strip() or '(none provided)'
+    benefit_bullets_block = '\n'.join([f'  - {b}' for b in (rec_copy.get('benefitBullets') or [])]) or '  (none provided)'
+
+    return f"""SYSTEM PRINCIPLE:
+This is not free creative redesign. This is controlled commercial label adaptation.
+
+You are editing a real product packaging image — creating a market-adapted label concept.
 
 CRITICAL INSTRUCTION:
 Preserve the original uploaded product packaging exactly.
@@ -462,6 +471,19 @@ Claims to avoid:
 
 Safer claims to use:
 {safer_claims}
+
+==================================================
+RECOMMENDED LABEL COPY  (apply these to the front of the label)
+==================================================
+Headline:
+{front_headline}
+
+Subheadline:
+{subheadline}
+
+Benefit bullets:
+{benefit_bullets_block}
+==================================================
 
 Recommended palette (label artwork only — do not recolor the brand logo):
 Primary:    {palette.get('primary', '')}
