@@ -712,16 +712,16 @@
       </div>
     </section>
 
-    <!-- ===== FREE CHECKLIST CAPTURE ===== -->
+    <!-- ===== EARLY-LIST LEAD CAPTURE ===== -->
     <section class="py-24 lg:py-32 bg-ice-white">
       <div class="max-w-3xl mx-auto px-6 lg:px-10">
         <div class="rounded-2xl border border-black/[0.08] bg-white p-8 lg:p-10">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">FREE CHECKLIST</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">EARLY LIST</span>
           <h2 class="mt-3 font-display text-3xl lg:text-4xl text-primary-black tracking-tight font-medium leading-tight">
-            Get the free label scoring checklist.
+            Stay in the loop.
           </h2>
           <p class="mt-4 text-base text-graphite/75 leading-relaxed">
-            Use the same checklist we use to evaluate shelf clarity, market fit, and premium positioning before adapting a product for a new country.
+            We add new target countries, adaptation templates, and tier features regularly. Drop your email to hear when they ship.
           </p>
 
           <form @submit.prevent="submitChecklist" class="mt-6 space-y-3">
@@ -753,12 +753,12 @@
               :disabled="checklistSubmitted || !checklistEmail"
               class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
             >
-              <span v-if="!checklistSubmitted">Send me the checklist</span>
-              <span v-else class="flex items-center gap-2">✓ Checklist request received</span>
+              <span v-if="!checklistSubmitted">Join the early list</span>
+              <span v-else class="flex items-center gap-2">✓ You're on the list</span>
               <span v-if="!checklistSubmitted" class="text-base leading-none">→</span>
             </button>
             <p v-if="checklistSubmitted" class="text-xs text-graphite/65 text-center">
-              Checklist request received. Check your inbox — the scoring list is on its way.
+              You're on the list. We'll only email when something material ships — no newsletter spam.
             </p>
             <p v-if="checklistError && !checklistSubmitted" class="text-xs text-risk-red text-center flex items-center justify-center gap-1.5">
               <span>⚠</span>{{ checklistError }}
