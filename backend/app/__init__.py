@@ -62,11 +62,9 @@ def create_app(config_class=Config):
         logger.debug(f"响应: {response.status_code}")
         return response
     
-    # 注册蓝图
-    from .api import graph_bp, simulation_bp, report_bp, label_bp
-    app.register_blueprint(graph_bp, url_prefix='/api/graph')
-    app.register_blueprint(simulation_bp, url_prefix='/api/simulation')
-    app.register_blueprint(report_bp, url_prefix='/api/report')
+    # Register active blueprints. Legacy blueprints (graph/simulation/report)
+    # are commented out — see app/api/__init__.py for details.
+    from .api import label_bp
     app.register_blueprint(label_bp, url_prefix='/api/label')
     
     # 健康检查

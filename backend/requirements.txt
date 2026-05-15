@@ -13,13 +13,10 @@ flask-cors>=6.0.0
 # OpenAI SDK（统一使用 OpenAI 格式调用 LLM）
 openai>=1.0.0
 
-# ============= Zep Cloud =============
-zep-cloud==3.13.0
-
-# ============= OASIS 社交媒体模拟 =============
-# OASIS 社交模拟框架
-camel-oasis==0.2.5
-camel-ai==0.2.78
+# Legacy deps removed for production deploy: zep-cloud, camel-oasis, camel-ai.
+# These were used by the original MiroFish simulation features (now dormant
+# blueprints). Removing them avoids Python-version conflicts on Railway and
+# keeps the runtime image / memory footprint small.
 
 # ============= 文件处理 =============
 PyMuPDF>=1.24.0
