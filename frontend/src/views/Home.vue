@@ -1,7 +1,7 @@
 <template>
-  <div class="min-h-screen bg-ice-white text-graphite font-sans antialiased">
+  <div class="min-h-screen bg-warm-cream text-graphite font-sans antialiased">
     <!-- ===== HEADER ===== -->
-    <header class="sticky top-0 z-40 bg-ice-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
+    <header class="sticky top-0 z-40 bg-warm-cream/75 backdrop-blur-xl backdrop-saturate-150 border-b border-warm-brown/[0.12]">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
         <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
           <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-7 lg:h-8 w-auto" />

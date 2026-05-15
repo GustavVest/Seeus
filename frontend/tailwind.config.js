@@ -7,6 +7,9 @@ export default {
       colors: {
         'primary-black': '#050505',
         'ice-white': '#F8FAFC',
+        'warm-cream': '#F1E7D5',
+        'warm-tan': '#E5D5BD',
+        'warm-brown': '#6B4423',
         'graphite': '#1F2937',
         'signal-purple': '#7C3AED',
         'electric-violet': '#A855F7',
