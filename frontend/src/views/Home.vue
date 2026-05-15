@@ -85,7 +85,7 @@
             <div class="absolute -inset-4 bg-gradient-to-tr from-signal-purple/10 via-transparent to-electric-violet/10 blur-2xl rounded-3xl"></div>
             <div class="relative bg-white border border-black/8 rounded-2xl shadow-[0_24px_60px_-20px_rgba(5,5,5,0.18)] overflow-hidden">
               <div class="flex items-center justify-between px-6 py-3 border-b border-black/[0.06] bg-ice-white">
-                <span class="font-mono text-[11px] text-graphite/55 tracking-widest">CONFIGURATOR · 4 STEPS</span>
+                <span class="font-mono text-[11px] text-graphite/55 tracking-widest">CONFIGURATOR · UPLOAD + 4 STEPS</span>
                 <span class="font-mono text-[11px] text-market-green tracking-widest flex items-center gap-1.5">
                   <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
                   LIVE
@@ -93,6 +93,61 @@
               </div>
 
               <div class="p-6 lg:p-8 space-y-7">
+
+                <!-- Step 0: Upload (file dropzone visible up front) -->
+                <div>
+                  <label class="font-display text-lg text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">00</span>
+                    Upload your label or product sheet
+                  </label>
+                  <label
+                    :class="[
+                      'mt-3 block border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors',
+                      heroDragOver
+                        ? 'border-signal-purple bg-signal-purple/5'
+                        : selectedFile
+                          ? 'border-market-green/60 bg-market-green/5'
+                          : 'border-black/15 hover:border-signal-purple/50 hover:bg-signal-purple/[0.03]',
+                    ]"
+                    @dragover.prevent="heroDragOver = true"
+                    @dragleave.prevent="heroDragOver = false"
+                    @drop.prevent="handleHeroDrop"
+                  >
+                    <input
+                      type="file"
+                      accept=".pdf,.png,.jpg,.jpeg,.webp"
+                      class="hidden"
+                      @change="handleHeroFile"
+                    />
+                    <div v-if="!selectedFile">
+                      <div class="w-9 h-9 mx-auto mb-2 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/55 text-base">↑</div>
+                      <p class="text-sm font-medium text-primary-black">Drop your label, packaging photo, or product sheet</p>
+                      <p class="text-[11px] text-graphite/55 mt-1">PDF, PNG, JPG, or WEBP · max 15&nbsp;MB</p>
+                    </div>
+                    <div v-else class="text-left">
+                      <div class="flex items-center justify-between gap-3">
+                        <div class="min-w-0">
+                          <div class="font-mono text-[10px] tracking-widest text-market-green mb-0.5">SELECTED</div>
+                          <p class="text-sm font-medium text-primary-black truncate">{{ selectedFile.name }}</p>
+                          <p class="text-[11px] text-graphite/55">{{ formatBytes(selectedFile.size) }}</p>
+                        </div>
+                        <button
+                          type="button"
+                          @click.prevent.stop="selectedFile = null"
+                          class="text-xs font-mono tracking-widest text-graphite/55 hover:text-risk-red transition-colors flex-shrink-0"
+                        >
+                          ↻ REPLACE
+                        </button>
+                      </div>
+                    </div>
+                  </label>
+                  <p v-if="heroUploadError" class="mt-2 text-xs text-risk-red flex items-center gap-1.5">
+                    <span>⚠</span>{{ heroUploadError }}
+                  </p>
+                  <p v-else class="mt-2 text-xs text-graphite/60">
+                    We use this to adapt the label artwork, wording, and positioning for your target country.
+                  </p>
+                </div>
 
                 <!-- Step 1: Target Country (most prominent) -->
                 <div>
@@ -1085,6 +1140,39 @@ const cfgProductStyle = ref('Clean premium')
 const cfgTier = ref('premium')
 const cfgBuyerType = ref('Food producer')
 const cfgAdvancedDetails = ref('')
+
+// Hero dropzone — shares selectedFile state with the modal so the file
+// travels through to the analysis flow when the configurator is submitted.
+const heroDragOver = ref(false)
+const heroUploadError = ref('')
+const MAX_HERO_FILE_BYTES = 15 * 1024 * 1024
+const HERO_ACCEPTED_EXTS = ['pdf', 'png', 'jpg', 'jpeg', 'webp']
+
+function _validateHeroFile(file) {
+  const name = (file?.name || '').toLowerCase()
+  const ext = name.includes('.') ? name.split('.').pop() : ''
+  if (!HERO_ACCEPTED_EXTS.includes(ext)) {
+    heroUploadError.value = 'This file type is not supported. Use PDF, PNG, JPG, or WEBP.'
+    return false
+  }
+  if (file.size > MAX_HERO_FILE_BYTES) {
+    heroUploadError.value = 'File is too large. Maximum size is 15 MB.'
+    return false
+  }
+  heroUploadError.value = ''
+  return true
+}
+
+function handleHeroFile(e) {
+  const f = e.target.files?.[0]
+  if (f && _validateHeroFile(f)) selectedFile.value = f
+}
+
+function handleHeroDrop(e) {
+  heroDragOver.value = false
+  const f = e.dataTransfer?.files?.[0]
+  if (f && _validateHeroFile(f)) selectedFile.value = f
+}
 
 const tierOptions = [
   { id: 'starter',     name: 'Starter',     tagline: 'For early validation. Localized label direction + key wording.' },
