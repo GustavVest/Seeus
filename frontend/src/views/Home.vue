@@ -429,13 +429,13 @@
           </p>
         </div>
         <div class="text-center">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">FOUNDERS ON BOARD</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">OUR CUSTOMERS</span>
           <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight tabular-nums">
             {{ liveLeadsCount.toLocaleString() }}
           </h2>
           <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
-            <template v-if="liveLeadsCount > 0">Founders have run their label through ORAMA INTEL.</template>
-            <template v-else>Just launched. You could be the first founder to run a label through ORAMA INTEL.</template>
+            <template v-if="liveLeadsCount > 0">Customers have run their labels through ORAMA INTEL.</template>
+            <template v-else>Just launched. Be one of our first customers.</template>
           </p>
           <p class="mt-2 text-[11px] text-graphite/45">
             Live count, refreshed every minute.
