@@ -88,22 +88,34 @@ _count_cache = {'count': None, 'ts': 0.0}
 _COUNT_TTL_SECONDS = 60.0
 
 
+def _baseline() -> int:
+    """Offline early-tester count added on top of the live Resend audience.
+    Configured via BASELINE_LEAD_COUNT env var. Used so the homepage counter
+    reflects users we've onboarded outside Resend (Slack groups, manual demos)."""
+    try:
+        return max(0, int(os.environ.get('BASELINE_LEAD_COUNT', '0') or 0))
+    except ValueError:
+        return 0
+
+
 @checklist_bp.route('/count', methods=['GET'])
 def lead_count():
     """Return the current number of captured leads. Public, cached, safe to embed."""
     now = time.monotonic()
+    baseline = _baseline()
+
     if (
         _count_cache['count'] is not None
         and (now - _count_cache['ts']) < _COUNT_TTL_SECONDS
     ):
-        return jsonify({'count': _count_cache['count'], 'cached': True}), 200
+        return jsonify({'count': _count_cache['count'] + baseline, 'cached': True}), 200
 
     api_key = os.environ.get('RESEND_API_KEY')
     audience_id = os.environ.get('RESEND_AUDIENCE_ID')
     if not api_key or not audience_id:
-        # Resend not configured — return 0 so the frontend can hide the counter
-        # gracefully until it's wired up.
-        return jsonify({'count': 0, 'configured': False}), 200
+        # Resend not configured — return just the baseline so the page still
+        # shows the onboarded-outside-Resend headcount until Resend is wired.
+        return jsonify({'count': baseline, 'configured': False}), 200
 
     try:
         import resend
@@ -114,8 +126,9 @@ def lead_count():
 
         _count_cache['count'] = n
         _count_cache['ts'] = now
-        return jsonify({'count': n, 'configured': True}), 200
+        return jsonify({'count': n + baseline, 'configured': True}), 200
     except Exception as e:
         logger.exception('Resend count failed')
         # Don't blow up the homepage just because Resend is having a moment.
-        return jsonify({'count': _count_cache.get('count') or 0, 'configured': True, 'error': str(e)}), 200
+        last = _count_cache.get('count') or 0
+        return jsonify({'count': last + baseline, 'configured': True, 'error': str(e)}), 200
