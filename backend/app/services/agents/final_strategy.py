@@ -137,6 +137,14 @@ def synthesize(
         must_preserve.append(f"Ingredient list: {', '.join(ingredients[:6])}")
     if input.get('country_of_origin'):
         must_preserve.append(f"Country of origin: {input['country_of_origin']}")
+    # Verbatim claims the user typed in (e.g. "20g protein", "Low sugar",
+    # "Gluten free"). These must NEVER be invented or altered downstream —
+    # the image-gen mockup must keep these numbers bit-perfect.
+    pack_claims = [c for c in (input.get('claims_on_pack') or []) if c]
+    if pack_claims:
+        must_preserve.append(
+            'Quantified claims to keep bit-perfect: ' + '; '.join(pack_claims)
+        )
 
     style_constraints = [
         f"Price tier reads: {input.get('price_tier', 'mainstream')}",

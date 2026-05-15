@@ -1,6 +1,6 @@
 """Culture Fit Agent — local cultural buying psychology."""
 
-from .base import BaseAgent, market_context
+from .base import BaseAgent, hofstede_for, market_context
 from .types import AnalysisInput, AgentOutput
 
 
@@ -9,7 +9,8 @@ class CultureFitAgent(BaseAgent):
     label = 'Culture Fit Agent'
 
     def run(self, input: AnalysisInput) -> AgentOutput:
-        ctx = market_context(input.get('target_market', ''))
+        market = input.get('target_market', '')
+        ctx = market_context(market)
         score = self.stable_score(input, lo=55, hi=85)
 
         mismatches = ctx['avoid'][:5]
@@ -18,10 +19,12 @@ class CultureFitAgent(BaseAgent):
             for theme in ctx['culture_themes'][:5]
         ]
         plain = (
-            f"For {input.get('target_market', 'this market')}, buyers expect "
+            f"For {market or 'this market'}, buyers expect "
             f"{ctx['culture_themes'][0].lower()}. "
             f"The current label likely reads as a translated export — not a local product."
         )
+
+        hof = hofstede_for(market) or {}
 
         return {
             'agent': self.id,
@@ -32,5 +35,6 @@ class CultureFitAgent(BaseAgent):
                 'topMismatches': mismatches,
                 'recommendedChanges': recommendations,
                 'plainLanguage': plain,
+                'hofstede': hof,
             },
         }

@@ -414,6 +414,8 @@ def _build_label_only_mockup_prompt(brief: dict) -> str:
     # Visual style mode + brand type — lookup the rules so the prompt is
     # the single source of truth for "what mode means".
     from ..services.agents.style_modes import style_mode_spec, brand_type_spec
+    from ..services.agents.base import hofstede_summary
+    hofstede_block = hofstede_summary(brief.get('targetMarket') or '')
     style_mode_name = brief.get('visualStyleMode') or 'Keep current brand style'
     brand_type_name = brief.get('brandType') or 'Own brand'
     style_spec = style_mode_spec(style_mode_name)
@@ -433,10 +435,45 @@ def _build_label_only_mockup_prompt(brief: dict) -> str:
     subheadline = (rec_copy.get('subheadline') or '').strip() or '(none provided)'
     benefit_bullets_block = '\n'.join([f'  - {b}' for b in (rec_copy.get('benefitBullets') or [])]) or '  (none provided)'
 
+    # ABSOLUTE FREEZE block — the single biggest reason mockups go wrong is
+    # the image model inventing a new brand name or rewriting numeric claims
+    # ("20g protein" → "7g protein"). Hoist these to the top of the prompt so
+    # the model sees them first and last.
+    brand_name_freeze = (brief.get('productName') or '').strip()
+    frozen_brand_line = (
+        f"Brand and product name: '{brand_name_freeze}' — print it EXACTLY as written, no substitutions."
+        if brand_name_freeze
+        else "Brand and product name: read it directly off the uploaded image and reproduce it EXACTLY — never invent a new brand name, never substitute a different brand."
+    )
+    frozen_claims_lines: list[str] = []
+    for item in (brief.get('mustPreserve') or []):
+        if not item:
+            continue
+        frozen_claims_lines.append(f"  - {item}")
+    frozen_claims_block = '\n'.join(frozen_claims_lines) or '  - (no specific facts provided — read every number, claim, and certification off the uploaded image and reproduce them bit-perfect)'
+
     return f"""SYSTEM PRINCIPLE:
 This is not free creative redesign. This is controlled commercial label adaptation.
 
 You are editing a real product packaging image — creating a market-adapted label concept.
+
+==================================================
+ABSOLUTE FREEZE  (highest priority — overrides everything below)
+==================================================
+The following facts about the product are FROZEN. They appear on the uploaded image and they MUST appear, unchanged, on the output image. If you cannot read a number exactly, use a clean placeholder microtext block — DO NOT invent a different number.
+
+{frozen_brand_line}
+
+Product facts that must appear unchanged on the output:
+{frozen_claims_block}
+
+Forbidden under any circumstances:
+  - Inventing a different brand name (e.g. swapping the actual brand for a generic "Family Pack" or "Trusted Nutrition" label)
+  - Changing any quantified claim (protein g, sugar g, calories, mg, IU, %, day-supply count, pack count)
+  - Removing or replacing certifications, seals, or regulatory marks that appear on the uploaded image
+  - Replacing the brand's logo or wordmark with a generic mountain / leaf / shield icon
+  - Producing a generic supermarket house-brand template instead of a redesign of the actual uploaded product
+==================================================
 
 CRITICAL INSTRUCTION:
 Preserve the original uploaded product packaging exactly.
@@ -542,6 +579,12 @@ Forbidden changes:
 {forbidden_changes}
 
 ==================================================
+CULTURAL DIMENSIONS  (Hofstede 6D — informs tone, framing, hierarchy)
+==================================================
+{hofstede_block or '(no published Hofstede scores for this market — fall back to category norms below)'}
+==================================================
+
+==================================================
 MARKET REFERENCE INSIGHTS  (directional context — DO NOT copy any specific competitor label)
 ==================================================
 Category norms:
@@ -620,9 +663,40 @@ def _build_mockup_prompt(brief: dict, with_source_image: bool = False) -> str:
         else (brief.get('packageType') or 'standard retail package for the category')
     )
 
+    # Same ABSOLUTE FREEZE block as the strict path — protects brand name +
+    # quantified claims from being rewritten by the image model.
+    brand_name_freeze = (brief.get('productName') or '').strip()
+    frozen_brand_line = (
+        f"Brand and product name: '{brand_name_freeze}' — print it EXACTLY as written, no substitutions."
+        if brand_name_freeze
+        else "Brand and product name: read it directly off the uploaded image and reproduce it EXACTLY — never invent a new brand name, never substitute a different brand."
+    )
+    frozen_claims_lines: list[str] = []
+    for item in (brief.get('mustPreserve') or []):
+        if not item:
+            continue
+        frozen_claims_lines.append(f"  - {item}")
+    frozen_claims_block = '\n'.join(frozen_claims_lines) or '  - (no specific facts provided — read every number, claim, and certification off the uploaded image and reproduce them bit-perfect)'
+
     return f"""{source_lead}Create a realistic market-adapted label concept.
 It must look like the SAME COMPANY, SAME PRODUCT, and SAME PACKAGING FORMAT — only improved for the selected market.
 Preserve the original brand identity while adapting the label communication.
+
+==================================================
+ABSOLUTE FREEZE  (highest priority — overrides everything below)
+==================================================
+{frozen_brand_line}
+
+Product facts that must appear unchanged on the output:
+{frozen_claims_block}
+
+Forbidden under any circumstances:
+  - Inventing a different brand name (e.g. swapping the actual brand for a generic "Family Pack" or "Trusted Nutrition" label)
+  - Changing any quantified claim (protein g, sugar g, calories, mg, IU, %, day-supply count, pack count)
+  - Removing certifications, seals, or regulatory marks that appear on the uploaded image
+  - Replacing the brand's logo / wordmark with a generic mountain / leaf / shield icon
+  - Producing a generic supermarket house-brand template instead of a redesign of the actual uploaded product
+==================================================
 
 ==================================================
 CRITICAL BRAND PRESERVATION RULE  (overrides all other instructions)

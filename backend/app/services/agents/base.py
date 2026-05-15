@@ -330,3 +330,104 @@ DEFAULT_MARKET_CONTEXT = {
 
 def market_context(target_market: str) -> dict:
     return MARKET_CONTEXT.get(target_market, DEFAULT_MARKET_CONTEXT)
+
+
+# ---------------------------------------------------------------------------
+# Hofstede 6D country scores.
+# Source: Hofstede Insights public country-comparison tool
+# (geerthofstede.com / hofstede-insights.com).
+# Dimensions:
+#   pdi — Power Distance Index
+#   idv — Individualism vs Collectivism
+#   mas — Masculinity vs Femininity
+#   uai — Uncertainty Avoidance
+#   lto — Long-Term Orientation
+#   ivr — Indulgence vs Restraint
+# Values are 0..100. Missing dimensions are stored as None.
+# ---------------------------------------------------------------------------
+
+HOFSTEDE_SCORES: dict = {
+    'Japan':          {'pdi': 54, 'idv': 46, 'mas': 95, 'uai': 92, 'lto': 88,  'ivr': 42},
+    'South Korea':    {'pdi': 60, 'idv': 18, 'mas': 39, 'uai': 85, 'lto': 100, 'ivr': 29},
+    'Germany':        {'pdi': 35, 'idv': 67, 'mas': 66, 'uai': 65, 'lto': 83,  'ivr': 40},
+    'USA':            {'pdi': 40, 'idv': 91, 'mas': 62, 'uai': 46, 'lto': 26,  'ivr': 68},
+    'United Kingdom': {'pdi': 35, 'idv': 89, 'mas': 66, 'uai': 35, 'lto': 51,  'ivr': 69},
+    'Denmark':        {'pdi': 18, 'idv': 74, 'mas': 16, 'uai': 23, 'lto': 35,  'ivr': 70},
+    'Norway':         {'pdi': 31, 'idv': 69, 'mas':  8, 'uai': 50, 'lto': 35,  'ivr': 55},
+    'Sweden':         {'pdi': 31, 'idv': 71, 'mas':  5, 'uai': 29, 'lto': 53,  'ivr': 78},
+    'Lithuania':      {'pdi': 42, 'idv': 60, 'mas': 19, 'uai': 65, 'lto': 82,  'ivr': 16},
+    'UAE':            {'pdi': 90, 'idv': 25, 'mas': 50, 'uai': 80, 'lto': None,'ivr': None},
+}
+
+# Aggregate buckets that ship with MARKET_CONTEXT but aren't true countries.
+HOFSTEDE_SCORES['Nordics'] = {
+    'pdi': 27, 'idv': 71, 'mas': 10, 'uai': 38, 'lto': 41, 'ivr': 67,
+}
+HOFSTEDE_SCORES['EU'] = {
+    'pdi': 45, 'idv': 65, 'mas': 45, 'uai': 70, 'lto': 60, 'ivr': 50,
+}
+
+
+def _band(score: Optional[int]) -> str:
+    if score is None:
+        return 'no published score'
+    if score >= 70:
+        return 'high'
+    if score >= 45:
+        return 'mid'
+    return 'low'
+
+
+_HOFSTEDE_GUIDANCE = {
+    # (dimension, band) -> short label-design implication
+    ('pdi', 'high'): 'Show authority and hierarchy cues — expert endorsements, formal language, status markers.',
+    ('pdi', 'mid'):  'Mix expert endorsement with peer reassurance.',
+    ('pdi', 'low'):  'Speak peer-to-peer. Avoid status posturing, formal awards, or authority badges as the hero.',
+    ('idv', 'high'): "Address the buyer as an individual ('your goal', 'your body'). Personal achievement framing works.",
+    ('idv', 'mid'):  'Balance individual and family / shared-meal framing.',
+    ('idv', 'low'):  "Lead with shared, family, or in-group language ('for your family', 'made for us').",
+    ('mas', 'high'): 'Performance and competition cues work — protein grams, "fuels", achievement frames.',
+    ('mas', 'mid'):  'Achievement framing is fine but balance with wellbeing.',
+    ('mas', 'low'):  'Lead with care, wellbeing, balance, and quality of life. Avoid competition or "fuel" language.',
+    ('uai', 'high'): 'High demand for certifications, ingredient transparency, allergen panels, regulatory marks. Vague claims read as risky.',
+    ('uai', 'mid'):  'Standard certifications expected; one strong trust mark beats none.',
+    ('uai', 'low'):  'Buyers tolerate ambiguity. A short claim list and one credible mark is enough; over-certification feels cold.',
+    ('lto', 'high'): 'Tradition, heritage, "since YYYY", multi-year sustainability stories all carry weight.',
+    ('lto', 'mid'):  'Balance heritage cues with present-day relevance.',
+    ('lto', 'low'):  'Lead with immediate benefit, novelty, and trend relevance. Heritage framing reads as outdated.',
+    ('ivr', 'high'): 'Enjoyment, indulgence, treat-yourself framing fits. Pleasure is a valid hero.',
+    ('ivr', 'mid'):  'Treat framing works but only when balanced by a credible benefit.',
+    ('ivr', 'low'):  'Restraint, duty, discipline. Pleasure framing feels frivolous. Lead with the functional benefit.',
+}
+
+
+def hofstede_for(target_market: str) -> Optional[dict]:
+    """Return raw Hofstede scores for the market, or None if not listed."""
+    return HOFSTEDE_SCORES.get(target_market)
+
+
+def hofstede_summary(target_market: str) -> str:
+    """
+    Return a prompt-friendly, multi-line summary of Hofstede dimensions and
+    the label-design implications. Empty string if the market has no scores.
+    """
+    scores = HOFSTEDE_SCORES.get(target_market)
+    if not scores:
+        return ''
+
+    lines = [f'Hofstede 6D scores for {target_market} (Hofstede Insights):']
+    name_map = {
+        'pdi': 'Power Distance',
+        'idv': 'Individualism',
+        'mas': 'Masculinity (achievement-orientation)',
+        'uai': 'Uncertainty Avoidance',
+        'lto': 'Long-Term Orientation',
+        'ivr': 'Indulgence',
+    }
+    for dim in ('pdi', 'idv', 'mas', 'uai', 'lto', 'ivr'):
+        score = scores.get(dim)
+        band = _band(score)
+        score_text = f'{score}' if score is not None else '—'
+        guidance = _HOFSTEDE_GUIDANCE.get((dim, band), '')
+        lines.append(f'  - {name_map[dim]}: {score_text} ({band}). {guidance}')
+    return '\n'.join(lines)
