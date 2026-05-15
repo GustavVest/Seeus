@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-ice-white text-graphite font-sans antialiased">
     <!-- ===== HEADER ===== -->
     <header class="sticky top-0 z-40 bg-ice-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
         <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
-          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-6 w-auto" />
+          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-10 lg:h-11 w-auto" />
         </a>
 
         <nav
@@ -940,7 +940,7 @@
     <!-- ===== FOOTER ===== -->
     <footer class="bg-primary-black border-t border-ice-white/10">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
-        <img src="../assets/logo/oramaintel-small.png" alt="ORAMA INTEL" class="h-5 w-auto" style="filter: invert(1)" />
+        <img src="../assets/logo/oramaintel-small.png" alt="ORAMA INTEL" class="h-7 w-auto" style="filter: invert(1)" />
         <p class="text-xs font-mono tracking-wider text-ice-white/50">
           © 2026 ORAMA INTEL · Market-fit intelligence for export brands
         </p>
