@@ -49,16 +49,16 @@
         <div class="lg:col-span-5 lg:sticky lg:top-28">
           <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-signal-purple/30 bg-signal-purple/5 text-signal-purple text-xs font-mono tracking-wide">
             <span class="w-1.5 h-1.5 rounded-full bg-signal-purple"></span>
-            MARKET-READY LABEL ADAPTATION
+            LABEL ADAPTATION · NEW MARKETS
           </div>
 
           <h1 class="font-display text-5xl lg:text-6xl leading-[1.05] tracking-tight text-primary-black font-medium">
-            Launch-ready product labels
-            <span class="block">for any <span class="text-signal-purple">target market</span>.</span>
+            Your product label may be
+            <span class="block">why buyers say <span class="text-signal-purple">no</span>.</span>
           </h1>
 
           <p class="mt-6 text-lg text-graphite/75 max-w-xl leading-relaxed">
-            ORAMA INTEL helps food, beverage, supplement, and private-label companies adapt labels, product messaging, and retail positioning for new countries — with a premium, locally relevant format.
+            Upload your current label or product sheet and see how it can be adapted for a new target country — with stronger shelf appeal, clearer positioning, and premium market-specific wording.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-4">
@@ -66,16 +66,16 @@
               href="#configurator"
               class="group inline-flex items-center gap-2 bg-primary-black text-ice-white px-6 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
             >
-              Create market-ready label
+              Score my label
               <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
             </a>
-            <a href="#how" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
-              See how it works
+            <a href="#before-after" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
+              See before and after
             </a>
           </div>
 
-          <p class="mt-6 text-sm text-graphite/60 max-w-md">
-            Localized label copy, claims direction, palette, hierarchy, and buyer-facing positioning — generated for the country your product is entering.
+          <p class="mt-6 text-xs text-graphite/55 max-w-md">
+            Built for food, beverage, supplement, and private-label products entering new markets.
           </p>
         </div>
 
@@ -287,6 +287,84 @@
       </div>
     </section>
 
+    <!-- ===== BEFORE / AFTER PRODUCT VISUAL ===== -->
+    <section id="before-after" class="py-20 lg:py-28 bg-ice-white border-y border-black/[0.06]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl mb-10 lg:mb-14">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">BEFORE · AFTER</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            One product. Two stories.
+          </h2>
+          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            What a generic export label looks like vs. the same product adapted for the target market.
+          </p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-5 items-stretch">
+          <!-- BEFORE card -->
+          <div class="relative rounded-2xl border border-black/[0.08] bg-white p-6 lg:p-8 flex flex-col">
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-mono text-[10px] tracking-widest text-graphite/60 px-2 py-1 rounded-full bg-black/[0.05]">BEFORE</span>
+              <span class="font-mono text-[10px] tracking-widest text-graphite/45">ORIGINAL LABEL</span>
+            </div>
+            <div class="flex-1 flex items-center justify-center py-6">
+              <div class="w-44 aspect-[3/4] rounded-md bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] border border-black/10 p-4 flex flex-col justify-between">
+                <div>
+                  <div class="text-[10px] uppercase tracking-wider text-graphite/50 mb-2">Vitamins</div>
+                  <div class="font-display text-lg font-semibold text-graphite/80 leading-tight">Calcium Supplement</div>
+                  <div class="mt-2 text-[10px] text-graphite/55 leading-tight">Natural source</div>
+                </div>
+                <div class="mt-3">
+                  <div class="text-[10px] font-mono text-graphite/40">60 capsules</div>
+                  <div class="mt-1 h-px bg-graphite/20"></div>
+                  <div class="text-[8px] font-mono text-graphite/35 mt-1 leading-tight">Ingredients · Daily dose · Manufacturer</div>
+                </div>
+              </div>
+            </div>
+            <ul class="mt-6 space-y-1.5 text-sm text-graphite/70">
+              <li class="flex gap-2"><span class="text-graphite/35">·</span>Generic category copy</li>
+              <li class="flex gap-2"><span class="text-graphite/35">·</span>Low contrast hierarchy</li>
+              <li class="flex gap-2"><span class="text-graphite/35">·</span>No market-specific trust signals</li>
+            </ul>
+          </div>
+
+          <!-- AFTER card -->
+          <div class="relative rounded-2xl border border-signal-purple/30 bg-white p-6 lg:p-8 flex flex-col shadow-[0_24px_60px_-30px_rgba(124,58,237,0.35)]">
+            <div class="flex items-center justify-between mb-5">
+              <span class="font-mono text-[10px] tracking-widest text-electric-violet px-2 py-1 rounded-full bg-signal-purple/10">AFTER</span>
+              <span class="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-market-green">
+                <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
+                TARGET-MARKET READY
+              </span>
+            </div>
+            <div class="flex-1 flex items-center justify-center py-6">
+              <div class="w-44 aspect-[3/4] rounded-md bg-gradient-to-b from-white to-ice-white border border-primary-black/15 p-4 flex flex-col justify-between shadow-md">
+                <div>
+                  <div class="text-[10px] uppercase tracking-[0.18em] text-signal-purple font-semibold mb-1.5">Marine Origin</div>
+                  <div class="font-display text-lg font-semibold text-primary-black leading-tight">Premium Marine Calcium</div>
+                  <div class="mt-2 text-[10px] text-graphite/65 leading-tight">Adapted for target market</div>
+                </div>
+                <div class="mt-3">
+                  <div class="text-[10px] font-mono text-graphite/55">30 day supply</div>
+                  <div class="mt-1 h-px bg-primary-black/40"></div>
+                  <div class="text-[8px] font-mono text-graphite/45 mt-1 leading-tight">Quantified dose · Origin · Trust seal</div>
+                </div>
+              </div>
+            </div>
+            <ul class="mt-6 space-y-1.5 text-sm text-graphite/85">
+              <li class="flex gap-2"><span class="text-signal-purple">+</span>Quantified hero benefit + origin</li>
+              <li class="flex gap-2"><span class="text-signal-purple">+</span>Clean hierarchy for shelf scan</li>
+              <li class="flex gap-2"><span class="text-signal-purple">+</span>Market-specific trust markers</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="mt-6 text-xs text-graphite/55">
+          Illustrative example. Generated adaptations are concept mockups; final claims, certifications, and regulatory wording must be reviewed before commercial use.
+        </p>
+      </div>
+    </section>
+
     <!-- ===== TRUST STRIP ===== -->
     <section class="border-y border-black/5 bg-white">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12">
@@ -309,6 +387,199 @@
               <span v-for="cat in categories" :key="cat" class="px-3 py-1.5 rounded-full border border-signal-purple/20 bg-signal-purple/5 text-xs font-mono tracking-wider text-signal-purple">
                 {{ cat }}
               </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BLURRED PREVIEW · UNLOCK FOR €49 ===== -->
+    <section class="py-24 lg:py-32 bg-ice-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl mb-12">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">PREVIEW</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            See what is holding the label back.
+          </h2>
+          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Free preview shows the headline scores. Full report unlocks the rewrite, target-market wording, palette + hierarchy direction, and compliance-risk notes.
+          </p>
+        </div>
+
+        <div class="grid lg:grid-cols-3 gap-4 mb-6">
+          <div v-for="card in [{label:'Shelf clarity', score:62, color:'warning-amber'}, {label:'Market fit', score:58, color:'warning-amber'}, {label:'Premium positioning', score:54, color:'risk-red'}]" :key="card.label" class="p-5 rounded-xl bg-white border border-black/[0.08]">
+            <div class="font-mono text-[10px] tracking-widest text-graphite/55 mb-2">{{ card.label.toUpperCase() }}</div>
+            <div class="flex items-baseline gap-1">
+              <span class="font-display text-4xl font-medium text-primary-black tabular-nums">{{ card.score }}</span>
+              <span class="text-xs text-graphite/45 font-mono">/100</span>
+            </div>
+            <div class="mt-3 h-1 rounded-full bg-graphite/10 overflow-hidden">
+              <div :class="['h-full', `bg-${card.color}`]" :style="{ width: card.score + '%' }"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Locked / blurred report preview -->
+        <div class="relative rounded-2xl overflow-hidden border border-black/[0.08]">
+          <div class="p-8 lg:p-10 bg-white blur-sm select-none pointer-events-none">
+            <div class="font-mono text-[10px] tracking-widest text-graphite/55 mb-3">FULL MARKET ADAPTATION REPORT</div>
+            <h3 class="font-display text-2xl text-primary-black font-semibold">Premium Marine Calcium · Norway → Japan</h3>
+            <div class="mt-6 grid sm:grid-cols-2 gap-x-10 gap-y-4 text-sm text-graphite/85">
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Full label rewrite</div>
+                <p class="text-graphite/70 leading-relaxed">Quantified hero benefit (mg/day), origin line, restrained Japanese functional language, daily-dose clarity. Trust strip moved to top edge.</p>
+              </div>
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Target-country wording</div>
+                <p class="text-graphite/70 leading-relaxed">Pharmacy-channel cues, JHFA-style seal direction, conservative claims wording, no superlatives. Two-line ingredient transparency block.</p>
+              </div>
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Premium positioning direction</div>
+                <p class="text-graphite/70 leading-relaxed">Reposition between FANCL-premium and Asahi-mass: documented provenance, restrained palette, single accent for trust.</p>
+              </div>
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Buyer-facing product story</div>
+                <p class="text-graphite/70 leading-relaxed">One-pager for distributor pitch: origin narrative, lab-testing record, target-channel match, daily-dose clarity.</p>
+              </div>
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Before / after concept</div>
+                <p class="text-graphite/70 leading-relaxed">AI-generated label concept rendered onto the same package format, preserving brand mark and physical container.</p>
+              </div>
+              <div>
+                <div class="font-semibold text-primary-black mb-1">Compliance-risk notes</div>
+                <p class="text-graphite/70 leading-relaxed">Three flagged phrases requiring substantiation or rewording. Two market-specific allergen-panel adjustments.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Overlay paywall -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-ice-white/40 via-ice-white/85 to-ice-white text-center p-6">
+            <div class="font-mono text-[10px] tracking-widest text-signal-purple mb-2">PAID UPGRADE · €49</div>
+            <h3 class="font-display text-2xl lg:text-3xl text-primary-black font-medium max-w-md leading-snug">
+              Unlock the full market adaptation report.
+            </h3>
+            <p class="mt-3 text-sm text-graphite/75 max-w-md">
+              Includes label rewrite, target-country wording, palette and hierarchy direction, before/after concept image, and compliance-risk notes.
+            </p>
+            <a
+              href="#pricing"
+              class="mt-6 inline-flex items-center gap-2 bg-primary-black text-ice-white px-6 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
+            >
+              Unlock full report for €49
+              <span class="text-base leading-none">→</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING (moved up — directly after blurred preview) ===== -->
+    <section id="pricing" class="py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">PRICING</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Simple pricing for market-ready labels.
+          </h2>
+          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Start with one product for €49 or use the Growth Plan if your team launches multiple products every month.
+          </p>
+        </div>
+
+        <div class="mt-14 grid md:grid-cols-3 gap-5">
+          <div
+            v-for="tier in tiers"
+            :key="tier.name"
+            :class="[
+              'rounded-2xl p-7 flex flex-col border',
+              tier.featured
+                ? 'bg-primary-black text-ice-white border-primary-black shadow-[0_20px_50px_-20px_rgba(124,58,237,0.45)]'
+                : 'bg-white text-graphite border-black/10',
+            ]"
+          >
+            <div v-if="tier.badge" class="mb-4">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono tracking-widest rounded-full bg-signal-purple text-ice-white">
+                <span class="w-1 h-1 rounded-full bg-electric-violet"></span>
+                {{ tier.badge.toUpperCase() }}
+              </span>
+            </div>
+
+            <h3 :class="['font-display text-xl font-semibold', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+              {{ tier.name }}
+            </h3>
+
+            <div class="mt-5 flex items-end gap-2">
+              <span :class="['font-display text-5xl font-medium tracking-tight tabular-nums', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+                {{ tier.price }}
+              </span>
+              <span
+                v-if="tier.unit"
+                :class="['pb-1 text-xs', tier.featured ? 'text-ice-white/60' : 'text-graphite/60']"
+              >
+                {{ tier.unit }}
+              </span>
+            </div>
+
+            <p :class="['mt-5 text-sm leading-6', tier.featured ? 'text-ice-white/70' : 'text-graphite/70']">
+              {{ tier.description }}
+            </p>
+
+            <ul class="mt-8 space-y-3 flex-1">
+              <li
+                v-for="(feat, i) in tier.features"
+                :key="i"
+                :class="['flex gap-3 text-sm', tier.featured ? 'text-ice-white/90' : 'text-graphite/85']"
+              >
+                <span
+                  :class="[
+                    'mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0',
+                    tier.featured ? 'bg-market-green' : 'bg-signal-purple',
+                  ]"
+                ></span>
+                <span>{{ feat }}</span>
+              </li>
+            </ul>
+
+            <button
+              @click="handleTierCta(tier)"
+              :class="[
+                'mt-9 w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-md transition-colors',
+                tier.featured
+                  ? 'bg-ice-white text-primary-black hover:bg-electric-violet hover:text-ice-white'
+                  : 'bg-primary-black text-ice-white hover:bg-signal-purple',
+              ]"
+            >
+              {{ tier.cta || 'Create market-ready label' }}
+              <span class="text-base leading-none">→</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="mt-8 text-xs text-graphite/55 max-w-3xl leading-relaxed">
+          Adaptation outputs are AI-generated packaging concepts and market-fit recommendations — not final legal or print-ready compliance documents. Verify with regulatory counsel for your target market before production.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== VALUE / SAVINGS ===== -->
+    <section class="py-24 lg:py-32 bg-ice-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">VALUE</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Save time before the product reaches the shelf.
+          </h2>
+          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Weak labeling, poor localization, and unclear positioning waste time across marketing, sales, export, and distributor conversations.
+          </p>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div v-for="v in valueCards" :key="v.title" class="p-6 bg-white rounded-xl border border-black/[0.08] flex flex-col">
+            <div class="font-display text-lg text-primary-black font-semibold">{{ v.title }}</div>
+            <p class="mt-2 text-sm text-graphite/75 leading-relaxed flex-1">{{ v.body }}</p>
+            <div class="mt-5 pt-4 border-t border-black/[0.06]">
+              <div class="font-mono text-[10px] tracking-widest text-signal-purple">{{ v.metric.toUpperCase() }}</div>
             </div>
           </div>
         </div>
@@ -441,91 +712,56 @@
       </div>
     </section>
 
-    <!-- ===== PRICING ===== -->
-    <section id="pricing" class="py-24 lg:py-32">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">05 / PRICING</span>
-          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
-            Start with a free score. Upgrade when you need the fix.
+    <!-- ===== FREE CHECKLIST CAPTURE ===== -->
+    <section class="py-24 lg:py-32 bg-ice-white">
+      <div class="max-w-3xl mx-auto px-6 lg:px-10">
+        <div class="rounded-2xl border border-black/[0.08] bg-white p-8 lg:p-10">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">FREE CHECKLIST</span>
+          <h2 class="mt-3 font-display text-3xl lg:text-4xl text-primary-black tracking-tight font-medium leading-tight">
+            Get the free label scoring checklist.
           </h2>
-          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
-            Get instant market-fit feedback for free. Pay only when you want ORAMA INTEL to generate a market-adapted packaging concept.
+          <p class="mt-4 text-base text-graphite/75 leading-relaxed">
+            Use the same checklist we use to evaluate shelf clarity, market fit, and premium positioning before adapting a product for a new country.
           </p>
-        </div>
 
-        <div class="mt-14 grid md:grid-cols-3 gap-5">
-          <div
-            v-for="tier in tiers"
-            :key="tier.name"
-            :class="[
-              'rounded-2xl p-7 flex flex-col border',
-              tier.featured
-                ? 'bg-primary-black text-ice-white border-primary-black shadow-[0_20px_50px_-20px_rgba(124,58,237,0.45)]'
-                : 'bg-white text-graphite border-black/10',
-            ]"
-          >
-            <div v-if="tier.badge" class="mb-4">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono tracking-widest rounded-full bg-signal-purple text-ice-white">
-                <span class="w-1 h-1 rounded-full bg-electric-violet"></span>
-                {{ tier.badge.toUpperCase() }}
-              </span>
+          <form @submit.prevent="submitChecklist" class="mt-6 space-y-3">
+            <input
+              v-model="checklistEmail"
+              type="email"
+              required
+              placeholder="Email address"
+              class="w-full px-4 py-3 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/50 focus:outline-none focus:border-signal-purple"
+            />
+            <div class="grid sm:grid-cols-2 gap-3">
+              <input
+                v-model="checklistCompany"
+                type="text"
+                placeholder="Company name (optional)"
+                class="w-full px-4 py-3 bg-ice-white border border-black/10 rounded-md text-sm text-graphite placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
+              />
+              <select v-model="checklistCategory" class="px-4 py-3 bg-ice-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                <option value="">Product category (optional)</option>
+                <option>Food</option>
+                <option>Beverage</option>
+                <option>Supplement</option>
+                <option>Private label</option>
+                <option>Other</option>
+              </select>
             </div>
-
-            <h3 :class="['font-display text-xl font-semibold', tier.featured ? 'text-ice-white' : 'text-primary-black']">
-              {{ tier.name }}
-            </h3>
-
-            <div class="mt-5 flex items-end gap-2">
-              <span :class="['font-display text-5xl font-medium tracking-tight tabular-nums', tier.featured ? 'text-ice-white' : 'text-primary-black']">
-                {{ tier.price }}
-              </span>
-              <span
-                v-if="tier.price !== '€0'"
-                :class="['pb-1 text-xs', tier.featured ? 'text-ice-white/60' : 'text-graphite/60']"
-              >
-                {{ tier.unit || 'per product / market' }}
-              </span>
-            </div>
-
-            <p :class="['mt-5 text-sm leading-6', tier.featured ? 'text-ice-white/70' : 'text-graphite/70']">
-              {{ tier.description }}
-            </p>
-
-            <ul class="mt-8 space-y-3 flex-1">
-              <li
-                v-for="(feat, i) in tier.features"
-                :key="i"
-                :class="['flex gap-3 text-sm', tier.featured ? 'text-ice-white/90' : 'text-graphite/85']"
-              >
-                <span
-                  :class="[
-                    'mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0',
-                    tier.featured ? 'bg-market-green' : 'bg-signal-purple',
-                  ]"
-                ></span>
-                <span>{{ feat }}</span>
-              </li>
-            </ul>
-
             <button
-              @click="openUpload"
-              :class="[
-                'mt-9 w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-md transition-colors',
-                tier.featured
-                  ? 'bg-ice-white text-primary-black hover:bg-electric-violet hover:text-ice-white'
-                  : 'bg-primary-black text-ice-white hover:bg-signal-purple',
-              ]"
+              type="submit"
+              :disabled="checklistSubmitted || !checklistEmail"
+              class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
             >
-              {{ tier.cta || 'Create market-ready label' }}
-              <span class="text-base leading-none">→</span>
+              <span v-if="!checklistSubmitted">Send me the checklist</span>
+              <span v-else class="flex items-center gap-2">✓ Checklist request received</span>
+              <span v-if="!checklistSubmitted" class="text-base leading-none">→</span>
             </button>
-          </div>
+            <p v-if="checklistSubmitted" class="text-xs text-graphite/65 text-center">
+              Checklist request received. You can now use the scoring list to evaluate your label before entering a new market.
+            </p>
+          </form>
         </div>
-
-        <p class="mt-8 text-xs text-graphite/55 max-w-3xl leading-relaxed">
-          Adaptation outputs are AI-generated packaging concepts and market-fit recommendations — not final legal or print-ready compliance documents. Verify with regulatory counsel for your target market before production.
-        </p>
       </div>
     </section>
 
@@ -533,19 +769,22 @@
     <section class="py-24 lg:py-32 bg-primary-black text-ice-white">
       <div class="max-w-4xl mx-auto px-6 lg:px-10 text-center">
         <h2 class="font-display text-4xl lg:text-6xl tracking-tight font-medium leading-tight">
-          Ready to adapt your product
-          <span class="block">for a <span class="text-electric-violet">new market</span>?</span>
+          Ready to see how your label
+          <span class="block">performs in a <span class="text-electric-violet">new market</span>?</span>
         </h2>
         <p class="mt-6 text-lg text-ice-white/70 max-w-2xl mx-auto leading-relaxed">
-          Start with the target country, product style, tier, and buyer type. We handle the localization logic from there.
+          Upload your product material, choose the target country, and get a clear market-readiness score.
         </p>
-        <div class="mt-10">
+        <div class="mt-10 flex flex-wrap items-center justify-center gap-4">
           <a
             href="#configurator"
             class="group inline-flex items-center gap-2 bg-ice-white text-primary-black px-7 py-4 text-base font-semibold rounded-md hover:bg-electric-violet hover:text-ice-white transition-colors"
           >
-            Create market-ready label
+            Score my label
             <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
+          </a>
+          <a href="#pricing" class="text-sm font-medium text-ice-white/70 hover:text-ice-white transition-colors">
+            Unlock full report for €49 →
           </a>
         </div>
       </div>
@@ -1959,53 +2198,102 @@ const examples = [
 
 const tiers = [
   {
-    name: 'Starter',
-    price: '€0',
-    unit: '',
-    description: 'For brands that want a first market-fit check.',
+    name: 'Starter Score',
+    price: '€49',
+    unit: 'one-time',
+    description: 'For testing one product before entering a new market.',
     badge: '',
     features: [
-      'Upload one label',
+      '1 label or product sheet review',
       'Market-fit score',
-      'Key risks and improvements',
-      'Basic culture and shelf-impact feedback',
+      'Shelf clarity feedback',
+      'Premium positioning suggestions',
+      'Basic target-country adaptation notes',
+      'Downloadable summary',
     ],
-    cta: 'Create market-ready label',
+    cta: 'Unlock for €49',
+    // TODO: Connect to Stripe Checkout one-time payment.
+    // Env var: NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID (or backend-driven price id).
+    action: 'starter',
     featured: false,
   },
   {
-    name: 'Premium',
-    price: '€149',
-    unit: 'per product / market',
-    description: 'For brands that want the fix, not just the feedback.',
-    badge: 'Best for validation',
+    name: 'Growth Plan',
+    price: '€299',
+    unit: 'per month',
+    description: 'For companies launching or improving multiple SKUs each month.',
+    badge: 'Best for teams',
     features: [
-      'Everything in Starter',
-      'Improved label copy',
-      'Palette and hierarchy direction',
-      'AI-generated packaging mockup concept',
-      'Market-specific adaptation brief',
+      'Up to 10 label scores per month',
+      'Up to 10 AI product concept images per month',
+      'Target-country adaptation suggestions',
+      'Premium positioning feedback',
+      'Downloadable improvement reports',
+      'Email support',
     ],
-    cta: 'Generate adaptation',
+    cta: 'Start Growth Plan',
+    // TODO: Connect to Stripe subscription checkout (€299/month recurring).
+    // Env var: NEXT_PUBLIC_STRIPE_GROWTH_PRICE_ID.
+    action: 'growth',
     featured: true,
   },
   {
-    name: 'Launch Pack',
-    price: '€499',
-    unit: 'one target market',
-    description: 'For teams testing multiple products or one target market seriously.',
+    name: 'Enterprise',
+    price: 'Custom',
+    unit: 'for high-volume teams',
+    description: 'For private-label manufacturers, distributors, and corporations with many products or markets.',
     badge: '',
     features: [
-      'Up to 3 products',
-      'One target market',
-      'Full market-fit report',
-      'Mockup concepts for each product',
-      'Distributor-ready summary',
+      'Higher monthly volume',
+      'Team access',
+      'Custom market templates',
+      'More image generations',
+      'Workflow / API integration later',
+      'Priority support',
     ],
-    cta: 'Start pilot',
+    cta: 'Talk to us',
+    action: 'enterprise',
     featured: false,
   },
 ]
+
+// TODO: Wire these handlers to real Stripe Checkout flows server-side
+// (POST to /api/billing/create-checkout-session). For now they open the
+// existing upload modal so the conversion path stays continuous.
+function handleTierCta(tier) {
+  if (tier.action === 'enterprise') {
+    window.location.href = 'mailto:hello@oramaintel.com?subject=Enterprise%20plan%20inquiry'
+    return
+  }
+  openUpload()
+}
+
+const valueCards = [
+  { title: 'Save research time',     body: 'Reduce hours spent comparing local competitors, wording, and shelf positioning before a launch.', metric: '5–10 hours saved per product' },
+  { title: 'Avoid weak market entry', body: 'Catch unclear wording, poor hierarchy, and low-trust product presentation before sending the product to buyers.', metric: 'Earlier launch feedback' },
+  { title: 'Improve buyer readiness', body: 'Turn product information into clearer distributor-facing and retail-facing language.', metric: 'Stronger sales material' },
+  { title: 'Scale across SKUs',       body: 'Useful for teams launching many private label, food, beverage, or supplement products each month.', metric: '10 scores/month in Growth Plan' },
+]
+
+const checklistEmail = ref('')
+const checklistCompany = ref('')
+const checklistCategory = ref('')
+const checklistSubmitted = ref(false)
+
+function submitChecklist() {
+  if (!checklistEmail.value) return
+  // TODO: connect to an email provider (Mailchimp / Brevo / Resend / ConvertKit /
+  // HubSpot / Supabase) to actually deliver the checklist + capture the lead.
+  // For now we record "request received" without claiming the email was sent.
+  if (import.meta.env.DEV) {
+    console.log('[checklist] request received', {
+      email: checklistEmail.value,
+      company: checklistCompany.value,
+      category: checklistCategory.value,
+    })
+  }
+  checklistSubmitted.value = true
+}
 </script>
 
 <style scoped>
