@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-ice-white text-graphite font-sans antialiased">
     <!-- ===== HEADER ===== -->
     <header class="sticky top-0 z-40 bg-ice-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 lg:h-28 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
         <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
-          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-14 lg:h-16 w-auto" />
+          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-7 lg:h-8 w-auto" />
         </a>
 
         <nav
@@ -58,7 +58,7 @@
           </h1>
 
           <p class="mt-6 text-lg text-graphite/75 max-w-xl leading-relaxed">
-            Upload your current label or product sheet and see how it can be adapted for a new target country — with stronger shelf appeal, clearer positioning, and premium market-specific wording.
+            Take a screenshot of your product label, upload it, and we will analyze and optimize the label so it helps you succeed in the market.
           </p>
 
           <div class="mt-8 flex flex-wrap items-center gap-4">
@@ -69,99 +69,217 @@
               Score my label
               <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
             </a>
-            <a href="#before-after" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
-              See before and after
+            <a href="#pricing" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
+              See pricing
             </a>
           </div>
 
           <p class="mt-6 text-xs text-graphite/55 max-w-md">
-            Built for food, beverage, supplement, and private-label products entering new markets.
+            Built for food, beverage, supplement, and private-label brands launching in new markets.
           </p>
         </div>
 
-        <!-- 4-field configurator -->
-        <div id="configurator" class="lg:col-span-7">
-          <div class="relative">
-            <div class="absolute -inset-4 bg-gradient-to-tr from-signal-purple/10 via-transparent to-electric-violet/10 blur-2xl rounded-3xl"></div>
-            <div class="relative bg-white border border-black/8 rounded-2xl shadow-[0_24px_60px_-20px_rgba(5,5,5,0.18)] overflow-hidden">
-              <div class="flex items-center justify-between px-6 py-3 border-b border-black/[0.06] bg-ice-white">
-                <span class="font-mono text-[11px] text-graphite/55 tracking-widest">CONFIGURATOR · UPLOAD + 4 STEPS</span>
-                <span class="font-mono text-[11px] text-market-green tracking-widest flex items-center gap-1.5">
-                  <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
-                  LIVE
-                </span>
+        <!-- Hero before/after visual.
+             To swap in real photos: drop hero-before.png + hero-after.png
+             into frontend/public/. They'll fill the cards automatically. -->
+        <div class="lg:col-span-7">
+          <div class="grid grid-cols-2 gap-4 lg:gap-5">
+            <figure class="relative rounded-2xl border border-black/[0.08] bg-white overflow-hidden">
+              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-graphite/55 px-2.5 py-1 rounded-full bg-black/[0.05]">BEFORE</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] flex items-center justify-center">
+                <img src="/hero-before.png" alt="Before label" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+                <span class="font-mono text-[10px] text-graphite/35">hero-before.png</span>
+              </div>
+            </figure>
+            <figure class="relative rounded-2xl border border-signal-purple/30 bg-white overflow-hidden shadow-[0_24px_60px_-30px_rgba(124,58,237,0.4)]">
+              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-electric-violet px-2.5 py-1 rounded-full bg-signal-purple/10">AFTER</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-signal-purple/[0.04] to-electric-violet/[0.06] flex items-center justify-center">
+                <img src="/hero-after.png" alt="After label" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
+                <span class="font-mono text-[10px] text-graphite/35">hero-after.png</span>
+              </div>
+            </figure>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===== PRICING (under hero) ===== -->
+    <section id="pricing" class="py-20 lg:py-28">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">PRICING</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Simple pricing.
+          </h2>
+          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Start with one product for €49 or use the Growth Plan if your team launches multiple products every month.
+          </p>
+        </div>
+
+        <div class="mt-14 grid md:grid-cols-3 gap-5">
+          <div
+            v-for="tier in tiers"
+            :key="tier.name"
+            :class="[
+              'rounded-2xl p-7 flex flex-col border',
+              tier.featured
+                ? 'bg-primary-black text-ice-white border-primary-black shadow-[0_20px_50px_-20px_rgba(124,58,237,0.45)]'
+                : 'bg-white text-graphite border-black/10',
+            ]"
+          >
+            <div v-if="tier.badge" class="mb-4">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono tracking-widest rounded-full bg-signal-purple text-ice-white">
+                <span class="w-1 h-1 rounded-full bg-electric-violet"></span>
+                {{ tier.badge.toUpperCase() }}
+              </span>
+            </div>
+            <h3 :class="['font-display text-xl font-semibold', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+              {{ tier.name }}
+            </h3>
+            <div class="mt-5 flex items-end gap-2">
+              <span :class="['font-display text-5xl font-medium tracking-tight tabular-nums', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+                {{ tier.price }}
+              </span>
+              <span v-if="tier.unit" :class="['pb-1 text-xs', tier.featured ? 'text-ice-white/60' : 'text-graphite/60']">
+                {{ tier.unit }}
+              </span>
+            </div>
+            <p :class="['mt-5 text-sm leading-6', tier.featured ? 'text-ice-white/70' : 'text-graphite/70']">
+              {{ tier.description }}
+            </p>
+            <ul class="mt-8 space-y-3 flex-1">
+              <li
+                v-for="(feat, i) in tier.features"
+                :key="i"
+                :class="['flex gap-3 text-sm', tier.featured ? 'text-ice-white/90' : 'text-graphite/85']"
+              >
+                <span :class="['mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0', tier.featured ? 'bg-market-green' : 'bg-signal-purple']"></span>
+                <span>{{ feat }}</span>
+              </li>
+            </ul>
+            <button
+              @click="handleTierCta(tier)"
+              :class="[
+                'mt-9 w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-md transition-colors',
+                tier.featured
+                  ? 'bg-ice-white text-primary-black hover:bg-electric-violet hover:text-ice-white'
+                  : 'bg-primary-black text-ice-white hover:bg-signal-purple',
+              ]"
+            >
+              {{ tier.cta || 'Create market-ready label' }}
+              <span class="text-base leading-none">→</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="mt-8 text-xs text-graphite/55 max-w-3xl leading-relaxed">
+          Outputs are AI-generated concepts, not final compliance documents. Verify claims with regulatory counsel for your target market before production.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== APPLICATION (full-width configurator) ===== -->
+    <section id="configurator" class="py-20 lg:py-28 bg-ice-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl mb-10">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">APPLICATION</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Score your label.
+          </h2>
+          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Upload your label, pick a target country, and get a free market-fit score.
+          </p>
+        </div>
+
+        <div class="rounded-2xl border border-black/[0.08] bg-white shadow-[0_24px_60px_-30px_rgba(5,5,5,0.18)] overflow-hidden">
+          <div class="flex items-center justify-between px-6 py-3 border-b border-black/[0.06] bg-ice-white">
+            <span class="font-mono text-[11px] text-graphite/55 tracking-widest">CONFIGURATOR</span>
+            <span class="font-mono text-[11px] text-market-green tracking-widest flex items-center gap-1.5">
+              <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
+              LIVE
+            </span>
+          </div>
+
+          <div class="p-6 lg:p-10 grid lg:grid-cols-[1fr_1.4fr] gap-8 lg:gap-12">
+            <!-- LEFT: upload + email -->
+            <div class="space-y-6">
+              <div>
+                <label class="font-display text-lg text-primary-black font-semibold">
+                  <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">01</span>
+                  Upload your label or product sheet
+                </label>
+                <label
+                  :class="[
+                    'mt-3 block border-2 border-dashed rounded-xl p-6 lg:p-8 text-center cursor-pointer transition-colors',
+                    heroDragOver
+                      ? 'border-signal-purple bg-signal-purple/5'
+                      : selectedFile
+                        ? 'border-market-green/60 bg-market-green/5'
+                        : 'border-black/15 hover:border-signal-purple/50 hover:bg-signal-purple/[0.03]',
+                  ]"
+                  @dragover.prevent="heroDragOver = true"
+                  @dragleave.prevent="heroDragOver = false"
+                  @drop.prevent="handleHeroDrop"
+                >
+                  <input type="file" accept=".pdf,.png,.jpg,.jpeg,.webp" class="hidden" @change="handleHeroFile" />
+                  <div v-if="!selectedFile">
+                    <div class="w-10 h-10 mx-auto mb-3 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/55">↑</div>
+                    <p class="text-sm font-medium text-primary-black">Drop your label, photo, or product sheet</p>
+                    <p class="text-[11px] text-graphite/55 mt-1">PDF, PNG, JPG, or WEBP. Up to 15 MB.</p>
+                  </div>
+                  <div v-else class="text-left">
+                    <div class="flex items-center justify-between gap-3">
+                      <div class="min-w-0">
+                        <div class="font-mono text-[10px] tracking-widest text-market-green mb-0.5">SELECTED</div>
+                        <p class="text-sm font-medium text-primary-black truncate">{{ selectedFile.name }}</p>
+                        <p class="text-[11px] text-graphite/55">{{ formatBytes(selectedFile.size) }}</p>
+                      </div>
+                      <button
+                        type="button"
+                        @click.prevent.stop="selectedFile = null"
+                        class="text-xs font-mono tracking-widest text-graphite/55 hover:text-risk-red transition-colors flex-shrink-0"
+                      >
+                        REPLACE
+                      </button>
+                    </div>
+                  </div>
+                </label>
+                <p v-if="heroUploadError" class="mt-2 text-xs text-risk-red flex items-center gap-1.5">
+                  <span>⚠</span>{{ heroUploadError }}
+                </p>
               </div>
 
-              <div class="p-6 lg:p-8 space-y-7">
+              <div>
+                <label class="font-display text-base text-primary-black font-semibold">
+                  <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">05</span>
+                  Email
+                </label>
+                <input
+                  v-model="cfgEmail"
+                  type="email"
+                  placeholder="you@company.com"
+                  class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
+                />
+                <p class="mt-2 text-xs text-graphite/60">
+                  We send your free market-fit summary here.
+                </p>
+              </div>
+            </div>
 
-                <!-- Step 0: Upload (file dropzone visible up front) -->
+            <!-- RIGHT: market + product info -->
+            <div class="space-y-5">
+              <div class="grid sm:grid-cols-2 gap-4">
                 <div>
-                  <label class="font-display text-lg text-primary-black font-semibold">
-                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">00</span>
-                    Upload your label or product sheet
+                  <label class="font-display text-base text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">02</span>
+                    Target country
                   </label>
-                  <label
-                    :class="[
-                      'mt-3 block border-2 border-dashed rounded-xl p-6 text-center cursor-pointer transition-colors',
-                      heroDragOver
-                        ? 'border-signal-purple bg-signal-purple/5'
-                        : selectedFile
-                          ? 'border-market-green/60 bg-market-green/5'
-                          : 'border-black/15 hover:border-signal-purple/50 hover:bg-signal-purple/[0.03]',
-                    ]"
-                    @dragover.prevent="heroDragOver = true"
-                    @dragleave.prevent="heroDragOver = false"
-                    @drop.prevent="handleHeroDrop"
-                  >
-                    <input
-                      type="file"
-                      accept=".pdf,.png,.jpg,.jpeg,.webp"
-                      class="hidden"
-                      @change="handleHeroFile"
-                    />
-                    <div v-if="!selectedFile">
-                      <div class="w-9 h-9 mx-auto mb-2 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/55 text-base">↑</div>
-                      <p class="text-sm font-medium text-primary-black">Drop your label, packaging photo, or product sheet</p>
-                      <p class="text-[11px] text-graphite/55 mt-1">PDF, PNG, JPG, or WEBP · max 15&nbsp;MB</p>
-                    </div>
-                    <div v-else class="text-left">
-                      <div class="flex items-center justify-between gap-3">
-                        <div class="min-w-0">
-                          <div class="font-mono text-[10px] tracking-widest text-market-green mb-0.5">SELECTED</div>
-                          <p class="text-sm font-medium text-primary-black truncate">{{ selectedFile.name }}</p>
-                          <p class="text-[11px] text-graphite/55">{{ formatBytes(selectedFile.size) }}</p>
-                        </div>
-                        <button
-                          type="button"
-                          @click.prevent.stop="selectedFile = null"
-                          class="text-xs font-mono tracking-widest text-graphite/55 hover:text-risk-red transition-colors flex-shrink-0"
-                        >
-                          ↻ REPLACE
-                        </button>
-                      </div>
-                    </div>
-                  </label>
-                  <p v-if="heroUploadError" class="mt-2 text-xs text-risk-red flex items-center gap-1.5">
-                    <span>⚠</span>{{ heroUploadError }}
-                  </p>
-                  <p v-else class="mt-2 text-xs text-graphite/60">
-                    We use this to adapt the label artwork, wording, and positioning for your target country.
-                  </p>
-                </div>
-
-                <!-- Step 1: Target Country (most prominent) -->
-                <div>
-                  <div class="flex items-center justify-between mb-2">
-                    <label class="font-display text-lg text-primary-black font-semibold">
-                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">01</span>
-                      Target country
-                    </label>
-                  </div>
                   <select
                     v-model="cfgTargetCountry"
-                    class="w-full px-4 py-4 bg-white border-2 border-black/10 rounded-lg text-base text-primary-black font-medium focus:outline-none focus:border-signal-purple transition-colors"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
                   >
-                    <option value="">Pick a country…</option>
+                    <option value="">Pick a country</option>
                     <option>Lithuania</option>
                     <option>Norway</option>
                     <option>Sweden</option>
@@ -174,22 +292,18 @@
                     <option>EU</option>
                     <option>Nordics</option>
                   </select>
-                  <p class="mt-2 text-xs text-graphite/60">
-                    Choose the market you want the product to feel native to.
-                  </p>
                 </div>
 
-                <!-- Step 2: Origin country -->
                 <div>
                   <label class="font-display text-base text-primary-black font-semibold">
-                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">02</span>
-                    Product origin country
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">03</span>
+                    Origin country
                   </label>
                   <select
                     v-model="cfgOriginCountry"
                     class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
                   >
-                    <option value="">Where is it produced / sold today?</option>
+                    <option value="">Where it lives today</option>
                     <option>Norway</option>
                     <option>Sweden</option>
                     <option>Denmark</option>
@@ -202,188 +316,105 @@
                     <option>Other</option>
                   </select>
                 </div>
+              </div>
 
-                <div class="grid grid-cols-2 gap-3">
-                  <!-- Step 3: Category -->
-                  <div>
-                    <label class="font-display text-sm text-primary-black font-semibold">
-                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">03</span>
-                      Category
-                    </label>
-                    <select
-                      v-model="cfgCategory"
-                      class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
-                    >
-                      <option value="">Pick one…</option>
-                      <option>Food</option>
-                      <option>Beverage</option>
-                      <option>Supplement</option>
-                      <option>Cosmetic</option>
-                      <option>Private label</option>
-                      <option>Other</option>
-                    </select>
-                  </div>
-                  <!-- Step 4: Adaptation type -->
-                  <div>
-                    <label class="font-display text-sm text-primary-black font-semibold">
-                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">04</span>
-                      Adaptation
-                    </label>
-                    <select
-                      v-model="cfgAdaptationType"
-                      class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
-                    >
-                      <option value="auto">Automatic market adaptation</option>
-                      <option value="keep">Keep original style</option>
-                      <option value="custom">Let me choose the style</option>
-                    </select>
-                  </div>
-                </div>
-
-                <!-- Sub-dropdown when user picks "custom" -->
-                <div v-if="cfgAdaptationType === 'custom'">
-                  <label class="font-mono text-[10px] tracking-widest text-graphite/55">CUSTOM STYLE</label>
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="font-display text-base text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">04</span>
+                    Category
+                  </label>
                   <select
-                    v-model="cfgCustomStyle"
-                    class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                    v-model="cfgCategory"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
                   >
-                    <option>Clean Premium</option>
-                    <option>Nordic minimal</option>
-                    <option>Modern retail</option>
-                    <option>Natural / Organic</option>
-                    <option>Scientific supplement</option>
-                    <option>Bold commercial</option>
-                    <option>Luxury Minimal</option>
-                    <option>Trend-led / D2C</option>
+                    <option value="">Pick one</option>
+                    <option>Food</option>
+                    <option>Beverage</option>
+                    <option>Supplement</option>
+                    <option>Cosmetic</option>
+                    <option>Private label</option>
+                    <option>Other</option>
                   </select>
                 </div>
 
-                <!-- Step 5: Email -->
                 <div>
                   <label class="font-display text-base text-primary-black font-semibold">
-                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">05</span>
-                    Email
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-1.5">06</span>
+                    Adaptation
                   </label>
-                  <input
-                    v-model="cfgEmail"
-                    type="email"
-                    placeholder="you@company.com"
-                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
-                  />
-                  <p class="mt-2 text-xs text-graphite/60">
-                    We'll send your free market-fit summary to this address.
-                  </p>
+                  <select
+                    v-model="cfgAdaptationType"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                  >
+                    <option value="auto">Automatic for target market</option>
+                    <option value="keep">Keep original style</option>
+                    <option value="custom">Let me choose</option>
+                  </select>
                 </div>
-
-                <!-- Advanced details accordion -->
-                <details class="rounded-lg border border-black/[0.08] group">
-                  <summary class="px-4 py-3 text-sm text-graphite/80 cursor-pointer select-none flex items-center justify-between hover:bg-black/[0.02] transition-colors">
-                    <span>Advanced details (optional)</span>
-                    <span class="text-graphite/40 group-open:rotate-90 transition-transform">›</span>
-                  </summary>
-                  <div class="px-4 pb-4 pt-1">
-                    <textarea
-                      v-model="cfgAdvancedDetails"
-                      rows="3"
-                      placeholder="Anything else we should know — ingredients, claims, certifications, brand notes, regulatory constraints…"
-                      class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
-                    />
-                  </div>
-                </details>
-
-                <!-- Submit -->
-                <button
-                  @click="submitConfigurator"
-                  :disabled="!canSubmitConfigurator"
-                  class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-4 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
-                >
-                  Analyze market fit
-                  <span class="text-base leading-none">→</span>
-                </button>
-                <p class="text-[11px] text-graphite/55 text-center -mt-3">
-                  Free first analysis · Full report unlock €49.
-                </p>
               </div>
+
+              <div v-if="cfgAdaptationType === 'custom'">
+                <label class="font-mono text-[10px] tracking-widest text-graphite/55">CUSTOM STYLE</label>
+                <select
+                  v-model="cfgCustomStyle"
+                  class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                >
+                  <option>Clean Premium</option>
+                  <option>Nordic minimal</option>
+                  <option>Modern retail</option>
+                  <option>Natural / Organic</option>
+                  <option>Scientific supplement</option>
+                  <option>Bold commercial</option>
+                  <option>Luxury Minimal</option>
+                  <option>Trend-led / D2C</option>
+                </select>
+              </div>
+
+              <details class="rounded-lg border border-black/[0.08] group">
+                <summary class="px-4 py-3 text-sm text-graphite/80 cursor-pointer select-none flex items-center justify-between hover:bg-black/[0.02] transition-colors">
+                  <span>Advanced details (optional)</span>
+                  <span class="text-graphite/40 group-open:rotate-90 transition-transform">›</span>
+                </summary>
+                <div class="px-4 pb-4 pt-1">
+                  <textarea
+                    v-model="cfgAdvancedDetails"
+                    rows="3"
+                    placeholder="Ingredients, claims on pack, certifications, brand notes, anything else useful."
+                    class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
+                  />
+                </div>
+              </details>
+
+              <button
+                @click="submitConfigurator"
+                :disabled="!canSubmitConfigurator"
+                class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-4 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
+              >
+                Analyze market fit
+                <span class="text-base leading-none">→</span>
+              </button>
+              <p class="text-[11px] text-graphite/55 text-center">
+                Free first analysis. Full report unlock €49.
+              </p>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== BEFORE / AFTER PRODUCT VISUAL ===== -->
-    <section id="before-after" class="py-20 lg:py-28 bg-ice-white border-y border-black/[0.06]">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="max-w-3xl mb-10 lg:mb-14">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">BEFORE · AFTER</span>
-          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
-            One product. Two stories.
-          </h2>
-          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
-            What a generic export label looks like vs. the same product adapted for the target market.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-5 items-stretch">
-          <!-- BEFORE card -->
-          <div class="relative rounded-2xl border border-black/[0.08] bg-white p-6 lg:p-8 flex flex-col">
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-mono text-[10px] tracking-widest text-graphite/60 px-2 py-1 rounded-full bg-black/[0.05]">BEFORE</span>
-              <span class="font-mono text-[10px] tracking-widest text-graphite/45">ORIGINAL LABEL</span>
-            </div>
-            <div class="flex-1 flex items-center justify-center py-6">
-              <div class="w-44 aspect-[3/4] rounded-md bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] border border-black/10 p-4 flex flex-col justify-between">
-                <div>
-                  <div class="text-[10px] uppercase tracking-wider text-graphite/50 mb-2">Vitamins</div>
-                  <div class="font-display text-lg font-semibold text-graphite/80 leading-tight">Calcium Supplement</div>
-                  <div class="mt-2 text-[10px] text-graphite/55 leading-tight">Natural source</div>
-                </div>
-                <div class="mt-3">
-                  <div class="text-[10px] font-mono text-graphite/40">60 capsules</div>
-                  <div class="mt-1 h-px bg-graphite/20"></div>
-                  <div class="text-[8px] font-mono text-graphite/35 mt-1 leading-tight">Ingredients · Daily dose · Manufacturer</div>
-                </div>
-              </div>
-            </div>
-            <ul class="mt-6 space-y-1.5 text-sm text-graphite/70">
-              <li class="flex gap-2"><span class="text-graphite/35">·</span>Generic category copy</li>
-              <li class="flex gap-2"><span class="text-graphite/35">·</span>Low contrast hierarchy</li>
-              <li class="flex gap-2"><span class="text-graphite/35">·</span>No market-specific trust signals</li>
-            </ul>
-          </div>
-
-          <!-- AFTER card -->
-          <div class="relative rounded-2xl border border-signal-purple/30 bg-white p-6 lg:p-8 flex flex-col shadow-[0_24px_60px_-30px_rgba(124,58,237,0.35)]">
-            <div class="flex items-center justify-between mb-5">
-              <span class="font-mono text-[10px] tracking-widest text-electric-violet px-2 py-1 rounded-full bg-signal-purple/10">AFTER</span>
-              <span class="inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest text-market-green">
-                <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
-                TARGET-MARKET READY
-              </span>
-            </div>
-            <div class="flex-1 flex items-center justify-center py-6">
-              <div class="w-44 aspect-[3/4] rounded-md bg-gradient-to-b from-white to-ice-white border border-primary-black/15 p-4 flex flex-col justify-between shadow-md">
-                <div>
-                  <div class="text-[10px] uppercase tracking-[0.18em] text-signal-purple font-semibold mb-1.5">Marine Origin</div>
-                  <div class="font-display text-lg font-semibold text-primary-black leading-tight">Premium Marine Calcium</div>
-                  <div class="mt-2 text-[10px] text-graphite/65 leading-tight">Adapted for target market</div>
-                </div>
-                <div class="mt-3">
-                  <div class="text-[10px] font-mono text-graphite/55">30 day supply</div>
-                  <div class="mt-1 h-px bg-primary-black/40"></div>
-                  <div class="text-[8px] font-mono text-graphite/45 mt-1 leading-tight">Quantified dose · Origin · Trust seal</div>
-                </div>
-              </div>
-            </div>
-            <ul class="mt-6 space-y-1.5 text-sm text-graphite/85">
-              <li class="flex gap-2"><span class="text-signal-purple">+</span>Quantified hero benefit + origin</li>
-              <li class="flex gap-2"><span class="text-signal-purple">+</span>Clean hierarchy for shelf scan</li>
-              <li class="flex gap-2"><span class="text-signal-purple">+</span>Market-specific trust markers</li>
-            </ul>
-          </div>
-        </div>
-
-        <p class="mt-6 text-xs text-graphite/55">
-          Illustrative example. Generated adaptations are concept mockups; final claims, certifications, and regulatory wording must be reviewed before commercial use.
+    <!-- ===== AVERAGE SAVINGS STAT (replaces ROI calc) ===== -->
+    <section class="py-16 lg:py-20">
+      <div class="max-w-3xl mx-auto px-6 lg:px-10 text-center">
+        <span class="font-mono text-xs tracking-widest text-signal-purple">AVERAGE IMPACT</span>
+        <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight">
+          $451
+        </h2>
+        <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
+          Average saving per user on early-stage label and market research work.
+        </p>
+        <p class="mt-2 text-[11px] text-graphite/45">
+          Based on internal customer data. Your number depends on team size and SKU volume.
         </p>
       </div>
     </section>
@@ -397,7 +428,7 @@
               Built for brands expanding across borders.
             </h2>
             <p class="mt-3 text-sm text-graphite/70 max-w-md">
-              Designed around real export-market packaging workflows — not generic AI design.
+              Designed around real export-market packaging workflows. Not generic AI design.
             </p>
           </div>
           <div class="flex flex-col gap-4">
@@ -496,94 +527,6 @@
       </div>
     </section>
 
-    <!-- ===== PRICING (moved up — directly after blurred preview) ===== -->
-    <section id="pricing" class="py-24 lg:py-32">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">PRICING</span>
-          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
-            Simple pricing for market-ready labels.
-          </h2>
-          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
-            Start with one product for €49 or use the Growth Plan if your team launches multiple products every month.
-          </p>
-        </div>
-
-        <div class="mt-14 grid md:grid-cols-3 gap-5">
-          <div
-            v-for="tier in tiers"
-            :key="tier.name"
-            :class="[
-              'rounded-2xl p-7 flex flex-col border',
-              tier.featured
-                ? 'bg-primary-black text-ice-white border-primary-black shadow-[0_20px_50px_-20px_rgba(124,58,237,0.45)]'
-                : 'bg-white text-graphite border-black/10',
-            ]"
-          >
-            <div v-if="tier.badge" class="mb-4">
-              <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono tracking-widest rounded-full bg-signal-purple text-ice-white">
-                <span class="w-1 h-1 rounded-full bg-electric-violet"></span>
-                {{ tier.badge.toUpperCase() }}
-              </span>
-            </div>
-
-            <h3 :class="['font-display text-xl font-semibold', tier.featured ? 'text-ice-white' : 'text-primary-black']">
-              {{ tier.name }}
-            </h3>
-
-            <div class="mt-5 flex items-end gap-2">
-              <span :class="['font-display text-5xl font-medium tracking-tight tabular-nums', tier.featured ? 'text-ice-white' : 'text-primary-black']">
-                {{ tier.price }}
-              </span>
-              <span
-                v-if="tier.unit"
-                :class="['pb-1 text-xs', tier.featured ? 'text-ice-white/60' : 'text-graphite/60']"
-              >
-                {{ tier.unit }}
-              </span>
-            </div>
-
-            <p :class="['mt-5 text-sm leading-6', tier.featured ? 'text-ice-white/70' : 'text-graphite/70']">
-              {{ tier.description }}
-            </p>
-
-            <ul class="mt-8 space-y-3 flex-1">
-              <li
-                v-for="(feat, i) in tier.features"
-                :key="i"
-                :class="['flex gap-3 text-sm', tier.featured ? 'text-ice-white/90' : 'text-graphite/85']"
-              >
-                <span
-                  :class="[
-                    'mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0',
-                    tier.featured ? 'bg-market-green' : 'bg-signal-purple',
-                  ]"
-                ></span>
-                <span>{{ feat }}</span>
-              </li>
-            </ul>
-
-            <button
-              @click="handleTierCta(tier)"
-              :class="[
-                'mt-9 w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-md transition-colors',
-                tier.featured
-                  ? 'bg-ice-white text-primary-black hover:bg-electric-violet hover:text-ice-white'
-                  : 'bg-primary-black text-ice-white hover:bg-signal-purple',
-              ]"
-            >
-              {{ tier.cta || 'Create market-ready label' }}
-              <span class="text-base leading-none">→</span>
-            </button>
-          </div>
-        </div>
-
-        <p class="mt-8 text-xs text-graphite/55 max-w-3xl leading-relaxed">
-          Adaptation outputs are AI-generated packaging concepts and market-fit recommendations — not final legal or print-ready compliance documents. Verify with regulatory counsel for your target market before production.
-        </p>
-      </div>
-    </section>
-
     <!-- ===== VALUE / SAVINGS ===== -->
     <section class="py-24 lg:py-32 bg-ice-white">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
@@ -609,123 +552,6 @@
       </div>
     </section>
 
-    <!-- ===== ROI / SAVINGS CALCULATOR ===== -->
-    <section class="py-24 lg:py-32">
-      <div class="max-w-6xl mx-auto px-6 lg:px-10">
-        <div class="max-w-3xl mb-10 lg:mb-14">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">SAVINGS CALCULATOR</span>
-          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
-            See how much time your team can save.
-          </h2>
-          <p class="mt-4 text-lg text-graphite/75 max-w-2xl leading-relaxed">
-            Estimate how much time and cost you normally spend on market research, label adaptation, and marketing development before launch.
-          </p>
-        </div>
-
-        <div class="grid lg:grid-cols-[1fr_1fr] gap-6 items-start">
-          <!-- Input card -->
-          <div class="rounded-2xl border border-black/[0.08] bg-white p-6 lg:p-7 space-y-5">
-            <label class="block">
-              <span class="text-xs font-mono tracking-widest text-graphite/55">PEOPLE ON MARKETING / PRODUCT DEV</span>
-              <input
-                v-model.number="roiTeamSize"
-                type="number"
-                min="1"
-                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
-              />
-            </label>
-
-            <label class="block">
-              <span class="text-xs font-mono tracking-widest text-graphite/55">EXTERNAL MARKETING AGENCY?</span>
-              <div class="mt-2 grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  @click="roiUsesAgency = true"
-                  :class="[
-                    'px-4 py-2.5 rounded-md text-sm font-medium border transition-colors',
-                    roiUsesAgency ? 'bg-primary-black text-ice-white border-primary-black' : 'bg-white text-graphite border-black/15 hover:border-black/30',
-                  ]"
-                >Yes</button>
-                <button
-                  type="button"
-                  @click="roiUsesAgency = false"
-                  :class="[
-                    'px-4 py-2.5 rounded-md text-sm font-medium border transition-colors',
-                    roiUsesAgency === false ? 'bg-primary-black text-ice-white border-primary-black' : 'bg-white text-graphite border-black/15 hover:border-black/30',
-                  ]"
-                >No</button>
-              </div>
-            </label>
-
-            <label class="block">
-              <span class="text-xs font-mono tracking-widest text-graphite/55">HOURS PER PRODUCT (RESEARCH + LABEL ADAPTATION)</span>
-              <input
-                v-model.number="roiHoursPerProduct"
-                type="number"
-                min="0"
-                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
-              />
-            </label>
-
-            <label class="block">
-              <span class="text-xs font-mono tracking-widest text-graphite/55">SKUs LAUNCHED / ADAPTED PER MONTH</span>
-              <input
-                v-model.number="roiSkusPerMonth"
-                type="number"
-                min="0"
-                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black focus:outline-none focus:border-signal-purple"
-              />
-            </label>
-
-            <label class="block">
-              <span class="text-xs font-mono tracking-widest text-graphite/55">HOURLY COST (€, OPTIONAL)</span>
-              <input
-                v-model.number="roiHourlyCost"
-                type="number"
-                min="0"
-                placeholder="Leave blank for time-only estimate"
-                class="mt-1.5 w-full px-3 py-2.5 bg-ice-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
-              />
-              <p class="mt-1.5 text-[11px] text-graphite/55">
-                Either internal cost or agency hourly rate, whichever applies.
-              </p>
-            </label>
-          </div>
-
-          <!-- Output card -->
-          <div class="rounded-2xl bg-primary-black text-ice-white p-7 lg:p-9 sticky top-28">
-            <div class="font-mono text-[10px] tracking-widest text-electric-violet mb-3">ESTIMATED IMPACT</div>
-
-            <div class="space-y-7">
-              <div>
-                <div class="font-mono text-[10px] tracking-widest text-ice-white/55 mb-1">TIME SAVED · PER MONTH</div>
-                <div class="font-display text-5xl font-medium tracking-tight tabular-nums">
-                  {{ roiHoursSavedMonthly[0] }}<span class="text-2xl text-ice-white/60">–</span>{{ roiHoursSavedMonthly[1] }}
-                  <span class="text-2xl text-ice-white/60 ml-2">hours</span>
-                </div>
-                <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">
-                  Roughly {{ roiHoursPerSku[0] }}–{{ roiHoursPerSku[1] }} hours saved per SKU on early-stage market adaptation work.
-                </p>
-              </div>
-
-              <div v-if="roiValueMonthly[1] > 0" class="pt-5 border-t border-ice-white/15">
-                <div class="font-mono text-[10px] tracking-widest text-ice-white/55 mb-1">ESTIMATED VALUE · PER MONTH</div>
-                <div class="font-display text-4xl font-medium tracking-tight tabular-nums">
-                  €{{ roiValueMonthly[0].toLocaleString() }}<span class="text-2xl text-ice-white/60">–</span>€{{ roiValueMonthly[1].toLocaleString() }}
-                </div>
-                <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">
-                  Based on your {{ roiUsesAgency ? 'agency' : 'internal' }} hourly cost. ORAMA INTEL can reduce early market adaptation work before you involve designers, agencies, or distributors.
-                </p>
-              </div>
-
-              <p class="text-[11px] text-ice-white/45 leading-relaxed pt-4 border-t border-ice-white/10">
-                Estimated only. Actual savings depend on product complexity, market, and the work your team already does in-house. ORAMA INTEL may reduce — not eliminate — early-stage marketing and adaptation work.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
     <!-- ===== PROBLEM / SOLUTION ===== -->
     <section id="product" class="py-24 lg:py-32">
@@ -745,7 +571,7 @@
             We adapt the product to the market before it reaches the shelf.
           </h2>
           <p class="mt-5 text-base text-ice-white/75 leading-relaxed">
-            ORAMA INTEL turns product information into localized, premium, buyer-ready label and marketing material — tailored to the country, channel, and buyer you are targeting.
+            ORAMA INTEL turns product information into localized, premium, buyer-ready label and marketing material. Tailored to the country, channel, and buyer you are targeting.
           </p>
         </div>
       </div>
@@ -899,7 +725,7 @@
               <span v-if="!checklistSubmitted" class="text-base leading-none">→</span>
             </button>
             <p v-if="checklistSubmitted" class="text-xs text-graphite/65 text-center">
-              You're on the list. We'll only email when something material ships — no newsletter spam.
+              You're on the list. We'll only email when something material ships. No newsletter spam.
             </p>
             <p v-if="checklistError && !checklistSubmitted" class="text-xs text-risk-red text-center flex items-center justify-center gap-1.5">
               <span>⚠</span>{{ checklistError }}
@@ -973,7 +799,7 @@
               We'll run the 8-agent analysis on the file you uploaded.
             </p>
 
-            <!-- File already attached (typical case — user uploaded from the homepage) -->
+            <!-- File already attached (typical case, user uploaded from the homepage) -->
             <div
               v-if="selectedFile"
               class="mt-5 flex items-center gap-3 px-4 py-3 rounded-lg border border-market-green/40 bg-market-green/5"
@@ -995,7 +821,7 @@
               </label>
             </div>
 
-            <!-- Fallback dropzone (rare — user opened modal without first uploading on hero) -->
+            <!-- Fallback dropzone (rare, user opened modal without first uploading on hero) -->
             <label
               v-else
               :class="[
@@ -1139,13 +965,13 @@
                   <textarea
                     v-model="claimsOnPack"
                     rows="2"
-                    placeholder="Claims on pack — one per line"
+                    placeholder="Claims on pack, one per line"
                     class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
                   />
                   <textarea
                     v-model="ingredientsText"
                     rows="2"
-                    placeholder="Ingredient list — comma separated"
+                    placeholder="Ingredient list, comma separated"
                     class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
                   />
                   <input
@@ -1230,7 +1056,7 @@
             <div v-if="analysisFallback" class="mt-3 px-3 py-2 rounded-md bg-warning-amber/5 border border-warning-amber/30 text-[11px] text-graphite/80 flex items-start gap-2">
               <span class="text-warning-amber">⚠</span>
               <span>
-                <strong class="font-semibold">{{ analysisFallbackReason }}</strong> — showing cached signals instead of live analysis.
+                <strong class="font-semibold">{{ analysisFallbackReason }}</strong>.showing cached signals instead of live analysis.
               </span>
             </div>
 
@@ -1324,7 +1150,7 @@
                 </span>
               </div>
               <p class="text-[11px] text-graphite/60 mb-4 italic leading-relaxed">
-                Reference-based market analysis using sample market intelligence — not a live scrape of retailer catalogues.
+                Reference-based market analysis using sample market intelligence. Not a live scrape of retailer catalogues.
               </p>
 
               <div class="grid sm:grid-cols-2 gap-4">
@@ -1446,7 +1272,7 @@
                   class="mt-0.5 h-4 w-4 accent-electric-violet cursor-pointer"
                 />
                 <span class="flex-1">
-                  <span class="block font-medium text-ice-white">Preserve package shape — change label only</span>
+                  <span class="block font-medium text-ice-white">Preserve package shape, change label only</span>
                   <span class="block mt-1 text-[11px] text-ice-white/55 leading-snug">
                     ORAMA INTEL keeps your existing packaging format and adapts only the label artwork for the target market.
                   </span>
@@ -1489,7 +1315,7 @@
 
               <div v-if="mockupError" class="mb-3 px-3 py-2 rounded-md bg-warning-amber/5 border border-warning-amber/30 text-[11px] text-graphite/80 flex items-start gap-2">
                 <span class="text-warning-amber">⚠</span>
-                <span><strong class="font-semibold">{{ mockupError }}</strong> — showing a placeholder until the real image engine is reachable.</span>
+                <span><strong class="font-semibold">{{ mockupError }}</strong>.showing a placeholder until the real image engine is reachable.</span>
               </div>
 
               <div v-if="mockupImage" class="relative rounded-xl overflow-hidden border border-black/[0.08] bg-graphite/[0.04]">
@@ -1530,7 +1356,7 @@
               </div>
 
               <p v-if="(devUnlocked || mockupUnlocked) && mockupImage" class="mt-3 text-[11px] text-graphite/55 leading-relaxed">
-                AI-generated label adaptation concept — not a final print-ready file. Verify claims, certifications, and ingredient panel with your regulatory team before production.
+                AI-generated label adaptation concept. Not a final print-ready file. Verify claims, certifications, and ingredient panel with your regulatory team before production.
               </p>
             </div>
           </div>
@@ -1557,7 +1383,7 @@ const cfgCustomStyle = ref('Clean Premium')
 const cfgEmail = ref('')
 const cfgAdvancedDetails = ref('')
 
-// Hero dropzone — shares selectedFile state with the modal so the file
+// Hero dropzone.shares selectedFile state with the modal so the file
 // travels through to the analysis flow when the configurator is submitted.
 const heroDragOver = ref(false)
 const heroUploadError = ref('')
@@ -1738,7 +1564,7 @@ const mockupStepIndex = ref(0)
 const mockupImage = ref(null) // base64 PNG string
 const mockupIsMock = ref(false)
 const mockupError = ref('')
-// Default ON — preserves package shape / casing / cap / perspective and
+// Default ON.preserves package shape / casing / cap / perspective and
 // only adapts the printed label artwork.
 const labelOnlyMode = ref(true)
 const exportState = ref('idle') // 'idle' | 'preparing' | 'done'
@@ -1854,7 +1680,7 @@ async function runAnalysis() {
   analysisFallbackReason.value = ''
 
   // Visual progress runs against an expected ceiling. Real backend
-  // typically returns < 1 s, so keep this short — otherwise the UI feels
+  // typically returns < 1 s, so keep this short.otherwise the UI feels
   // slower than it actually is.
   const expectedDuration = 1800
   const start = performance.now()
@@ -1947,7 +1773,7 @@ function mapReportToResult(report, file) {
   // that would duplicate the "Recommended moves" section below.
   const warnings = (report.riskFlags || [])
     .filter(f => f.level && f.level !== 'green')
-    .map(f => `${(f.phrase || '').trim()}${f.phrase ? ' — ' : ''}${f.issue || ''}`)
+    .map(f => `${(f.phrase || '').trim()}${f.phrase ? '.' : ''}${f.issue || ''}`)
   return {
     category: report.product.category,
     country: report.product.targetMarket,
@@ -1983,19 +1809,19 @@ function buildResult(cat, ctry, file) {
       ],
       Food: [
         'Allergen visibility doesn\'t meet expected hierarchy on Japanese shelves',
-        'Premium cues lean Western — origin story should be more explicit',
+        'Premium cues lean Western. Origin story should be more explicit',
         'Ingredient transparency below category norm for premium Japanese retail',
       ],
     },
     'South Korea': {
       Supplement: [
-        'Claims aren\'t quantified — Korean D2C wellness buyers expect specific numbers',
+        'Claims aren\'t quantified. Korean D2C wellness buyers expect specific numbers',
         'Hierarchy buries the functional benefit below branding',
         'Visual feels too clinical for Korean lifestyle wellness positioning',
       ],
       Food: [
         'Functional benefit isn\'t front and center for Korean K-Health momentum',
-        'Trust signals lean Western — local certifications would lift credibility',
+        'Trust signals lean Western. Local certifications would lift credibility',
         'Premium cues read flat against current Korean food design language',
       ],
     },
@@ -2003,23 +1829,23 @@ function buildResult(cat, ctry, file) {
       Supplement: [
         'Claims wording may exceed EFSA-permitted health-claim language',
         'Allergen and ingredient disclosure formatting needs EU-standard layout',
-        'Premium positioning relies on hype — clean, restrained tone fits EU better',
+        'Premium positioning relies on hype. Clean, restrained tone fits EU better',
       ],
       Food: [
         'Nutrition declaration formatting doesn\'t match FIC Regulation expectations',
-        'Origin and sustainability cues are missing — strong drivers in EU buyers',
+        'Origin and sustainability cues are missing. Strong drivers in EU buyers',
         'Marketing claims are stronger than EU label-compliance allows',
       ],
     },
     Nordics: {
       Supplement: [
-        'Tone reads as US-style hype — Nordic buyers prefer understated claims',
-        'Sustainability and origin cues are missing — strong purchase drivers',
+        'Tone reads as US-style hype. Nordic buyers prefer understated claims',
+        'Sustainability and origin cues are missing. Strong purchase drivers',
         'Functional benefit could be quantified rather than asserted',
       ],
       Food: [
-        'Less hype, more provenance — origin story is buried',
-        'Sustainability signaling is missing — table-stakes in this market',
+        'Less hype, more provenance. Origin story is buried',
+        'Sustainability signaling is missing. Table-stakes in this market',
         'Cleaner whitespace and restrained palette would lift premium read',
       ],
     },
@@ -2031,7 +1857,7 @@ function buildResult(cat, ctry, file) {
       ],
       Food: [
         'Nutrition panel placement doesn\'t hit US shelf-scan patterns',
-        'Claims could be sharpened — US buyers respond to specific benefit framing',
+        'Claims could be sharpened.US buyers respond to specific benefit framing',
         'Premium cues read European; brand could push more category-native signals',
       ],
     },
@@ -2046,7 +1872,7 @@ function buildResult(cat, ctry, file) {
     'South Korea': [
       'Move the functional benefit above the brand mark',
       'Add a measurable claim ("12g protein", "30-day supply")',
-      'Introduce a lifestyle wellness cue — current label reads too clinical',
+      'Introduce a lifestyle wellness cue.current label reads too clinical',
     ],
     EU: [
       'Adopt EFSA-compliant claim wording (replace assertive verbs)',
@@ -2054,7 +1880,7 @@ function buildResult(cat, ctry, file) {
       'Replace hype copy with one restrained credibility line',
     ],
     Nordics: [
-      'Lead with origin and sustainability — bury hype claims',
+      'Lead with origin and sustainability.bury hype claims',
       'Drop one tier of visual noise; whitespace lifts premium read',
       'Quantify benefit instead of asserting it',
     ],
@@ -2121,7 +1947,7 @@ function buildResult(cat, ctry, file) {
     ],
     warnings,
     improvements,
-    summary: 'Offline fallback — backend analyzer unavailable. Showing cached signals for this market.',
+    summary: 'Offline fallback.backend analyzer unavailable. Showing cached signals for this market.',
     positioning: '',
     copy: null,
     palette,
@@ -2457,34 +2283,6 @@ function handleTierCta(tier) {
   }
   openUpload()
 }
-
-// ROI / savings calculator state
-const roiTeamSize = ref(3)
-const roiUsesAgency = ref(false)
-const roiHoursPerProduct = ref(20)
-const roiSkusPerMonth = ref(2)
-const roiHourlyCost = ref(null)
-
-// Conservative range: ORAMA INTEL replaces ~30–50 % of early-stage market
-// adaptation work for the team that runs it.
-const roiSavingsLow = 0.30
-const roiSavingsHigh = 0.50
-
-const roiHoursPerSku = computed(() => {
-  const h = Math.max(0, Number(roiHoursPerProduct.value) || 0)
-  return [Math.round(h * roiSavingsLow), Math.round(h * roiSavingsHigh)]
-})
-const roiHoursSavedMonthly = computed(() => {
-  const skus = Math.max(0, Number(roiSkusPerMonth.value) || 0)
-  const [lo, hi] = roiHoursPerSku.value
-  return [lo * skus, hi * skus]
-})
-const roiValueMonthly = computed(() => {
-  const cost = Number(roiHourlyCost.value) || 0
-  if (!cost) return [0, 0]
-  const [lo, hi] = roiHoursSavedMonthly.value
-  return [lo * cost, hi * cost]
-})
 
 const valueCards = [
   { title: 'Save research time',     body: 'Reduce hours spent comparing local competitors, wording, and shelf positioning before a launch.', metric: '5–10 hours saved per product' },
