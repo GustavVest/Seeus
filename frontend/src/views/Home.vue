@@ -1272,8 +1272,11 @@
               </div>
             </div>
 
-            <!-- Warnings -->
-            <div class="mt-5 rounded-lg bg-warning-amber/5 border border-warning-amber/20 p-4">
+            <!-- Warnings (claims-safety risk flags) -->
+            <div
+              v-if="result.warnings && result.warnings.length"
+              class="mt-5 rounded-lg bg-warning-amber/5 border border-warning-amber/20 p-4"
+            >
               <div class="font-mono text-[10px] text-warning-amber tracking-widest mb-2 flex items-center gap-1.5">
                 <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
                 KEY RISKS · {{ result.warnings.length }}
@@ -1284,6 +1287,16 @@
                   <span>{{ w }}</span>
                 </li>
               </ul>
+            </div>
+            <div
+              v-else
+              class="mt-5 rounded-lg bg-market-green/5 border border-market-green/20 p-4 text-sm text-graphite/85 flex items-start gap-2.5"
+            >
+              <span class="text-market-green mt-0.5">✓</span>
+              <span>
+                <span class="font-mono text-[10px] text-market-green tracking-widest block mb-1">NO CLAIMS-SAFETY FLAGS</span>
+                No risky claim phrases detected. To get a fuller risk scan, add the claims printed on your pack in <strong>More details</strong>.
+              </span>
             </div>
 
             <!-- Improvements -->
@@ -1933,6 +1946,9 @@ function mapReportToResult(report, file) {
     { label: 'Buyer motivation', value: report.agentScores.buyerMotivation },
     { label: 'Export readiness', value: report.agentScores.exportReadiness },
   ]
+  // Risk flags come from the claims-safety agent (only populated when the
+  // user provided claims_on_pack). Do NOT fall back to priorityFixes here —
+  // that would duplicate the "Recommended moves" section below.
   const warnings = (report.riskFlags || [])
     .filter(f => f.level && f.level !== 'green')
     .map(f => `${(f.phrase || '').trim()}${f.phrase ? ' — ' : ''}${f.issue || ''}`)
@@ -1942,7 +1958,7 @@ function mapReportToResult(report, file) {
     fileName: file ? file.name : (report.product.name || 'label'),
     fit: report.overallMarketFitScore,
     subScores,
-    warnings: warnings.length ? warnings : (report.priorityFixes || []),
+    warnings,
     improvements: report.priorityFixes || [],
     summary: report.summary || '',
     positioning: report.recommendedPositioning || '',
