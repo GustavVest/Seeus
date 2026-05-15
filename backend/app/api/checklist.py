@@ -14,6 +14,7 @@ Env vars consumed:
 
 import os
 import re
+import time
 
 from flask import request, jsonify
 
@@ -76,3 +77,45 @@ def subscribe():
             # Treat duplicates as success — the lead is already on the list.
             return jsonify({'ok': True, 'captured': True, 'note': 'already_on_list'}), 200
         return jsonify({'error': f'Lead capture failed: {msg}'}), 502
+
+
+# ---------------------------------------------------------------------------
+# Public lead-count for the homepage stat strip.
+# Cached in-process for 60s so we don't hit the Resend API on every page load.
+# ---------------------------------------------------------------------------
+
+_count_cache = {'count': None, 'ts': 0.0}
+_COUNT_TTL_SECONDS = 60.0
+
+
+@checklist_bp.route('/count', methods=['GET'])
+def lead_count():
+    """Return the current number of captured leads. Public, cached, safe to embed."""
+    now = time.monotonic()
+    if (
+        _count_cache['count'] is not None
+        and (now - _count_cache['ts']) < _COUNT_TTL_SECONDS
+    ):
+        return jsonify({'count': _count_cache['count'], 'cached': True}), 200
+
+    api_key = os.environ.get('RESEND_API_KEY')
+    audience_id = os.environ.get('RESEND_AUDIENCE_ID')
+    if not api_key or not audience_id:
+        # Resend not configured — return 0 so the frontend can hide the counter
+        # gracefully until it's wired up.
+        return jsonify({'count': 0, 'configured': False}), 200
+
+    try:
+        import resend
+        resend.api_key = api_key
+        result = resend.Contacts.list({'audience_id': audience_id})
+        data = result.get('data') if isinstance(result, dict) else list(result or [])
+        n = len(data or [])
+
+        _count_cache['count'] = n
+        _count_cache['ts'] = now
+        return jsonify({'count': n, 'configured': True}), 200
+    except Exception as e:
+        logger.exception('Resend count failed')
+        # Don't blow up the homepage just because Resend is having a moment.
+        return jsonify({'count': _count_cache.get('count') or 0, 'configured': True, 'error': str(e)}), 200

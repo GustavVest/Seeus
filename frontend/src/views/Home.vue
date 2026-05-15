@@ -413,19 +413,33 @@
       </div>
     </section>
 
-    <!-- ===== AVERAGE SAVINGS STAT (replaces ROI calc) ===== -->
+    <!-- ===== STAT STRIP (avg savings + live founder count) ===== -->
     <section class="py-16 lg:py-20">
-      <div class="max-w-3xl mx-auto px-6 lg:px-10 text-center">
-        <span class="font-mono text-xs tracking-widest text-signal-purple">AVERAGE IMPACT</span>
-        <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight">
-          $451
-        </h2>
-        <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
-          Average saving per user on early-stage label and market research work.
-        </p>
-        <p class="mt-2 text-[11px] text-graphite/45">
-          Based on internal customer data. Your number depends on team size and SKU volume.
-        </p>
+      <div :class="['max-w-5xl mx-auto px-6 lg:px-10 grid gap-12', liveLeadsCount > 0 ? 'md:grid-cols-2' : 'md:grid-cols-1']">
+        <div class="text-center">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">AVERAGE IMPACT</span>
+          <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight">
+            $451
+          </h2>
+          <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
+            Average saving per user on early-stage label and market research work.
+          </p>
+          <p class="mt-2 text-[11px] text-graphite/45">
+            Based on internal customer data. Your number depends on team size and SKU volume.
+          </p>
+        </div>
+        <div v-if="liveLeadsCount > 0" class="text-center">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">FOUNDERS ON BOARD</span>
+          <h2 class="mt-3 font-display text-5xl lg:text-7xl text-primary-black font-medium tracking-tight tabular-nums">
+            {{ liveLeadsCount.toLocaleString() }}
+          </h2>
+          <p class="mt-3 text-base text-graphite/75 max-w-md mx-auto leading-relaxed">
+            Founders have run their label through ORAMA INTEL.
+          </p>
+          <p class="mt-2 text-[11px] text-graphite/45">
+            Live count, refreshed every minute.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -1377,12 +1391,26 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 
 // In production (Vercel/Railway), VITE_API_BASE points at the backend service
 // (e.g. "https://seeus-backend.up.railway.app"). In dev it's empty, so
 // relative "/api/..." URLs hit Vite's proxy → localhost:5001.
 const API_BASE = import.meta.env.VITE_API_BASE || ''
+
+// ---- Live lead count for the homepage stat strip ----
+const liveLeadsCount = ref(0)
+
+onMounted(async () => {
+  try {
+    const resp = await fetch(`${API_BASE}/api/checklist/count`)
+    if (!resp.ok) return
+    const data = await resp.json()
+    if (typeof data?.count === 'number') liveLeadsCount.value = data.count
+  } catch (_) {
+    // Stat strip just hides itself when the count is 0 — no UI noise.
+  }
+})
 
 // ---- Hero configurator (origin / target / category / adaptation / email) ----
 const cfgTargetCountry = ref('')
