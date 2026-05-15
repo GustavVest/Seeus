@@ -2,9 +2,9 @@
   <div class="min-h-screen bg-ice-white text-graphite font-sans antialiased">
     <!-- ===== HEADER ===== -->
     <header class="sticky top-0 z-40 bg-ice-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-20 flex items-center justify-between">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-24 lg:h-28 flex items-center justify-between">
         <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
-          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-10 lg:h-11 w-auto" />
+          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-14 lg:h-16 w-auto" />
         </a>
 
         <nav
@@ -726,9 +726,6 @@
         </div>
       </div>
     </section>
-
-    <!-- ===== PRIVATE LABEL RENDER ENGINE ===== -->
-    <PrivateLabelRenderer />
 
     <!-- ===== PROBLEM / SOLUTION ===== -->
     <section id="product" class="py-24 lg:py-32">
@@ -1545,7 +1542,6 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import PrivateLabelRenderer from '../components/PrivateLabelRenderer.vue'
 
 // In production (Vercel/Railway), VITE_API_BASE points at the backend service
 // (e.g. "https://seeus-backend.up.railway.app"). In dev it's empty, so
