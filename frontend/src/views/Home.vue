@@ -1,7 +1,21 @@
 <template>
-  <div class="min-h-screen bg-warm-cream text-graphite font-sans antialiased">
+  <div class="min-h-screen bg-white text-graphite font-sans antialiased">
+    <!-- ===== TOP BAR =====
+         In the document flow at the very top — scrolls away naturally as
+         you read, and comes back into view when you scroll to the top.
+         The sticky header below claims top:0 once the bar is out of frame. -->
+    <div class="bg-warm-cream border-b border-warm-brown/[0.12]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-2.5 flex items-center justify-center gap-3 text-warm-brown">
+        <span class="w-1.5 h-1.5 rounded-full bg-warm-brown/60"></span>
+        <p class="text-xs font-mono tracking-wide">
+          Built for product founders entering new markets
+        </p>
+        <span class="w-1.5 h-1.5 rounded-full bg-warm-brown/60"></span>
+      </div>
+    </div>
+
     <!-- ===== HEADER ===== -->
-    <header class="sticky top-0 z-40 bg-warm-cream/75 backdrop-blur-xl backdrop-saturate-150 border-b border-warm-brown/[0.12]">
+    <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 lg:h-20 flex items-center justify-between">
         <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
           <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-7 lg:h-8 w-auto" />
