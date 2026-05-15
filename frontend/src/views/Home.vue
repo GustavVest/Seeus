@@ -586,6 +586,9 @@
       </div>
     </section>
 
+    <!-- ===== PRIVATE LABEL RENDER ENGINE ===== -->
+    <PrivateLabelRenderer />
+
     <!-- ===== PROBLEM / SOLUTION ===== -->
     <section id="product" class="py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-start">
@@ -1388,6 +1391,7 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import PrivateLabelRenderer from '../components/PrivateLabelRenderer.vue'
 
 // In production (Vercel/Railway), VITE_API_BASE points at the backend service
 // (e.g. "https://seeus-backend.up.railway.app"). In dev it's empty, so
