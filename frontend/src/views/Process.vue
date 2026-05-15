@@ -2,7 +2,7 @@
   <div class="process-page">
     <!-- 顶部导航栏 -->
     <nav class="navbar">
-      <div class="nav-brand" @click="goHome">SEEUS</div>
+      <img src="../assets/logo/oramaintel-small.png" alt="ORAMA INTEL" class="nav-brand-logo" @click="goHome" />
       
       <!-- 中间步骤指示器 -->
       <div class="nav-center">
@@ -1129,6 +1129,16 @@ onUnmounted(() => {
   transition: opacity 0.2s;
 }
 
+.nav-brand-logo {
+  height: 26px;
+  width: auto;
+  display: block;
+  cursor: pointer;
+  filter: invert(1);
+  transition: opacity 0.2s;
+}
+
+.nav-brand-logo:hover,
 .nav-brand:hover {
   opacity: 0.8;
 }

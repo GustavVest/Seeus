@@ -33,3 +33,11 @@ python-dotenv>=1.0.0
 
 # 数据验证
 pydantic>=2.0.0
+
+# ============= Production WSGI =============
+# Used by Railway / any PaaS to serve Flask in production.
+gunicorn>=21.2.0
+
+# ============= Image handling =============
+# Pillow is used by the mockup placeholder + image-edit byte handling.
+Pillow>=10.0.0

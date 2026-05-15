@@ -3,7 +3,7 @@
     <!-- Header -->
     <header class="app-header">
       <div class="header-left">
-        <div class="brand" @click="router.push('/')">SEEUS</div>
+        <img src="../assets/logo/oramaintel-small.png" alt="ORAMA INTEL" class="brand-logo" @click="router.push('/')" />
       </div>
       
       <div class="header-center">
@@ -443,6 +443,13 @@ onUnmounted(() => {
   font-weight: 800;
   font-size: 18px;
   letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.brand-logo {
+  height: 26px;
+  width: auto;
+  display: block;
   cursor: pointer;
 }
 

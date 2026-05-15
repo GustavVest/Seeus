@@ -1,7 +1,7 @@
 {
   "name": "seeus",
   "version": "1.0.0",
-  "description": "Seeus - A Universal Swarm Intelligence Engine, Predicting Anything",
+  "description": "ORAMA INTEL - A Universal Swarm Intelligence Engine, Predicting Anything",
   "scripts": {
     "setup": "npm install && cd frontend && npm install",
     "setup:backend": "cd backend && uv sync",

@@ -1,953 +1,1775 @@
 <template>
-  <div class="home-container">
-    <!-- 顶部导航栏 -->
-    <nav class="navbar">
-      <div class="nav-brand">SEEUS</div>
-      <div class="nav-links">
-        <LanguageSwitcher />
-        <a href="#" target="_blank" class="github-link">
-          {{ $t('nav.visitGithub') }} <span class="arrow">↗</span>
+  <div class="min-h-screen bg-ice-white text-graphite font-sans antialiased">
+    <!-- ===== HEADER ===== -->
+    <header class="sticky top-0 z-40 bg-ice-white/60 backdrop-blur-xl backdrop-saturate-150 border-b border-black/[0.06]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 h-16 flex items-center justify-between">
+        <a href="#top" class="flex items-center" aria-label="ORAMA INTEL home">
+          <img src="../assets/logo/oramaintel-logo.png" alt="ORAMA INTEL" class="h-6 w-auto" />
         </a>
-      </div>
-    </nav>
 
-    <div class="main-content">
-      <!-- 上半部分：Hero 区域 -->
-      <section class="hero-section">
-        <div class="hero-left">
-          <div class="tag-row">
-            <span class="orange-tag">{{ $t('home.tagline') }}</span>
-            <span class="version-text">{{ $t('home.version') }}</span>
+        <nav
+          class="relative hidden md:flex items-center gap-0.5 p-1 rounded-full bg-white/40 backdrop-blur-xl border border-black/[0.07] shadow-[0_1px_2px_rgba(0,0,0,0.03)]"
+          @mouseleave="indicator.visible = false"
+        >
+          <span
+            class="absolute top-1 bottom-1 rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.06)] border border-black/[0.05] pointer-events-none transition-[left,width,opacity] duration-300 ease-out"
+            :style="{
+              left: indicator.left + 'px',
+              width: indicator.width + 'px',
+              opacity: indicator.visible ? 1 : 0,
+            }"
+          ></span>
+          <a
+            v-for="(link, i) in navLinks"
+            :key="link.href"
+            :href="link.href"
+            @mouseenter="updateIndicator"
+            class="group relative z-10 flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-graphite/70 hover:text-primary-black transition-colors duration-150"
+          >
+            <span class="font-mono text-[9px] font-semibold tracking-[0.15em] text-signal-purple/60 group-hover:text-signal-purple tabular-nums transition-colors">
+              0{{ i + 1 }}
+            </span>
+            <span class="text-[13px] font-medium">{{ link.label }}</span>
+          </a>
+        </nav>
+
+        <button
+          @click="openUpload"
+          class="group inline-flex items-center gap-2 bg-primary-black text-ice-white px-4 py-2 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
+        >
+          Upload your label
+          <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===== HERO ===== -->
+    <section id="top" class="relative overflow-hidden">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-24 lg:pt-24 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-6">
+          <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-signal-purple/30 bg-signal-purple/5 text-signal-purple text-xs font-mono tracking-wide">
+            <span class="w-1.5 h-1.5 rounded-full bg-signal-purple"></span>
+            MARKET-FIT INTELLIGENCE
           </div>
-          
-          <h1 class="main-title">
-            {{ $t('home.heroTitle1') }}<br>
-            <span class="gradient-text">{{ $t('home.heroTitle2') }}</span>
+
+          <h1 class="font-display text-5xl lg:text-6xl leading-[1.05] tracking-tight text-primary-black font-medium">
+            Know if your packaging
+            <span class="block">will sell <span class="text-signal-purple">before</span> you launch.</span>
           </h1>
-          
-          <div class="hero-desc">
-            <p>
-              <i18n-t keypath="home.heroDesc" tag="span">
-                <template #brand><span class="highlight-bold">{{ $t('home.heroDescBrand') }}</span></template>
-                <template #agentScale><span class="highlight-orange">{{ $t('home.heroDescAgentScale') }}</span></template>
-                <template #optimalSolution><span class="highlight-code">{{ $t('home.heroDescOptimalSolution') }}</span></template>
-              </i18n-t>
-            </p>
-            <p class="slogan-text">
-              {{ $t('home.slogan') }}<span class="blinking-cursor">_</span>
-            </p>
+
+          <p class="mt-6 text-lg text-graphite/75 max-w-xl leading-relaxed">
+            AI-powered market-fit analysis for food, beverage, supplement, and export teams entering new international markets.
+          </p>
+
+          <div class="mt-8 flex items-center gap-4">
+            <button
+              @click="openUpload"
+              class="group inline-flex items-center gap-2 bg-primary-black text-ice-white px-6 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
+            >
+              Upload your label
+              <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
+            </button>
+            <a href="#how" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
+              See how it works
+            </a>
           </div>
-           
-          <div class="decoration-square"></div>
+
+          <p class="mt-6 text-sm text-graphite/60 max-w-md">
+            Get feedback on label copy, claims, colors, shelf impact, cultural fit, and market risk in minutes.
+          </p>
         </div>
-        
-        <div class="hero-right">
-          <!-- Logo 区域 -->
-          <div class="logo-container">
-            <img src="../assets/logo/MiroFish_logo_left.jpeg" alt="Seeus Logo" class="hero-logo" />
+
+        <!-- Dashboard mockup -->
+        <div class="lg:col-span-6">
+          <div class="relative">
+            <div class="absolute -inset-4 bg-gradient-to-tr from-signal-purple/10 via-transparent to-electric-violet/10 blur-2xl rounded-3xl"></div>
+            <div class="relative bg-white border border-black/8 rounded-xl shadow-[0_24px_60px_-20px_rgba(5,5,5,0.18)] overflow-hidden">
+              <!-- Dashboard chrome -->
+              <div class="flex items-center justify-between px-5 py-3 border-b border-black/5 bg-ice-white">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
+                </div>
+                <span class="font-mono text-[11px] text-graphite/50 tracking-wider">orama.intel / report</span>
+                <span class="font-mono text-[11px] text-market-green tracking-wider">LIVE</span>
+              </div>
+
+              <div class="p-6 grid grid-cols-12 gap-4">
+                <!-- Label preview -->
+                <div class="col-span-4 bg-graphite/[0.04] border border-black/5 rounded-lg p-3 flex flex-col">
+                  <span class="font-mono text-[10px] text-graphite/50 tracking-wider mb-2">LABEL</span>
+                  <div class="flex-1 rounded-md bg-gradient-to-b from-white to-graphite/10 border border-black/5 aspect-[3/4] flex items-center justify-center">
+                    <div class="text-center">
+                      <div class="w-10 h-10 mx-auto mb-2 rounded-full border-2 border-graphite/30"></div>
+                      <div class="font-mono text-[9px] text-graphite/40 tracking-widest">PRODUCT.PNG</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Score column -->
+                <div class="col-span-8 flex flex-col gap-3">
+                  <div class="flex items-end justify-between">
+                    <div>
+                      <span class="font-mono text-[10px] text-graphite/50 tracking-wider">MARKET FIT SCORE</span>
+                      <div class="flex items-baseline gap-1 mt-1">
+                        <span class="font-display text-5xl font-medium text-primary-black tracking-tight">74</span>
+                        <span class="font-mono text-sm text-graphite/40">/100</span>
+                      </div>
+                    </div>
+                    <div class="text-right">
+                      <div class="font-mono text-[10px] text-graphite/50 tracking-wider">TARGET</div>
+                      <div class="text-sm font-semibold text-primary-black">Japan</div>
+                      <div class="font-mono text-[10px] text-graphite/50 tracking-wider mt-1">CATEGORY</div>
+                      <div class="text-sm font-semibold text-primary-black">Supplement</div>
+                    </div>
+                  </div>
+
+                  <!-- Sub-scores -->
+                  <div class="grid grid-cols-2 gap-2 mt-1">
+                    <div class="border border-black/5 rounded-md px-3 py-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-graphite/70">Trust</span>
+                        <span class="font-mono text-xs font-semibold text-market-green">82</span>
+                      </div>
+                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
+                        <div class="h-full bg-market-green" style="width: 82%"></div>
+                      </div>
+                    </div>
+                    <div class="border border-black/5 rounded-md px-3 py-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-graphite/70">Shelf impact</span>
+                        <span class="font-mono text-xs font-semibold text-warning-amber">68</span>
+                      </div>
+                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
+                        <div class="h-full bg-warning-amber" style="width: 68%"></div>
+                      </div>
+                    </div>
+                    <div class="border border-black/5 rounded-md px-3 py-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-graphite/70">Claims risk</span>
+                        <span class="font-mono text-xs font-semibold text-warning-amber">Medium</span>
+                      </div>
+                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
+                        <div class="h-full bg-warning-amber" style="width: 55%"></div>
+                      </div>
+                    </div>
+                    <div class="border border-black/5 rounded-md px-3 py-2">
+                      <div class="flex items-center justify-between">
+                        <span class="text-xs text-graphite/70">Cultural fit</span>
+                        <span class="font-mono text-xs font-semibold text-warning-amber">71</span>
+                      </div>
+                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
+                        <div class="h-full bg-warning-amber" style="width: 71%"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Warnings -->
+                <div class="col-span-12 mt-2 rounded-md bg-warning-amber/5 border border-warning-amber/20 p-3">
+                  <div class="font-mono text-[10px] text-warning-amber tracking-wider mb-2 flex items-center gap-1.5">
+                    <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
+                    WARNINGS · 3
+                  </div>
+                  <ul class="space-y-1.5 text-xs text-graphite/85">
+                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Benefit hierarchy is unclear</li>
+                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Premium cues are weak for target market</li>
+                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Claims should be softened for lower regulatory friction</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <button class="scroll-down-btn" @click="scrollToBottom">
-            ↓
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== TRUST STRIP ===== -->
+    <section class="border-y border-black/5 bg-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-12">
+        <div class="grid lg:grid-cols-2 gap-10 items-center">
+          <div>
+            <h2 class="font-display text-2xl lg:text-3xl text-primary-black tracking-tight font-medium">
+              Built for brands expanding across borders.
+            </h2>
+            <p class="mt-3 text-sm text-graphite/70 max-w-md">
+              Designed around real export-market packaging workflows — not generic AI design.
+            </p>
+          </div>
+          <div class="flex flex-col gap-4">
+            <div class="flex flex-wrap gap-2">
+              <span v-for="market in markets" :key="market" class="px-3 py-1.5 rounded-full border border-black/10 text-xs font-mono tracking-wider text-graphite/80 bg-white">
+                {{ market }}
+              </span>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <span v-for="cat in categories" :key="cat" class="px-3 py-1.5 rounded-full border border-signal-purple/20 bg-signal-purple/5 text-xs font-mono tracking-wider text-signal-purple">
+                {{ cat }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PROBLEM ===== -->
+    <section id="product" class="py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">01 / PROBLEM</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Translation is not localization.
+          </h2>
+          <p class="mt-5 text-lg text-graphite/75 leading-relaxed">
+            Packaging that works in one country can lose trust, shelf impact, or regulatory clarity in another.
+          </p>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <div v-for="card in problems" :key="card.title" class="group p-6 bg-white rounded-xl border border-black/8 hover:border-signal-purple/40 transition-colors">
+            <div class="w-9 h-9 rounded-md bg-primary-black text-ice-white flex items-center justify-center font-mono text-sm group-hover:bg-signal-purple transition-colors">
+              {{ card.index }}
+            </div>
+            <h3 class="mt-5 font-display text-lg text-primary-black font-semibold">{{ card.title }}</h3>
+            <p class="mt-2 text-sm text-graphite/70 leading-relaxed">{{ card.body }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== SOLUTION / HOW IT WORKS ===== -->
+    <section id="how" class="py-24 lg:py-32 bg-primary-black text-ice-white">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-electric-violet">02 / SOLUTION</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl tracking-tight font-medium leading-tight">
+            Upload a label. Choose a market. Get a market-fit report.
+          </h2>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div v-for="(step, i) in steps" :key="step.title" class="relative">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="font-display text-4xl font-medium text-electric-violet tracking-tight">0{{ i + 1 }}</span>
+              <span v-if="i < steps.length - 1" class="hidden lg:block flex-1 h-px bg-ice-white/15"></span>
+            </div>
+            <h3 class="font-display text-lg font-semibold">{{ step.title }}</h3>
+            <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">{{ step.body }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== ANALYSIS ENGINE ===== -->
+    <section class="py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">03 / ENGINE</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Concrete feedback, not vague design advice.
+          </h2>
+        </div>
+
+        <div class="mt-14 grid grid-cols-2 lg:grid-cols-4 gap-4">
+          <div v-for="card in engineCards" :key="card.title" class="p-5 bg-white border border-black/8 rounded-lg hover:bg-signal-purple/[0.03] hover:border-signal-purple/30 transition-colors">
+            <div class="font-mono text-[10px] text-graphite/50 tracking-widest mb-2">{{ card.tag }}</div>
+            <h3 class="font-display text-base text-primary-black font-semibold">{{ card.title }}</h3>
+          </div>
+        </div>
+
+        <!-- Sample insight quote -->
+        <div class="mt-14 p-8 lg:p-10 bg-gradient-to-br from-signal-purple/5 to-electric-violet/5 border border-signal-purple/20 rounded-2xl">
+          <div class="flex items-start gap-5">
+            <div class="hidden sm:flex w-10 h-10 rounded-md bg-signal-purple text-ice-white items-center justify-center flex-shrink-0 font-mono text-lg">"</div>
+            <div>
+              <span class="font-mono text-xs tracking-widest text-signal-purple">SAMPLE INSIGHT</span>
+              <p class="mt-2 font-display text-xl lg:text-2xl text-primary-black leading-snug">
+                Your current label may feel too clinical for Korean D2C wellness buyers, but not technical enough for Japanese pharmacy channels.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== BEFORE / AFTER EXAMPLES ===== -->
+    <section id="examples" class="py-24 lg:py-32 bg-white border-y border-black/5">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">04 / EXAMPLES</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            One product. Different markets. Different buying logic.
+          </h2>
+        </div>
+
+        <div class="mt-14 grid md:grid-cols-3 gap-5">
+          <div v-for="ex in examples" :key="ex.title" class="bg-ice-white border border-black/8 rounded-xl p-6 flex flex-col">
+            <div class="flex items-center gap-2 font-mono text-xs tracking-wider text-graphite/60 mb-4">
+              <span>{{ ex.from }}</span>
+              <span class="text-signal-purple">→</span>
+              <span class="text-primary-black font-semibold">{{ ex.to }}</span>
+            </div>
+            <ul class="space-y-3 flex-1">
+              <li v-for="(point, i) in ex.points" :key="i" class="flex gap-2.5 text-sm text-graphite/85">
+                <span class="text-signal-purple mt-1">›</span>
+                <span>{{ point }}</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PRICING ===== -->
+    <section id="pricing" class="py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">05 / PRICING</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Start with a free score. Upgrade when you need the fix.
+          </h2>
+          <p class="mt-5 text-lg text-graphite/75 max-w-2xl leading-relaxed">
+            Get instant market-fit feedback for free. Pay only when you want ORAMA INTEL to generate a market-adapted packaging concept.
+          </p>
+        </div>
+
+        <div class="mt-14 grid md:grid-cols-3 gap-5">
+          <div
+            v-for="tier in tiers"
+            :key="tier.name"
+            :class="[
+              'rounded-2xl p-7 flex flex-col border',
+              tier.featured
+                ? 'bg-primary-black text-ice-white border-primary-black shadow-[0_20px_50px_-20px_rgba(124,58,237,0.45)]'
+                : 'bg-white text-graphite border-black/10',
+            ]"
+          >
+            <div v-if="tier.badge" class="mb-4">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 text-[10px] font-mono tracking-widest rounded-full bg-signal-purple text-ice-white">
+                <span class="w-1 h-1 rounded-full bg-electric-violet"></span>
+                {{ tier.badge.toUpperCase() }}
+              </span>
+            </div>
+
+            <h3 :class="['font-display text-xl font-semibold', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+              {{ tier.name }}
+            </h3>
+
+            <div class="mt-5 flex items-end gap-2">
+              <span :class="['font-display text-5xl font-medium tracking-tight tabular-nums', tier.featured ? 'text-ice-white' : 'text-primary-black']">
+                {{ tier.price }}
+              </span>
+              <span
+                v-if="tier.price !== '€0'"
+                :class="['pb-1 text-xs', tier.featured ? 'text-ice-white/60' : 'text-graphite/60']"
+              >
+                {{ tier.unit || 'per product / market' }}
+              </span>
+            </div>
+
+            <p :class="['mt-5 text-sm leading-6', tier.featured ? 'text-ice-white/70' : 'text-graphite/70']">
+              {{ tier.description }}
+            </p>
+
+            <ul class="mt-8 space-y-3 flex-1">
+              <li
+                v-for="(feat, i) in tier.features"
+                :key="i"
+                :class="['flex gap-3 text-sm', tier.featured ? 'text-ice-white/90' : 'text-graphite/85']"
+              >
+                <span
+                  :class="[
+                    'mt-1.5 h-1.5 w-1.5 rounded-full flex-shrink-0',
+                    tier.featured ? 'bg-market-green' : 'bg-signal-purple',
+                  ]"
+                ></span>
+                <span>{{ feat }}</span>
+              </li>
+            </ul>
+
+            <button
+              @click="openUpload"
+              :class="[
+                'mt-9 w-full inline-flex items-center justify-center gap-2 px-5 py-3 text-sm font-semibold rounded-md transition-colors',
+                tier.featured
+                  ? 'bg-ice-white text-primary-black hover:bg-electric-violet hover:text-ice-white'
+                  : 'bg-primary-black text-ice-white hover:bg-signal-purple',
+              ]"
+            >
+              {{ tier.cta || 'Upload your label' }}
+              <span class="text-base leading-none">→</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="mt-8 text-xs text-graphite/55 max-w-3xl leading-relaxed">
+          Adaptation outputs are AI-generated packaging concepts and market-fit recommendations — not final legal or print-ready compliance documents. Verify with regulatory counsel for your target market before production.
+        </p>
+      </div>
+    </section>
+
+    <!-- ===== FINAL CTA ===== -->
+    <section class="py-24 lg:py-32 bg-primary-black text-ice-white">
+      <div class="max-w-4xl mx-auto px-6 lg:px-10 text-center">
+        <h2 class="font-display text-4xl lg:text-6xl tracking-tight font-medium leading-tight">
+          Before you redesign,
+          <span class="block">analyze the <span class="text-electric-violet">market fit</span>.</span>
+        </h2>
+        <p class="mt-6 text-lg text-ice-white/70 max-w-2xl mx-auto leading-relaxed">
+          Upload your product label and see what needs to change for your next country.
+        </p>
+        <div class="mt-10">
+          <button
+            @click="openUpload"
+            class="group inline-flex items-center gap-2 bg-ice-white text-primary-black px-7 py-4 text-base font-semibold rounded-md hover:bg-electric-violet hover:text-ice-white transition-colors"
+          >
+            Upload your label
+            <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
           </button>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- 下半部分：双栏布局 -->
-      <section class="dashboard-section">
-        <!-- 左栏：状态与步骤 -->
-        <div class="left-panel">
-          <div class="panel-header">
-            <span class="status-dot">■</span> {{ $t('home.systemStatus') }}
-          </div>
-          
-          <h2 class="section-title">{{ $t('home.systemReady') }}</h2>
-          <p class="section-desc">
-            {{ $t('home.systemReadyDesc') }}
-          </p>
-          
-          <!-- 数据指标卡片 -->
-          <div class="metrics-row">
-            <div class="metric-card">
-              <div class="metric-value">{{ $t('home.metricLowCost') }}</div>
-              <div class="metric-label">{{ $t('home.metricLowCostDesc') }}</div>
+    <!-- ===== FOOTER ===== -->
+    <footer class="bg-primary-black border-t border-ice-white/10">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-10 flex flex-col md:flex-row items-center justify-between gap-4">
+        <img src="../assets/logo/oramaintel-small.png" alt="ORAMA INTEL" class="h-5 w-auto" style="filter: invert(1)" />
+        <p class="text-xs font-mono tracking-wider text-ice-white/50">
+          © 2026 ORAMA INTEL · Market-fit intelligence for export brands
+        </p>
+      </div>
+    </footer>
+
+    <!-- ===== UPLOAD MODAL ===== -->
+    <Transition name="fade">
+      <div v-if="uploadOpen" class="fixed inset-0 z-50 flex items-center justify-center p-4" role="dialog" aria-modal="true">
+        <div class="absolute inset-0 bg-primary-black/60 backdrop-blur-sm" @click="closeUpload"></div>
+
+        <div
+          :class="[
+            'relative bg-white rounded-2xl shadow-2xl w-full p-8 border border-black/8 max-h-[90vh] overflow-y-auto transition-[max-width] duration-300',
+            analysisState === 'result' ? 'max-w-2xl' : 'max-w-lg',
+          ]"
+        >
+          <button
+            @click="closeUpload"
+            class="absolute top-4 right-4 w-8 h-8 rounded-full hover:bg-black/5 flex items-center justify-center text-graphite/60 z-10"
+            aria-label="Close"
+          >
+            ×
+          </button>
+
+          <!-- ===== IDLE: UPLOAD FORM ===== -->
+          <div v-if="analysisState === 'idle'">
+            <div class="font-mono text-[10px] tracking-widest text-signal-purple mb-2">UPLOAD</div>
+            <h3 class="font-display text-2xl text-primary-black font-medium tracking-tight">
+              Upload your product label
+            </h3>
+            <p class="mt-2 text-sm text-graphite/70">
+              PDF, PNG, or JPG. One label per analysis.
+            </p>
+
+            <label
+              :class="[
+                'mt-6 block border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors',
+                dragOver
+                  ? 'border-signal-purple bg-signal-purple/5'
+                  : 'border-black/15 hover:border-signal-purple/50 hover:bg-signal-purple/[0.03]',
+                selectedFile ? 'border-market-green/60 bg-market-green/5' : '',
+              ]"
+              @dragover.prevent="dragOver = true"
+              @dragleave.prevent="dragOver = false"
+              @drop.prevent="handleDrop"
+            >
+              <input
+                ref="fileInputRef"
+                type="file"
+                accept=".pdf,.png,.jpg,.jpeg"
+                class="hidden"
+                @change="handleFile"
+              />
+              <div v-if="!selectedFile">
+                <div class="w-10 h-10 mx-auto mb-3 rounded-full border-2 border-graphite/30 flex items-center justify-center text-graphite/50">↑</div>
+                <p class="text-sm font-medium text-primary-black">Drop your label here</p>
+                <p class="text-xs text-graphite/55 mt-1">or click to browse</p>
+              </div>
+              <div v-else class="text-left">
+                <div class="font-mono text-[10px] tracking-widest text-market-green mb-1">SELECTED</div>
+                <p class="text-sm font-medium text-primary-black break-all">{{ selectedFile.name }}</p>
+                <p class="text-xs text-graphite/55 mt-1">{{ formatBytes(selectedFile.size) }}</p>
+              </div>
+            </label>
+
+            <div class="mt-5 space-y-3">
+              <input
+                v-model="productName"
+                type="text"
+                placeholder="Product name"
+                class="w-full px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple"
+              />
+
+              <div class="grid grid-cols-2 gap-3">
+                <select v-model="category" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="">Product category</option>
+                  <option>Supplement</option>
+                  <option>Beverage</option>
+                  <option>Food</option>
+                  <option>Snack</option>
+                  <option>Sauce / condiment</option>
+                  <option>Functional food</option>
+                  <option>Cosmetic / personal care</option>
+                  <option>Other</option>
+                </select>
+                <select v-model="country" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="">Target country</option>
+                  <option>Japan</option>
+                  <option>South Korea</option>
+                  <option>EU</option>
+                  <option>Germany</option>
+                  <option>Nordics</option>
+                  <option>USA</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <select v-model="brandType" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option>Own brand</option>
+                  <option>Private label</option>
+                  <option>White label</option>
+                  <option>Distributor / importer brand</option>
+                  <option>Retailer brand</option>
+                </select>
+                <select v-model="visualStyleMode" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option>Keep current brand style</option>
+                  <option>Clean Premium</option>
+                  <option>Stylish Premium</option>
+                  <option>Bold Retail</option>
+                  <option>Clinical / Scientific</option>
+                  <option>Natural / Organic</option>
+                  <option>Luxury Minimal</option>
+                  <option>Trend-led / D2C</option>
+                </select>
+              </div>
+              <p class="text-[11px] text-graphite/55 leading-snug">
+                Private label is treated as a <strong class="font-medium">brand type</strong>, not a product category.
+                Style mode controls whether the adaptation is clean, bold, clinical, natural, luxury, or visually expressive.
+              </p>
+
+              <div class="grid grid-cols-2 gap-3">
+                <select v-model="currentMarket" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="">Current market</option>
+                  <option>Norway</option>
+                  <option>Sweden</option>
+                  <option>Denmark</option>
+                  <option>Germany</option>
+                  <option>USA</option>
+                  <option>South Korea</option>
+                  <option>Japan</option>
+                  <option>Other</option>
+                </select>
+                <select v-model="targetChannel" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="supermarket">Channel: Supermarket</option>
+                  <option value="pharmacy">Channel: Pharmacy</option>
+                  <option value="convenience">Channel: Convenience</option>
+                  <option value="amazon">Channel: Amazon / e-com</option>
+                  <option value="specialty">Channel: Specialty</option>
+                  <option value="b2b">Channel: B2B / distributor</option>
+                </select>
+              </div>
+
+              <div class="grid grid-cols-2 gap-3">
+                <select v-model="targetBuyer" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="mass">Buyer: Mass</option>
+                  <option value="premium">Buyer: Premium</option>
+                  <option value="health-conscious">Buyer: Health-conscious</option>
+                  <option value="athletes">Buyer: Athletes</option>
+                  <option value="parents">Buyer: Parents</option>
+                  <option value="elderly">Buyer: Elderly</option>
+                  <option value="gen-z">Buyer: Gen Z</option>
+                  <option value="tourists">Buyer: Tourists</option>
+                  <option value="business">Buyer: Business / B2B</option>
+                </select>
+                <select v-model="priceTier" class="px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                  <option value="budget">Tier: Budget</option>
+                  <option value="mainstream">Tier: Mainstream</option>
+                  <option value="premium">Tier: Premium</option>
+                  <option value="luxury">Tier: Luxury</option>
+                </select>
+              </div>
+
+              <select v-model="brandGoal" class="w-full px-3 py-2.5 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple">
+                <option value="trust">Brand goal: Trust</option>
+                <option value="premium">Brand goal: Premium</option>
+                <option value="functional">Brand goal: Functional</option>
+                <option value="natural">Brand goal: Natural</option>
+                <option value="fun">Brand goal: Fun</option>
+                <option value="clinical">Brand goal: Clinical</option>
+                <option value="local">Brand goal: Local</option>
+                <option value="export">Brand goal: Export-ready</option>
+              </select>
+
+              <details class="border border-black/[0.08] rounded-md group">
+                <summary class="px-3 py-2 text-xs text-graphite/70 cursor-pointer select-none flex items-center justify-between">
+                  <span>More details (optional)</span>
+                  <span class="text-graphite/40 group-open:rotate-90 transition-transform">›</span>
+                </summary>
+                <div class="px-3 pb-3 space-y-3">
+                  <textarea
+                    v-model="claimsOnPack"
+                    rows="2"
+                    placeholder="Claims on pack — one per line"
+                    class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
+                  />
+                  <textarea
+                    v-model="ingredientsText"
+                    rows="2"
+                    placeholder="Ingredient list — comma separated"
+                    class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
+                  />
+                  <input
+                    v-model="countryOfOrigin"
+                    type="text"
+                    placeholder="Country of origin"
+                    class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple"
+                  />
+                </div>
+              </details>
             </div>
-            <div class="metric-card">
-              <div class="metric-value">{{ $t('home.metricHighAvail') }}</div>
-              <div class="metric-label">{{ $t('home.metricHighAvailDesc') }}</div>
-            </div>
+
+            <button
+              @click="runAnalysis"
+              :disabled="!canSubmitAnalysis"
+              class="mt-6 w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-3 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
+            >
+              Run market-fit analysis
+              <span class="text-base leading-none">→</span>
+            </button>
+
+            <p class="mt-4 text-xs text-graphite/50 text-center">
+              Free score · No card required for the first analysis.
+            </p>
           </div>
 
-          <!-- 项目模拟步骤介绍 (新增区域) -->
-          <div class="steps-container">
-            <div class="steps-header">
-               <span class="diamond-icon">◇</span> {{ $t('home.workflowSequence') }}
-            </div>
-            <div class="workflow-list">
-              <div class="workflow-item">
-                <span class="step-num">01</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step01Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step01Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">02</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step02Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step02Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">03</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step03Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step03Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">04</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step04Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step04Desc') }}</div>
-                </div>
-              </div>
-              <div class="workflow-item">
-                <span class="step-num">05</span>
-                <div class="step-info">
-                  <div class="step-title">{{ $t('home.step05Title') }}</div>
-                  <div class="step-desc">{{ $t('home.step05Desc') }}</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+          <!-- ===== ANALYZING ===== -->
+          <div v-else-if="analysisState === 'analyzing'" class="py-6">
+            <div class="font-mono text-[10px] tracking-widest text-signal-purple mb-2">ANALYZING</div>
+            <h3 class="font-display text-2xl text-primary-black font-medium tracking-tight">
+              Reading your label
+            </h3>
+            <p class="mt-2 text-sm text-graphite/70">
+              {{ category }} · target market: {{ country }}
+            </p>
 
-        <!-- 右栏：交互控制台 -->
-        <div class="right-panel">
-          <div class="console-box">
-            <!-- 上传区域 -->
-            <div class="console-section">
-              <div class="console-header">
-                <span class="console-label">{{ $t('home.realitySeed') }}</span>
-                <span class="console-meta">{{ $t('home.supportedFormats') }}</span>
+            <div class="mt-8">
+              <div class="h-1 rounded-full bg-graphite/10 overflow-hidden">
+                <div class="h-full bg-signal-purple transition-[width] duration-300 ease-linear" :style="{ width: analysisProgress + '%' }"></div>
               </div>
-              
-              <div 
-                class="upload-zone"
-                :class="{ 'drag-over': isDragOver, 'has-files': files.length > 0 }"
-                @dragover.prevent="handleDragOver"
-                @dragleave.prevent="handleDragLeave"
-                @drop.prevent="handleDrop"
-                @click="triggerFileInput"
+              <div class="mt-2 flex items-center justify-between">
+                <span class="font-mono text-[10px] tracking-widest text-graphite/50">{{ analysisStep }}</span>
+                <span class="font-mono text-[10px] tracking-widest text-signal-purple tabular-nums">{{ analysisProgress }}%</span>
+              </div>
+            </div>
+
+            <ul class="mt-8 space-y-2.5">
+              <li v-for="(s, i) in analysisSteps" :key="s" class="flex items-center gap-3 text-sm">
+                <span
+                  :class="[
+                    'w-4 h-4 rounded-full flex items-center justify-center flex-shrink-0 transition-colors',
+                    i < currentStepIndex ? 'bg-market-green text-ice-white' : i === currentStepIndex ? 'bg-signal-purple text-ice-white' : 'bg-graphite/10 text-graphite/40',
+                  ]"
+                >
+                  <span v-if="i < currentStepIndex" class="text-[10px]">✓</span>
+                  <span v-else-if="i === currentStepIndex" class="w-1.5 h-1.5 rounded-full bg-ice-white animate-pulse"></span>
+                </span>
+                <span :class="i <= currentStepIndex ? 'text-primary-black' : 'text-graphite/50'">{{ s }}</span>
+              </li>
+            </ul>
+          </div>
+
+          <!-- ===== RESULT ===== -->
+          <div v-else-if="analysisState === 'result' && result">
+            <div class="flex items-center justify-between mb-3">
+              <div class="font-mono text-[10px] tracking-widest text-signal-purple">MARKET-FIT REPORT</div>
+              <button
+                @click="resetAnalysis"
+                class="font-mono text-[10px] tracking-widest text-graphite/50 hover:text-primary-black transition-colors"
               >
-                <input
-                  ref="fileInput"
-                  type="file"
-                  multiple
-                  accept=".pdf,.md,.txt"
-                  @change="handleFileSelect"
-                  style="display: none"
-                  :disabled="loading"
-                />
-                
-                <div v-if="files.length === 0" class="upload-placeholder">
-                  <div class="upload-icon">↑</div>
-                  <div class="upload-title">{{ $t('home.dragToUpload') }}</div>
-                  <div class="upload-hint">{{ $t('home.orBrowse') }}</div>
+                ↺ NEW ANALYSIS
+              </button>
+            </div>
+
+            <h3 class="font-display text-2xl text-primary-black font-medium tracking-tight">
+              {{ result.category }} <span class="text-graphite/30">→</span> {{ result.country }}
+            </h3>
+            <p class="mt-1 text-sm text-graphite/60 break-all">
+              {{ result.fileName }}
+            </p>
+
+            <div v-if="analysisFallback" class="mt-3 px-3 py-2 rounded-md bg-warning-amber/5 border border-warning-amber/30 text-[11px] text-graphite/80 flex items-start gap-2">
+              <span class="text-warning-amber">⚠</span>
+              <span>
+                <strong class="font-semibold">{{ analysisFallbackReason }}</strong> — showing cached signals instead of live analysis.
+              </span>
+            </div>
+
+            <p v-if="result.summary" class="mt-3 text-sm text-graphite/80 leading-relaxed">
+              {{ result.summary }}
+            </p>
+
+            <!-- Score banner -->
+            <div class="mt-6 grid grid-cols-12 gap-4 items-center p-5 rounded-xl bg-gradient-to-br from-signal-purple/5 to-electric-violet/5 border border-signal-purple/15">
+              <div class="col-span-5">
+                <div class="font-mono text-[10px] text-graphite/55 tracking-widest">MARKET FIT SCORE</div>
+                <div class="flex items-baseline gap-1 mt-1">
+                  <span class="font-display text-5xl font-medium text-primary-black tracking-tight tabular-nums">{{ result.fit }}</span>
+                  <span class="font-mono text-sm text-graphite/40">/100</span>
                 </div>
-                
-                <div v-else class="file-list">
-                  <div v-for="(file, index) in files" :key="index" class="file-item">
-                    <span class="file-icon">📄</span>
-                    <span class="file-name">{{ file.name }}</span>
-                    <button @click.stop="removeFile(index)" class="remove-btn">×</button>
+                <div :class="[
+                  'mt-1 inline-flex items-center gap-1.5 font-mono text-[10px] tracking-widest',
+                  result.fit >= 80 ? 'text-market-green' : result.fit >= 65 ? 'text-warning-amber' : 'text-risk-red',
+                ]">
+                  <span class="w-1.5 h-1.5 rounded-full" :class="result.fit >= 80 ? 'bg-market-green' : result.fit >= 65 ? 'bg-warning-amber' : 'bg-risk-red'"></span>
+                  {{ result.fit >= 80 ? 'STRONG FIT' : result.fit >= 65 ? 'NEEDS WORK' : 'HIGH FRICTION' }}
+                </div>
+              </div>
+              <div class="col-span-7 grid grid-cols-2 gap-2">
+                <div v-for="sub in result.subScores" :key="sub.label" class="border border-black/[0.06] bg-white rounded-md px-3 py-2">
+                  <div class="flex items-center justify-between">
+                    <span class="text-[11px] text-graphite/70">{{ sub.label }}</span>
+                    <span class="font-mono text-[11px] font-semibold" :class="subColor(sub.value)">
+                      {{ typeof sub.value === 'number' ? sub.value : sub.value }}
+                    </span>
+                  </div>
+                  <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
+                    <div class="h-full" :class="subBarColor(sub.value)" :style="{ width: subBarWidth(sub.value) + '%' }"></div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <!-- 分割线 -->
-            <div class="console-divider">
-              <span>{{ $t('home.inputParams') }}</span>
+            <!-- Warnings -->
+            <div class="mt-5 rounded-lg bg-warning-amber/5 border border-warning-amber/20 p-4">
+              <div class="font-mono text-[10px] text-warning-amber tracking-widest mb-2 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
+                KEY RISKS · {{ result.warnings.length }}
+              </div>
+              <ul class="space-y-2 text-sm text-graphite/90">
+                <li v-for="(w, i) in result.warnings" :key="i" class="flex gap-2.5">
+                  <span class="text-warning-amber mt-0.5">›</span>
+                  <span>{{ w }}</span>
+                </li>
+              </ul>
             </div>
 
-            <!-- 输入区域 -->
-            <div class="console-section">
-              <div class="console-header">
-                <span class="console-label">{{ $t('home.simulationPrompt') }}</span>
+            <!-- Improvements -->
+            <div class="mt-3 rounded-lg bg-market-green/5 border border-market-green/20 p-4">
+              <div class="font-mono text-[10px] text-market-green tracking-widest mb-2 flex items-center gap-1.5">
+                <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
+                RECOMMENDED MOVES · {{ result.improvements.length }}
               </div>
-              <div class="input-wrapper">
-                <textarea
-                  v-model="formData.simulationRequirement"
-                  class="code-input"
-                  :placeholder="$t('home.promptPlaceholder')"
-                  rows="6"
-                  :disabled="loading"
-                ></textarea>
-                <div class="model-badge">{{ $t('home.engineBadge') }}</div>
+              <ul class="space-y-2 text-sm text-graphite/90">
+                <li v-for="(im, i) in result.improvements" :key="i" class="flex gap-2.5">
+                  <span class="text-market-green mt-0.5">+</span>
+                  <span>{{ im }}</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- Market reference signals -->
+            <div
+              v-if="result.marketReferences && (result.marketReferences.referenceProducts.length || result.marketReferences.commonClaims.length)"
+              class="mt-5 p-5 rounded-xl border border-signal-purple/20 bg-signal-purple/[0.03]"
+            >
+              <div class="flex items-center justify-between mb-3">
+                <div class="font-mono text-[10px] text-signal-purple tracking-widest">MARKET REFERENCE SIGNALS</div>
+                <span class="font-mono text-[9px] tracking-widest text-graphite/45">
+                  {{ result.marketReferences.source === 'mock' || result.marketReferences.source === 'mock-fallback'
+                    ? 'SAMPLE INTELLIGENCE'
+                    : 'LIVE' }}
+                </span>
+              </div>
+              <p class="text-[11px] text-graphite/60 mb-4 italic leading-relaxed">
+                Reference-based market analysis using sample market intelligence — not a live scrape of retailer catalogues.
+              </p>
+
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div v-if="result.marketReferences.commonClaims.length">
+                  <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-2">COMMON CATEGORY PATTERNS</div>
+                  <ul class="space-y-1.5 text-sm text-graphite/85">
+                    <li v-for="c in result.marketReferences.commonClaims" :key="c" class="flex gap-2">
+                      <span class="text-signal-purple">·</span><span>{{ c }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="result.marketReferences.commonTrustMarkers.length">
+                  <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-2">TRUST MARKERS IN MARKET</div>
+                  <ul class="space-y-1.5 text-sm text-graphite/85">
+                    <li v-for="t in result.marketReferences.commonTrustMarkers" :key="t" class="flex gap-2">
+                      <span class="text-market-green">✓</span><span>{{ t }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="result.marketReferences.overusedPatterns.length">
+                  <div class="font-mono text-[10px] text-warning-amber tracking-widest mb-2">OVERUSED CLICHÉS TO AVOID</div>
+                  <ul class="space-y-1.5 text-sm text-graphite/85">
+                    <li v-for="o in result.marketReferences.overusedPatterns" :key="o" class="flex gap-2">
+                      <span class="text-warning-amber">⚠</span><span>{{ o }}</span>
+                    </li>
+                  </ul>
+                </div>
+                <div v-if="result.marketReferences.differentiationOpportunities.length">
+                  <div class="font-mono text-[10px] text-market-green tracking-widest mb-2">DIFFERENTIATION OPPORTUNITIES</div>
+                  <ul class="space-y-1.5 text-sm text-graphite/85">
+                    <li v-for="d in result.marketReferences.differentiationOpportunities" :key="d" class="flex gap-2">
+                      <span class="text-market-green">+</span><span>{{ d }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              <div v-if="result.marketReferences.adaptationImplications.length" class="mt-4 pt-4 border-t border-signal-purple/15">
+                <div class="font-mono text-[10px] text-signal-purple tracking-widest mb-2">WHAT THIS MEANS FOR YOUR LABEL</div>
+                <ul class="space-y-1.5 text-sm text-graphite/90">
+                  <li v-for="i in result.marketReferences.adaptationImplications" :key="i" class="flex gap-2">
+                    <span class="text-signal-purple">→</span><span>{{ i }}</span>
+                  </li>
+                </ul>
+              </div>
+
+              <details v-if="result.marketReferences.referenceProducts.length" class="mt-4 pt-4 border-t border-signal-purple/15 group">
+                <summary class="font-mono text-[10px] text-graphite/55 tracking-widest cursor-pointer flex items-center justify-between select-none">
+                  <span>SAMPLE REFERENCE PRODUCTS ({{ result.marketReferences.referenceProducts.length }})</span>
+                  <span class="text-graphite/40 group-open:rotate-90 transition-transform">›</span>
+                </summary>
+                <div class="mt-3 space-y-3">
+                  <div v-for="rp in result.marketReferences.referenceProducts" :key="rp.brandName + rp.productName" class="p-3 rounded-md border border-black/[0.06] bg-white">
+                    <div class="flex items-center justify-between mb-1">
+                      <div class="font-semibold text-sm text-primary-black">{{ rp.brandName }}</div>
+                      <span class="font-mono text-[9px] tracking-widest text-graphite/50">{{ (rp.priceTier || '').toUpperCase() }} · {{ (rp.sourceType || '').toUpperCase() }}</span>
+                    </div>
+                    <div class="text-xs text-graphite/70 mb-2">{{ rp.productName }}</div>
+                    <div class="text-[11px] text-graphite/65 leading-relaxed">
+                      <strong class="text-graphite/85">Claims:</strong> {{ (rp.visibleClaims || []).slice(0,3).join(' · ') }}
+                    </div>
+                    <div v-if="rp.colorPalette && rp.colorPalette.length" class="flex items-center gap-1.5 mt-2">
+                      <span v-for="hex in rp.colorPalette.slice(0,4)" :key="hex" class="w-4 h-4 rounded border border-black/10" :style="{ backgroundColor: hex }"></span>
+                      <span class="font-mono text-[9px] text-graphite/45 ml-1">{{ rp.colorPalette.slice(0,4).join(' · ') }}</span>
+                    </div>
+                  </div>
+                </div>
+              </details>
+            </div>
+
+            <!-- Recommended copy from the brief (free) -->
+            <div v-if="result.copy" class="mt-5 p-5 rounded-xl border border-black/[0.08] bg-white">
+              <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-2">RECOMMENDED COPY</div>
+              <div class="font-display text-xl text-primary-black font-semibold leading-snug">{{ result.copy.frontLabelHeadline }}</div>
+              <div class="mt-1 text-sm text-graphite/70">{{ result.copy.subheadline }}</div>
+              <div v-if="result.copy.trustMarkers && result.copy.trustMarkers.length" class="mt-3 pt-3 border-t border-black/[0.06]">
+                <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-1.5">TRUST MARKERS</div>
+                <ul class="text-sm text-graphite/85 space-y-1">
+                  <li v-for="t in result.copy.trustMarkers.slice(0,4)" :key="t" class="flex gap-2">
+                    <span class="text-signal-purple">›</span><span>{{ t }}</span>
+                  </li>
+                </ul>
               </div>
             </div>
 
-            <!-- 启动按钮 -->
-            <div class="console-section btn-section">
-              <button 
-                class="start-engine-btn"
-                @click="startSimulation"
-                :disabled="!canSubmit || loading"
+            <!-- Palette (free) -->
+            <div v-if="result.palette && result.palette.primary" class="mt-5 p-5 rounded-xl border border-black/[0.08] bg-white">
+              <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-3">PALETTE DIRECTION</div>
+              <div class="grid grid-cols-5 gap-2">
+                <div v-for="(hex, name) in result.palette" :key="name" class="flex flex-col">
+                  <div class="aspect-square rounded-md border border-black/[0.06]" :style="{ backgroundColor: hex }"></div>
+                  <div class="mt-1.5 font-mono text-[9px] tracking-widest text-graphite/70 truncate">{{ name }}</div>
+                  <div class="font-mono text-[9px] text-graphite/40 tabular-nums">{{ hex }}</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Hierarchy (free) -->
+            <div v-if="result.hierarchy && result.hierarchy.length" class="mt-5 p-5 rounded-xl border border-black/[0.08] bg-white">
+              <div class="font-mono text-[10px] text-graphite/55 tracking-widest mb-3">HIERARCHY · TOP TO BOTTOM</div>
+              <ol class="space-y-2">
+                <li v-for="(h, i) in result.hierarchy" :key="i" class="flex gap-3 text-sm text-graphite/90">
+                  <span class="font-mono text-[10px] font-semibold text-signal-purple tabular-nums w-5 pt-0.5 flex-shrink-0">{{ String(i + 1).padStart(2, '0') }}</span>
+                  <span>{{ h }}</span>
+                </li>
+              </ol>
+            </div>
+
+            <!-- Mockup generation (paid step) -->
+            <div v-if="mockupState === 'idle'" class="mt-6 p-5 rounded-xl bg-primary-black text-ice-white">
+              <div class="font-mono text-[10px] tracking-widest text-electric-violet">UNLOCK MOCKUP</div>
+              <h4 class="mt-1 font-display text-lg font-semibold">Generate an AI label adaptation concept</h4>
+              <p class="mt-1 text-xs text-ice-white/65">AI-generated label adaptation concept · €149 per product/market</p>
+
+              <label class="mt-4 flex items-start gap-3 rounded-lg border border-ice-white/15 bg-ice-white/5 p-3 text-sm cursor-pointer hover:bg-ice-white/[0.07] transition-colors">
+                <input
+                  type="checkbox"
+                  v-model="labelOnlyMode"
+                  class="mt-0.5 h-4 w-4 accent-electric-violet cursor-pointer"
+                />
+                <span class="flex-1">
+                  <span class="block font-medium text-ice-white">Preserve package shape — change label only</span>
+                  <span class="block mt-1 text-[11px] text-ice-white/55 leading-snug">
+                    ORAMA INTEL keeps your existing packaging format and adapts only the label artwork for the target market.
+                  </span>
+                </span>
+              </label>
+
+              <button
+                @click="generateMockup"
+                class="mt-4 w-full inline-flex items-center justify-center gap-2 bg-ice-white text-primary-black px-5 py-2.5 text-sm font-semibold rounded-md hover:bg-electric-violet hover:text-ice-white transition-colors"
               >
-                <span v-if="!loading">{{ $t('home.startEngine') }}</span>
-                <span v-else>{{ $t('home.initializing') }}</span>
-                <span class="btn-arrow">→</span>
+                Generate label adaptation
+                <span class="text-base leading-none">→</span>
               </button>
+            </div>
+
+            <div v-else-if="mockupState === 'generating'" class="mt-6 p-5 rounded-xl bg-primary-black text-ice-white">
+              <div class="font-mono text-[10px] tracking-widest text-electric-violet">GENERATING MOCKUP</div>
+              <h4 class="mt-1 font-display text-lg font-semibold">Rendering market-adapted concept</h4>
+              <div class="mt-4 h-1 rounded-full bg-ice-white/15 overflow-hidden">
+                <div class="h-full bg-electric-violet transition-[width] duration-300 ease-linear" :style="{ width: mockupProgress + '%' }"></div>
+              </div>
+              <div class="mt-2 flex items-center justify-between text-[10px] font-mono tracking-widest">
+                <span class="text-ice-white/55">{{ mockupStep }}</span>
+                <span class="text-electric-violet tabular-nums">{{ mockupProgress }}%</span>
+              </div>
+            </div>
+
+            <div v-else-if="mockupState === 'done'" class="mt-6">
+              <div class="flex items-center justify-between mb-3">
+                <div class="font-mono text-[10px] tracking-widest text-electric-violet">{{ labelOnlyMode ? 'LABEL ADAPTATION CONCEPT' : 'PACKAGING MOCKUP' }}</div>
+                <span v-if="mockupIsMock" class="font-mono text-[10px] tracking-widest text-warning-amber flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
+                  PLACEHOLDER
+                </span>
+                <span v-else class="font-mono text-[10px] tracking-widest text-market-green flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
+                  AI-GENERATED
+                </span>
+              </div>
+
+              <div v-if="mockupError" class="mb-3 px-3 py-2 rounded-md bg-warning-amber/5 border border-warning-amber/30 text-[11px] text-graphite/80 flex items-start gap-2">
+                <span class="text-warning-amber">⚠</span>
+                <span><strong class="font-semibold">{{ mockupError }}</strong> — showing a placeholder until the real image engine is reachable.</span>
+              </div>
+
+              <div v-if="mockupImage" class="relative rounded-xl overflow-hidden border border-black/[0.08] bg-graphite/[0.04]">
+                <img
+                  :src="`data:image/png;base64,${mockupImage}`"
+                  :class="[
+                    'w-full h-auto block transition-[filter] duration-300',
+                    (devUnlocked || mockupUnlocked) ? 'filter-none' : 'filter blur-md scale-[1.02]',
+                  ]"
+                  alt="AI-generated label adaptation concept"
+                />
+                <!-- Locked overlay -->
+                <div
+                  v-if="!devUnlocked && !mockupUnlocked"
+                  class="absolute inset-0 flex flex-col items-center justify-center bg-primary-black/55 backdrop-blur-[2px] text-center p-6"
+                >
+                  <div class="font-mono text-[10px] tracking-widest text-electric-violet mb-2">PAID UPGRADE</div>
+                  <h5 class="font-display text-xl text-ice-white font-semibold leading-snug max-w-xs">
+                    Unlock the market-adapted mockup
+                  </h5>
+                  <p class="mt-2 text-xs text-ice-white/75 max-w-xs">
+                    €299 per product / market · Full-resolution export-ready concept image.
+                  </p>
+                  <button
+                    @click="unlockMockup"
+                    class="mt-5 inline-flex items-center gap-2 bg-ice-white text-primary-black px-5 py-2.5 text-sm font-semibold rounded-md hover:bg-electric-violet hover:text-ice-white transition-colors"
+                  >
+                    Unlock for €299
+                    <span class="text-base leading-none">→</span>
+                  </button>
+                  <button
+                    @click="unlockMockup"
+                    class="mt-3 font-mono text-[10px] tracking-widest text-ice-white/40 hover:text-ice-white/80 transition-colors"
+                  >
+                    ↺ DEV: PREVIEW
+                  </button>
+                </div>
+              </div>
+
+              <p v-if="(devUnlocked || mockupUnlocked) && mockupImage" class="mt-3 text-[11px] text-graphite/55 leading-relaxed">
+                AI-generated label adaptation concept — not a final print-ready file. Verify claims, certifications, and ingredient panel with your regulatory team before production.
+              </p>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- 历史项目数据库 -->
-      <HistoryDatabase />
-    </div>
+      </div>
+    </Transition>
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import HistoryDatabase from '../components/HistoryDatabase.vue'
-import LanguageSwitcher from '../components/LanguageSwitcher.vue'
 
-const router = useRouter()
+// In production (Vercel/Railway), VITE_API_BASE points at the backend service
+// (e.g. "https://seeus-backend.up.railway.app"). In dev it's empty, so
+// relative "/api/..." URLs hit Vite's proxy → localhost:5001.
+const API_BASE = import.meta.env.VITE_API_BASE || ''
 
-// 表单数据
-const formData = ref({
-  simulationRequirement: ''
-})
+const uploadOpen = ref(false)
+const selectedFile = ref(null)
+const productName = ref('')
+const category = ref('Supplement')
+const brandType = ref('Own brand')
+const visualStyleMode = ref('Keep current brand style')
+const country = ref('')
+const currentMarket = ref('')
+const targetChannel = ref('supermarket')
+const targetBuyer = ref('mass')
+const priceTier = ref('mainstream')
+const brandGoal = ref('trust')
+const claimsOnPack = ref('')
+const ingredientsText = ref('')
+const countryOfOrigin = ref('')
+const dragOver = ref(false)
+const fileInputRef = ref(null)
 
-// 文件列表
-const files = ref([])
+const canSubmitAnalysis = computed(
+  () =>
+    !!selectedFile.value &&
+    !!productName.value.trim() &&
+    !!category.value &&
+    !!country.value
+)
 
-// 状态
-const loading = ref(false)
-const error = ref('')
-const isDragOver = ref(false)
+// Dev toggle: `?unlock=1` in the URL unlocks paid mockup state for demo.
+const devUnlocked = ref(
+  typeof window !== 'undefined' &&
+    new URLSearchParams(window.location.search).get('unlock') === '1'
+)
+const mockupUnlocked = ref(false)
 
-// 文件输入引用
-const fileInput = ref(null)
+const indicator = ref({ left: 0, width: 0, visible: false })
 
-// 计算属性:是否可以提交
-const canSubmit = computed(() => {
-  return formData.value.simulationRequirement.trim() !== '' && files.value.length > 0
-})
+const analysisState = ref('idle') // 'idle' | 'analyzing' | 'result'
+const analysisProgress = ref(0)
+const currentStepIndex = ref(0)
+const result = ref(null)
+const analysisFallback = ref(false)
+const analysisFallbackReason = ref('')
 
-// 触发文件选择
-const triggerFileInput = () => {
-  if (!loading.value) {
-    fileInput.value?.click()
+// Mockup generation (paid step). Replaces the old "adaptation" text flow.
+const mockupState = ref('idle') // 'idle' | 'generating' | 'done'
+const mockupProgress = ref(0)
+const mockupStepIndex = ref(0)
+const mockupImage = ref(null) // base64 PNG string
+const mockupIsMock = ref(false)
+const mockupError = ref('')
+// Default ON — preserves package shape / casing / cap / perspective and
+// only adapts the printed label artwork.
+const labelOnlyMode = ref(true)
+const exportState = ref('idle') // 'idle' | 'preparing' | 'done'
+
+const analysisSteps = [
+  'Reading label · OCR + layout',
+  'Mapping claims and benefits',
+  'Scoring against market priors',
+  'Drafting market-fit report',
+]
+
+const mockupSteps = [
+  'Loading adaptation brief',
+  'Composing visual concept',
+  'Rendering packaging mockup',
+  'Finalizing concept image',
+]
+
+const analysisStep = computed(() => analysisSteps[currentStepIndex.value] || analysisSteps[0])
+const mockupStep = computed(() => mockupSteps[mockupStepIndex.value] || mockupSteps[0])
+
+let analysisIntervalId = null
+let analysisTimeoutId = null
+let mockupIntervalId = null
+let mockupTimeoutId = null
+
+function clearAnalysisTimers() {
+  if (analysisIntervalId) { clearInterval(analysisIntervalId); analysisIntervalId = null }
+  if (analysisTimeoutId) { clearTimeout(analysisTimeoutId); analysisTimeoutId = null }
+}
+
+function clearMockupTimers() {
+  if (mockupIntervalId) { clearInterval(mockupIntervalId); mockupIntervalId = null }
+  if (mockupTimeoutId) { clearTimeout(mockupTimeoutId); mockupTimeoutId = null }
+}
+
+function updateIndicator(e) {
+  const el = e.currentTarget
+  const navEl = el.parentElement
+  const rect = el.getBoundingClientRect()
+  const navRect = navEl.getBoundingClientRect()
+  indicator.value = {
+    left: rect.left - navRect.left,
+    width: rect.width,
+    visible: true,
   }
 }
 
-// 处理文件选择
-const handleFileSelect = (event) => {
-  const selectedFiles = Array.from(event.target.files)
-  addFiles(selectedFiles)
+function openUpload() {
+  uploadOpen.value = true
 }
 
-// 处理拖拽相关
-const handleDragOver = (e) => {
-  if (!loading.value) {
-    isDragOver.value = true
+function closeUpload() {
+  uploadOpen.value = false
+  clearAnalysisTimers()
+  clearMockupTimers()
+  setTimeout(() => {
+    analysisState.value = 'idle'
+    analysisProgress.value = 0
+    currentStepIndex.value = 0
+    mockupState.value = 'idle'
+    mockupProgress.value = 0
+    mockupStepIndex.value = 0
+    mockupImage.value = null
+    mockupUnlocked.value = false
+    exportState.value = 'idle'
+  }, 200)
+}
+
+function resetAnalysis() {
+  clearAnalysisTimers()
+  clearMockupTimers()
+  analysisState.value = 'idle'
+  analysisProgress.value = 0
+  currentStepIndex.value = 0
+  selectedFile.value = null
+  result.value = null
+  mockupState.value = 'idle'
+  mockupProgress.value = 0
+  mockupStepIndex.value = 0
+  mockupImage.value = null
+  mockupIsMock.value = false
+  mockupError.value = ''
+  mockupUnlocked.value = false
+  exportState.value = 'idle'
+}
+
+function handleFile(e) {
+  const f = e.target.files?.[0]
+  if (f) selectedFile.value = f
+}
+
+function handleDrop(e) {
+  dragOver.value = false
+  const f = e.dataTransfer.files?.[0]
+  if (f) selectedFile.value = f
+}
+
+function formatBytes(bytes) {
+  if (bytes < 1024) return `${bytes} B`
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`
+}
+
+async function runAnalysis() {
+  clearAnalysisTimers()
+  analysisState.value = 'analyzing'
+  analysisProgress.value = 0
+  currentStepIndex.value = 0
+  analysisFallback.value = false
+  analysisFallbackReason.value = ''
+
+  // Visual progress runs against an expected ceiling; the real call may
+  // finish earlier or later. Cap at 95% until the response arrives.
+  const expectedDuration = 6000
+  const start = performance.now()
+  analysisIntervalId = setInterval(() => {
+    const elapsed = performance.now() - start
+    const pct = Math.min(95, Math.floor((elapsed / expectedDuration) * 100))
+    analysisProgress.value = pct
+    currentStepIndex.value = Math.min(
+      analysisSteps.length - 1,
+      Math.floor((elapsed / expectedDuration) * analysisSteps.length)
+    )
+  }, 50)
+
+  try {
+    const form = new FormData()
+    if (selectedFile.value) form.append('file', selectedFile.value)
+    form.append('product_name', productName.value)
+    form.append('product_category', category.value)
+    form.append('brand_type', brandType.value)
+    form.append('visual_style_mode', visualStyleMode.value)
+    form.append('current_market', currentMarket.value)
+    form.append('target_market', country.value)
+    form.append('target_channel', targetChannel.value)
+    form.append('target_buyer', targetBuyer.value)
+    form.append('price_tier', priceTier.value)
+    form.append('brand_goal', brandGoal.value)
+    form.append('claims_on_pack', claimsOnPack.value)
+    form.append('ingredients', ingredientsText.value)
+    form.append('country_of_origin', countryOfOrigin.value)
+
+    const resp = await fetch(`${API_BASE}/api/label/analyze`, { method: 'POST', body: form })
+    if (!resp.ok) {
+      const errBody = await resp.json().catch(() => ({}))
+      const err = new Error(errBody.error || `HTTP ${resp.status}`)
+      err.status = resp.status
+      throw err
+    }
+    const report = await resp.json()
+
+    clearAnalysisTimers()
+    analysisProgress.value = 100
+    currentStepIndex.value = analysisSteps.length - 1
+    result.value = mapReportToResult(report, selectedFile.value)
+    analysisState.value = 'result'
+  } catch (err) {
+    console.warn('Live analysis failed, falling back to client-side mock:', err)
+    clearAnalysisTimers()
+    analysisProgress.value = 100
+    currentStepIndex.value = analysisSteps.length - 1
+    result.value = buildResult(category.value, country.value, selectedFile.value)
+    analysisFallback.value = true
+    analysisFallbackReason.value = err && err.message ? err.message : 'Backend unavailable'
+    analysisState.value = 'result'
   }
 }
 
-const handleDragLeave = (e) => {
-  isDragOver.value = false
+function pickMarketReferenceView(report) {
+  const refs = report.marketReferences || {}
+  const cp = refs.commonPatterns || {}
+  return {
+    targetMarket: refs.targetMarket || report.product?.targetMarket || '',
+    category: refs.category || report.product?.category || '',
+    channel: refs.channel || '',
+    source: refs.source || 'mock',
+    referenceProducts: (refs.referenceProducts || []).slice(0, 4),
+    commonClaims: (cp.claims || []).slice(0, 4),
+    commonTrustMarkers: (cp.trustMarkers || []).slice(0, 4),
+    overusedPatterns: (refs.overusedPatterns || []).slice(0, 4),
+    differentiationOpportunities: (refs.whiteSpaceOpportunities || []).slice(0, 4),
+    adaptationImplications: (refs.adaptationImplications || []).slice(0, 4),
+  }
 }
 
-const handleDrop = (e) => {
-  isDragOver.value = false
-  if (loading.value) return
-  
-  const droppedFiles = Array.from(e.dataTransfer.files)
-  addFiles(droppedFiles)
+function mapReportToResult(report, file) {
+  // Adapt the FinalReport shape from the backend into the structure our
+  // existing result UI already renders (score / sub-scores / warnings /
+  // improvements). The richer brief data hangs off result.brief.
+  const subScores = [
+    { label: 'Culture fit',     value: report.agentScores.cultureFit },
+    { label: 'Trend fit',       value: report.agentScores.trendFit },
+    { label: 'Claims safety',   value: claimsSafetyDisplay(report.agentScores.claimsSafety) },
+    { label: 'Visual hierarchy', value: report.agentScores.visualHierarchy },
+    { label: 'Design fit',      value: report.agentScores.designFit },
+    { label: 'Competitive fit', value: report.agentScores.competitiveFit },
+    { label: 'Buyer motivation', value: report.agentScores.buyerMotivation },
+    { label: 'Export readiness', value: report.agentScores.exportReadiness },
+  ]
+  const warnings = (report.riskFlags || [])
+    .filter(f => f.level && f.level !== 'green')
+    .map(f => `${(f.phrase || '').trim()}${f.phrase ? ' — ' : ''}${f.issue || ''}`)
+  return {
+    category: report.product.category,
+    country: report.product.targetMarket,
+    fileName: file ? file.name : (report.product.name || 'label'),
+    fit: report.overallMarketFitScore,
+    subScores,
+    warnings: warnings.length ? warnings : (report.priorityFixes || []),
+    improvements: report.priorityFixes || [],
+    summary: report.summary || '',
+    positioning: report.recommendedPositioning || '',
+    copy: report.recommendedLabelCopy || null,
+    palette: report.recommendedPalette || null,
+    hierarchy: report.recommendedHierarchy || [],
+    brief: report.adaptationBrief || null,
+    marketReferences: pickMarketReferenceView(report),
+  }
 }
 
-// 添加文件
-const addFiles = (newFiles) => {
-  const validFiles = newFiles.filter(file => {
-    const ext = file.name.split('.').pop().toLowerCase()
-    return ['pdf', 'md', 'txt'].includes(ext)
-  })
-  files.value.push(...validFiles)
+function claimsSafetyDisplay(score) {
+  if (typeof score !== 'number') return 'Medium'
+  if (score >= 80) return 'Low'
+  if (score >= 60) return 'Medium'
+  return 'High'
 }
 
-// 移除文件
-const removeFile = (index) => {
-  files.value.splice(index, 1)
+function buildResult(cat, ctry, file) {
+  const warnLib = {
+    Japan: {
+      Supplement: [
+        'Functional ingredient quantification is unclear for pharmacy channel',
+        'Trust markers feel too consumer-D2C for conservative Japanese wellness buyers',
+        'Claims wording risks regulatory friction with PMDA-style scrutiny',
+      ],
+      Food: [
+        'Allergen visibility doesn\'t meet expected hierarchy on Japanese shelves',
+        'Premium cues lean Western — origin story should be more explicit',
+        'Ingredient transparency below category norm for premium Japanese retail',
+      ],
+    },
+    'South Korea': {
+      Supplement: [
+        'Claims aren\'t quantified — Korean D2C wellness buyers expect specific numbers',
+        'Hierarchy buries the functional benefit below branding',
+        'Visual feels too clinical for Korean lifestyle wellness positioning',
+      ],
+      Food: [
+        'Functional benefit isn\'t front and center for Korean K-Health momentum',
+        'Trust signals lean Western — local certifications would lift credibility',
+        'Premium cues read flat against current Korean food design language',
+      ],
+    },
+    EU: {
+      Supplement: [
+        'Claims wording may exceed EFSA-permitted health-claim language',
+        'Allergen and ingredient disclosure formatting needs EU-standard layout',
+        'Premium positioning relies on hype — clean, restrained tone fits EU better',
+      ],
+      Food: [
+        'Nutrition declaration formatting doesn\'t match FIC Regulation expectations',
+        'Origin and sustainability cues are missing — strong drivers in EU buyers',
+        'Marketing claims are stronger than EU label-compliance allows',
+      ],
+    },
+    Nordics: {
+      Supplement: [
+        'Tone reads as US-style hype — Nordic buyers prefer understated claims',
+        'Sustainability and origin cues are missing — strong purchase drivers',
+        'Functional benefit could be quantified rather than asserted',
+      ],
+      Food: [
+        'Less hype, more provenance — origin story is buried',
+        'Sustainability signaling is missing — table-stakes in this market',
+        'Cleaner whitespace and restrained palette would lift premium read',
+      ],
+    },
+    USA: {
+      Supplement: [
+        'FDA-style disclaimer language is missing for supplement claims',
+        'Functional benefit hierarchy is buried below branding',
+        'Trust markers don\'t match expected US D2C supplement category cues',
+      ],
+      Food: [
+        'Nutrition panel placement doesn\'t hit US shelf-scan patterns',
+        'Claims could be sharpened — US buyers respond to specific benefit framing',
+        'Premium cues read European; brand could push more category-native signals',
+      ],
+    },
+  }
+
+  const improveLib = {
+    Japan: [
+      'Quantify the functional benefit with a single hero number',
+      'Add a discrete origin / provenance line near the brand mark',
+      'Soften superlative claims; lead with technical clarity',
+    ],
+    'South Korea': [
+      'Move the functional benefit above the brand mark',
+      'Add a measurable claim ("12g protein", "30-day supply")',
+      'Introduce a lifestyle wellness cue — current label reads too clinical',
+    ],
+    EU: [
+      'Adopt EFSA-compliant claim wording (replace assertive verbs)',
+      'Restructure allergen list to expected EU layout',
+      'Replace hype copy with one restrained credibility line',
+    ],
+    Nordics: [
+      'Lead with origin and sustainability — bury hype claims',
+      'Drop one tier of visual noise; whitespace lifts premium read',
+      'Quantify benefit instead of asserting it',
+    ],
+    USA: [
+      'Add a "*These statements have not been evaluated..." line',
+      'Reorder visual hierarchy: function → brand → tagline',
+      'Sharpen benefit copy with one specific, measurable claim',
+    ],
+  }
+
+  const fallbackWarnings = [
+    'Benefit hierarchy is unclear for the target market',
+    'Premium cues are weak for the chosen category',
+    'Claims should be softened for lower regulatory friction',
+  ]
+
+  const fallbackImprovements = [
+    'Restructure benefit hierarchy with one hero claim',
+    'Tighten claims wording for regulatory headroom',
+    'Lift premium read with restraint and origin cues',
+  ]
+
+  const baseScore = 60 + ((cat.length * 7 + ctry.length * 11) % 26)
+  const warnings = (warnLib[ctry] && warnLib[ctry][cat]) || fallbackWarnings
+  const improvements = improveLib[ctry] || fallbackImprovements
+
+  // Minimal brief stub so the mockup endpoint still works offline.
+  const palette = {
+    primary: '#0A0A0A', secondary: '#F8FAFC',
+    accent: '#7C3AED', background: '#FFFFFF', warning: '#EF4444',
+  }
+  const brief = {
+    productName: productName.value || '',
+    category: cat,
+    targetMarket: ctry,
+    packageType: '',
+    mustPreserve: [productName.value ? `Product name: ${productName.value}` : 'Product name'],
+    claimsToAvoid: [],
+    saferClaims: [],
+    palette,
+    designDirection: 'Single hero benefit, single trust strip, single regulatory line.',
+    hierarchy: [
+      'Quantified hero benefit', 'Product type', 'Brand mark',
+      'Trust signal', 'Compliance line',
+    ],
+    styleConstraints: ['Restrained typography', 'No decorative pattern overlays'],
+    forbiddenChanges: [
+      'Do not invent certifications',
+      'Do not invent medical claims',
+      'Do not add ingredients not in the source label',
+    ],
+  }
+
+  return {
+    category: cat,
+    country: ctry,
+    fileName: file ? file.name : 'label.pdf',
+    fit: baseScore,
+    subScores: [
+      { label: 'Trust', value: clamp(baseScore + 7) },
+      { label: 'Shelf impact', value: clamp(baseScore - 6) },
+      { label: 'Claims risk', value: baseScore >= 75 ? 'Low' : baseScore >= 60 ? 'Medium' : 'High' },
+      { label: 'Cultural fit', value: clamp(baseScore - 1) },
+    ],
+    warnings,
+    improvements,
+    summary: 'Offline fallback — backend analyzer unavailable. Showing cached signals for this market.',
+    positioning: '',
+    copy: null,
+    palette,
+    hierarchy: brief.hierarchy,
+    brief,
+  }
 }
 
-// 滚动到底部
-const scrollToBottom = () => {
-  window.scrollTo({
-    top: document.body.scrollHeight,
-    behavior: 'smooth'
-  })
+function clamp(n) {
+  return Math.max(35, Math.min(95, n))
 }
 
-// 开始模拟 - 立即跳转，API调用在Process页面进行
-const startSimulation = () => {
-  if (!canSubmit.value || loading.value) return
-  
-  // 存储待上传的数据
-  import('../store/pendingUpload.js').then(({ setPendingUpload }) => {
-    setPendingUpload(files.value, formData.value.simulationRequirement)
-    
-    // 立即跳转到Process页面（使用特殊标识表示新建项目）
-    router.push({
-      name: 'Process',
-      params: { projectId: 'new' }
+async function generateMockup() {
+  if (!result.value || !result.value.brief) return
+  clearMockupTimers()
+  mockupState.value = 'generating'
+  mockupProgress.value = 0
+  mockupStepIndex.value = 0
+  mockupImage.value = null
+  mockupIsMock.value = false
+  mockupError.value = ''
+
+  const expectedDuration = 10000
+  const start = performance.now()
+  mockupIntervalId = setInterval(() => {
+    const elapsed = performance.now() - start
+    const pct = Math.min(95, Math.floor((elapsed / expectedDuration) * 100))
+    mockupProgress.value = pct
+    mockupStepIndex.value = Math.min(
+      mockupSteps.length - 1,
+      Math.floor((elapsed / expectedDuration) * mockupSteps.length)
+    )
+  }, 60)
+
+  try {
+    const form = new FormData()
+    form.append('brief', JSON.stringify(result.value.brief))
+    form.append('label_only_mode', labelOnlyMode.value ? '1' : '0')
+    // Send the original label so OpenAI's image-edit endpoint can preserve
+    // the physical package shape (cup, bottle, pouch, etc.).
+    if (selectedFile.value) {
+      form.append('file', selectedFile.value)
+    }
+    const resp = await fetch(`${API_BASE}/api/label/generate-mockup`, {
+      method: 'POST',
+      body: form,
     })
-  })
+    const data = await resp.json().catch(() => ({}))
+    if (!resp.ok) {
+      throw new Error(data.error || `HTTP ${resp.status}`)
+    }
+    clearMockupTimers()
+    mockupProgress.value = 100
+    mockupStepIndex.value = mockupSteps.length - 1
+    mockupImage.value = data.image_b64 || null
+    mockupIsMock.value = !!data.mock
+    mockupError.value = data.error || ''
+    mockupState.value = 'done'
+  } catch (err) {
+    console.warn('Mockup generation failed:', err)
+    clearMockupTimers()
+    mockupProgress.value = 100
+    mockupStepIndex.value = mockupSteps.length - 1
+    mockupImage.value = null
+    mockupError.value = (err && err.message) || 'Mockup generation failed'
+    mockupState.value = 'done'
+  }
 }
+
+function unlockMockup() {
+  mockupUnlocked.value = true
+}
+
+function buildAdaptation(cat, ctry) {
+  const lib = {
+    Nordics: {
+      headline: 'Marine Collagen · Wild-caught Atlantic',
+      subline: '10g per serving · 30-day supply',
+      claim: 'Origin verified. Third-party tested. No added sugar.',
+      palette: [
+        { name: 'Bone white', hex: '#F5F2EC' },
+        { name: 'Slate', hex: '#1F2937' },
+        { name: 'Sea grey', hex: '#4A5568' },
+        { name: 'Birch', hex: '#C9C2B3' },
+      ],
+      hierarchy: [
+        'Origin / provenance line',
+        'Product type · single line',
+        'Quantified benefit (single hero number)',
+        'Brand mark',
+        'Allergen + regulatory line',
+      ],
+      note: 'Bury hype. Lead with where it\'s from and what\'s in it. Restraint reads premium in this market.',
+    },
+    USA: {
+      headline: '30g Whey Isolate · Per Scoop',
+      subline: 'Lab-verified · Third-party tested',
+      claim: 'Pre-workout fuel for serious training.',
+      palette: [
+        { name: 'Stark white', hex: '#FFFFFF' },
+        { name: 'Carbon', hex: '#050505' },
+        { name: 'Power red', hex: '#DC2626' },
+        { name: 'Trust blue', hex: '#1E40AF' },
+      ],
+      hierarchy: [
+        'Quantified hero benefit',
+        'Product type + specificity',
+        'Brand mark',
+        'Third-party / trust badge',
+        'FDA disclaimer line',
+      ],
+      note: 'Lead with measurable benefit. Sharpen claim copy. US D2C rewards specificity over restraint.',
+    },
+    Japan: {
+      headline: 'Pharmacy-Grade Supplement · 1日1粒',
+      subline: '30-day supply · Third-party verified',
+      claim: 'Quantified wellness. Technical precision.',
+      palette: [
+        { name: 'Paper white', hex: '#FAFAF7' },
+        { name: 'Sumi black', hex: '#1A1A1A' },
+        { name: 'Indigo', hex: '#2C3E50' },
+        { name: 'Verified', hex: '#2E8B57' },
+      ],
+      hierarchy: [
+        'Pharmacy-grade seal',
+        'Quantified ingredient amount',
+        'Daily-dose clarity',
+        'Brand mark',
+        'PMDA-aligned disclaimer',
+      ],
+      note: 'Technical precision over lifestyle. Quantify everything. Conservative typography signals trust.',
+    },
+    'South Korea': {
+      headline: 'K-Wellness · 10g Functional Collagen',
+      subline: 'Daily-use · 30-day supply',
+      claim: 'Quantified beauty. Lab-tested.',
+      palette: [
+        { name: 'Cream', hex: '#FAF7F2' },
+        { name: 'Soft black', hex: '#0A0A0A' },
+        { name: 'Wellness rose', hex: '#F4C6CB' },
+        { name: 'Lab green', hex: '#4ECDC4' },
+      ],
+      hierarchy: [
+        'Lifestyle hero claim',
+        'Quantified active ingredient',
+        'K-Wellness category cue',
+        'Brand mark',
+        'Compliance / source line',
+      ],
+      note: 'Lifestyle wellness, not pharmacy. Specific quantification builds D2C trust in this market.',
+    },
+    EU: {
+      headline: 'Marine Collagen Supplement',
+      subline: '10g per serving · 30-day pack',
+      claim: 'Source-verified. Third-party tested.',
+      palette: [
+        { name: 'Off-white', hex: '#F5F5F0' },
+        { name: 'Compliance', hex: '#1A1A1A' },
+        { name: 'Trust navy', hex: '#1E40AF' },
+        { name: 'Verified seal', hex: '#2E8B57' },
+      ],
+      hierarchy: [
+        'Product type · single line',
+        'Quantified amount per serving',
+        'Brand mark',
+        'Full allergen panel',
+        'EFSA-compliant claim line',
+      ],
+      note: 'Replace assertive verbs with EFSA-permitted phrasing. Restraint reads premium in EU retail.',
+    },
+  }
+
+  return lib[ctry] || {
+    headline: `${cat} · Optimized for ${ctry}`,
+    subline: 'Quantified · Source-verified',
+    claim: 'Functional benefit. Backed by testing.',
+    palette: [
+      { name: 'Ice white', hex: '#F8FAFC' },
+      { name: 'Carbon', hex: '#050505' },
+      { name: 'Signal', hex: '#7C3AED' },
+      { name: 'Trust', hex: '#1E40AF' },
+    ],
+    hierarchy: [
+      'Hero benefit',
+      'Quantified claim',
+      'Brand mark',
+      'Trust signal',
+      'Regulatory line',
+    ],
+    note: 'Lead with quantified benefit. Tighten claim copy for regulatory headroom.',
+  }
+}
+
+function downloadReport() {
+  exportState.value = 'preparing'
+  setTimeout(() => {
+    exportState.value = 'done'
+  }, 1100)
+}
+
+function subColor(v) {
+  if (typeof v === 'string') {
+    return v === 'Low' ? 'text-market-green' : v === 'Medium' ? 'text-warning-amber' : 'text-risk-red'
+  }
+  return v >= 80 ? 'text-market-green' : v >= 65 ? 'text-warning-amber' : 'text-risk-red'
+}
+
+function subBarColor(v) {
+  if (typeof v === 'string') {
+    return v === 'Low' ? 'bg-market-green' : v === 'Medium' ? 'bg-warning-amber' : 'bg-risk-red'
+  }
+  return v >= 80 ? 'bg-market-green' : v >= 65 ? 'bg-warning-amber' : 'bg-risk-red'
+}
+
+function subBarWidth(v) {
+  if (typeof v === 'string') {
+    return v === 'Low' ? 30 : v === 'Medium' ? 55 : 80
+  }
+  return v
+}
+
+const navLinks = [
+  { label: 'Product', href: '#product' },
+  { label: 'How it works', href: '#how' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Examples', href: '#examples' },
+]
+
+const markets = ['Korea', 'Japan', 'EU', 'Nordics', 'USA']
+const categories = ['Food', 'Beverage', 'Supplements', 'Private Label']
+
+const problems = [
+  { index: '01', title: 'Wrong message', body: 'Claims and benefits do not match local buying psychology.' },
+  { index: '02', title: 'Wrong look', body: 'Colors, hierarchy, and design cues miss category expectations.' },
+  { index: '03', title: 'Wrong risk level', body: 'Label wording may create claims, allergen, or distributor friction.' },
+  { index: '04', title: 'Wrong launch decision', body: 'Brands redesign packaging without knowing what the target market expects.' },
+]
+
+const steps = [
+  { title: 'Upload your current label', body: 'PDF, PNG, or JPG. One product at a time.' },
+  { title: 'Select category and target country', body: 'Food, beverage, supplement, or private label · 30+ markets.' },
+  { title: 'Receive AI scoring and feedback', body: 'Trust, shelf impact, claims risk, cultural fit, and concrete fixes.' },
+  { title: 'Generate market-specific direction', body: 'Optimized label copy, palette, and hierarchy ready for redesign.' },
+]
+
+const engineCards = [
+  { tag: 'A1', title: 'Market Fit Score' },
+  { tag: 'A2', title: 'Trust & credibility score' },
+  { tag: 'A3', title: 'Shelf impact score' },
+  { tag: 'A4', title: 'Claims-risk review' },
+  { tag: 'A5', title: 'Cultural fit analysis' },
+  { tag: 'A6', title: 'Palette & hierarchy feedback' },
+  { tag: 'A7', title: 'Competitor positioning' },
+  { tag: 'A8', title: 'Auto-generated adaptation' },
+]
+
+const examples = [
+  {
+    from: 'Norway', to: 'Korea',
+    points: ['More quantified benefits', 'Stronger functional hierarchy', 'Cleaner trust markers'],
+  },
+  {
+    from: 'Japan', to: 'EU',
+    points: ['Clearer ingredient transparency', 'Stronger allergen visibility', 'More premium whitespace'],
+  },
+  {
+    from: 'USA', to: 'Nordics',
+    points: ['Less hype', 'More sustainability and origin cues', 'Cleaner claims language'],
+  },
+]
+
+const tiers = [
+  {
+    name: 'Free Score',
+    price: '€0',
+    unit: '',
+    description: 'For brands that want a first market-fit check.',
+    badge: '',
+    features: [
+      'Upload one label',
+      'Market-fit score',
+      'Key risks and improvements',
+      'Basic culture and shelf-impact feedback',
+    ],
+    cta: 'Upload your label',
+    featured: false,
+  },
+  {
+    name: 'Adaptation Concept',
+    price: '€149',
+    unit: 'per product / market',
+    description: 'For brands that want the fix, not just the feedback.',
+    badge: 'Best for validation',
+    features: [
+      'Everything in Free Score',
+      'Improved label copy',
+      'Palette and hierarchy direction',
+      'AI-generated packaging mockup concept',
+      'Market-specific adaptation brief',
+    ],
+    cta: 'Generate adaptation',
+    featured: true,
+  },
+  {
+    name: 'Export Pilot',
+    price: '€499',
+    unit: 'one target market',
+    description: 'For teams testing multiple products or one target market seriously.',
+    badge: '',
+    features: [
+      'Up to 3 products',
+      'One target market',
+      'Full market-fit report',
+      'Mockup concepts for each product',
+      'Distributor-ready summary',
+    ],
+    cta: 'Start pilot',
+    featured: false,
+  },
+]
 </script>
 
 <style scoped>
-/* 全局变量与重置 */
-:root {
-  --black: #000000;
-  --white: #FFFFFF;
-  --orange: #FF4500;
-  --gray-light: #F5F5F5;
-  --gray-text: #666666;
-  --border: #E5E5E5;
-  /* 
-    使用 Space Grotesk 作为主要标题字体，JetBrains Mono 作为代码/标签字体
-    确保已在 index.html 引入这些 Google Fonts 
-  */
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Space Grotesk', 'Noto Sans SC', system-ui, sans-serif;
-  --font-cn: 'Noto Sans SC', system-ui, sans-serif;
-}
-
-.home-container {
-  min-height: 100vh;
-  background: var(--white);
-  font-family: var(--font-sans);
-  color: var(--black);
-}
-
-/* 顶部导航 */
-.navbar {
-  height: 60px;
-  background: var(--black);
-  color: var(--white);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 40px;
-}
-
-.nav-brand {
-  font-family: var(--font-mono);
-  font-weight: 800;
-  letter-spacing: 1px;
-  font-size: 1.2rem;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.github-link {
-  color: var(--white);
-  text-decoration: none;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: opacity 0.2s;
-}
-
-.github-link:hover {
-  opacity: 0.8;
-}
-
-.arrow {
-  font-family: sans-serif;
-}
-
-/* 主要内容区 */
-.main-content {
-  max-width: 1400px;
-  margin: 0 auto;
-  padding: 60px 40px;
-}
-
-/* Hero 区域 */
-.hero-section {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 80px;
-  position: relative;
-}
-
-.hero-left {
-  flex: 1;
-  padding-right: 60px;
-}
-
-.tag-row {
-  display: flex;
-  align-items: center;
-  gap: 15px;
-  margin-bottom: 25px;
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-}
-
-.orange-tag {
-  background: var(--orange);
-  color: var(--white);
-  padding: 4px 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  font-size: 0.75rem;
-}
-
-.version-text {
-  color: #999;
-  font-weight: 500;
-  letter-spacing: 0.5px;
-}
-
-.main-title {
-  font-size: 4.5rem;
-  line-height: 1.2;
-  font-weight: 500;
-  margin: 0 0 40px 0;
-  letter-spacing: -2px;
-  color: var(--black);
-}
-
-.gradient-text {
-  background: linear-gradient(90deg, #000000 0%, #444444 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-}
-
-.hero-desc {
-  font-size: 1.05rem;
-  line-height: 1.8;
-  color: var(--gray-text);
-  max-width: 640px;
-  margin-bottom: 50px;
-  font-weight: 400;
-  text-align: justify;
-}
-
-.hero-desc p {
-  margin-bottom: 1.5rem;
-}
-
-.highlight-bold {
-  color: var(--black);
-  font-weight: 700;
-}
-
-.highlight-orange {
-  color: var(--orange);
-  font-weight: 700;
-  font-family: var(--font-mono);
-}
-
-.highlight-code {
-  background: rgba(0, 0, 0, 0.05);
-  padding: 2px 6px;
-  border-radius: 2px;
-  font-family: var(--font-mono);
-  font-size: 0.9em;
-  color: var(--black);
-  font-weight: 600;
-}
-
-.slogan-text {
-  font-size: 1.2rem;
-  font-weight: 520;
-  color: var(--black);
-  letter-spacing: 1px;
-  border-left: 3px solid var(--orange);
-  padding-left: 15px;
-  margin-top: 20px;
-}
-
-.blinking-cursor {
-  color: var(--orange);
-  animation: blink 1s step-end infinite;
-  font-weight: 700;
-}
-
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-
-.decoration-square {
-  width: 16px;
-  height: 16px;
-  background: var(--orange);
-}
-
-.hero-right {
-  flex: 0.8;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.logo-container {
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  padding-right: 40px;
-}
-
-.hero-logo {
-  max-width: 500px; /* 调整logo大小 */
-  width: 100%;
-}
-
-.scroll-down-btn {
-  width: 40px;
-  height: 40px;
-  border: 1px solid var(--border);
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--orange);
-  font-size: 1.2rem;
-  transition: all 0.2s;
-}
-
-.scroll-down-btn:hover {
-  border-color: var(--orange);
-}
-
-/* Dashboard 双栏布局 */
-.dashboard-section {
-  display: flex;
-  gap: 60px;
-  border-top: 1px solid var(--border);
-  padding-top: 60px;
-  align-items: flex-start;
-}
-
-.dashboard-section .left-panel,
-.dashboard-section .right-panel {
-  display: flex;
-  flex-direction: column;
-}
-
-/* 左侧面板 */
-.left-panel {
-  flex: 0.8;
-}
-
-.panel-header {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #999;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.status-dot {
-  color: var(--orange);
-  font-size: 0.8rem;
-}
-
-.section-title {
-  font-size: 2rem;
-  font-weight: 520;
-  margin: 0 0 15px 0;
-}
-
-.section-desc {
-  color: var(--gray-text);
-  margin-bottom: 25px;
-  line-height: 1.6;
-}
-
-.metrics-row {
-  display: flex;
-  gap: 20px;
-  margin-bottom: 15px;
-}
-
-.metric-card {
-  border: 1px solid var(--border);
-  padding: 20px 30px;
-  min-width: 150px;
-}
-
-.metric-value {
-  font-family: var(--font-mono);
-  font-size: 1.8rem;
-  font-weight: 520;
-  margin-bottom: 5px;
-}
-
-.metric-label {
-  font-size: 0.85rem;
-  color: #999;
-}
-
-/* 项目模拟步骤介绍 */
-.steps-container {
-  border: 1px solid var(--border);
-  padding: 30px;
-  position: relative;
-}
-
-.steps-header {
-  font-family: var(--font-mono);
-  font-size: 0.8rem;
-  color: #999;
-  margin-bottom: 25px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.diamond-icon {
-  font-size: 1.2rem;
-  line-height: 1;
-}
-
-.workflow-list {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.workflow-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-}
-
-.step-num {
-  font-family: var(--font-mono);
-  font-weight: 700;
-  color: var(--black);
-  opacity: 0.3;
-}
-
-.step-info {
-  flex: 1;
-}
-
-.step-title {
-  font-weight: 520;
-  font-size: 1rem;
-  margin-bottom: 4px;
-}
-
-.step-desc {
-  font-size: 0.85rem;
-  color: var(--gray-text);
-}
-
-/* 右侧交互控制台 */
-.right-panel {
-  flex: 1.2;
-}
-
-.console-box {
-  border: 1px solid #CCC; /* 外部实线 */
-  padding: 8px; /* 内边距形成双重边框感 */
-}
-
-.console-section {
-  padding: 20px;
-}
-
-.console-section.btn-section {
-  padding-top: 0;
-}
-
-.console-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #666;
-}
-
-.upload-zone {
-  border: 1px dashed #CCC;
-  height: 200px;
-  overflow-y: auto;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.3s;
-  background: #FAFAFA;
-}
-
-.upload-zone.has-files {
-  align-items: flex-start;
-}
-
-.upload-zone:hover {
-  background: #F0F0F0;
-  border-color: #999;
-}
-
-.upload-placeholder {
-  text-align: center;
-}
-
-.upload-icon {
-  width: 40px;
-  height: 40px;
-  border: 1px solid #DDD;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 auto 15px;
-  color: #999;
-}
-
-.upload-title {
-  font-weight: 500;
-  font-size: 0.9rem;
-  margin-bottom: 5px;
-}
-
-.upload-hint {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  color: #999;
-}
-
-.file-list {
-  width: 100%;
-  padding: 15px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.file-item {
-  display: flex;
-  align-items: center;
-  background: var(--white);
-  padding: 8px 12px;
-  border: 1px solid #EEE;
-  font-family: var(--font-mono);
-  font-size: 0.85rem;
-}
-
-.file-name {
-  flex: 1;
-  margin: 0 10px;
-}
-
-.remove-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 1.2rem;
-  color: #999;
-}
-
-.console-divider {
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
-}
-
-.console-divider::before,
-.console-divider::after {
-  content: '';
-  flex: 1;
-  height: 1px;
-  background: #EEE;
-}
-
-.console-divider span {
-  padding: 0 15px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #BBB;
-  letter-spacing: 1px;
-}
-
-.input-wrapper {
-  position: relative;
-  border: 1px solid #DDD;
-  background: #FAFAFA;
-}
-
-.code-input {
-  width: 100%;
-  border: none;
-  background: transparent;
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-size: 0.9rem;
-  line-height: 1.6;
-  resize: vertical;
-  outline: none;
-  min-height: 150px;
-}
-
-.model-badge {
-  position: absolute;
-  bottom: 10px;
-  right: 15px;
-  font-family: var(--font-mono);
-  font-size: 0.7rem;
-  color: #AAA;
-}
-
-.start-engine-btn {
-  width: 100%;
-  background: var(--black);
-  color: var(--white);
-  border: none;
-  padding: 20px;
-  font-family: var(--font-mono);
-  font-weight: 700;
-  font-size: 1.1rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* 可点击状态（非禁用） */
-.start-engine-btn:not(:disabled) {
-  background: var(--black);
-  border: 1px solid var(--black);
-  animation: pulse-border 2s infinite;
-}
-
-.start-engine-btn:hover:not(:disabled) {
-  background: var(--orange);
-  border-color: var(--orange);
-  transform: translateY(-2px);
-}
-
-.start-engine-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.start-engine-btn:disabled {
-  background: #E5E5E5;
-  color: #999;
-  cursor: not-allowed;
-  transform: none;
-  border: 1px solid #E5E5E5;
-}
-
-/* 引导动画：微妙的边框脉冲 */
-@keyframes pulse-border {
-  0% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2); }
-  70% { box-shadow: 0 0 0 6px rgba(0, 0, 0, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(0, 0, 0, 0); }
-}
-
-/* 响应式适配 */
-@media (max-width: 1024px) {
-  .dashboard-section {
-    flex-direction: column;
-  }
-  
-  .hero-section {
-    flex-direction: column;
-  }
-  
-  .hero-left {
-    padding-right: 0;
-    margin-bottom: 40px;
-  }
-  
-  .hero-logo {
-    max-width: 200px;
-    margin-bottom: 20px;
-  }
-}
-</style>
-
-<style>
-/* English locale adjustments (unscoped to target html[lang]) */
-html[lang="en"] .main-title {
-  font-size: 3.5rem;
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: -1px;
-}
-
-html[lang="en"] .hero-desc {
-  text-align: left;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: 0;
-}
-
-html[lang="en"] .slogan-text {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  letter-spacing: 0;
-}
-
-html[lang="en"] .tag-row {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .navbar .nav-links {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-/* Left pane: system status + workflow */
-html[lang="en"] .status-section {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .status-section .status-ready {
-  font-size: 1.6rem;
-}
-
-html[lang="en"] .status-section .metric-value {
-  font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  font-size: 1.4rem;
-}
-
-html[lang="en"] .workflow-list .step-title {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
-
-html[lang="en"] .workflow-list .step-desc {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
-  font-size: 0.72rem !important;
-  line-height: 1.4 !important;
-}
-
-html[lang="en"] .workflow-list {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s ease;
+}
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>

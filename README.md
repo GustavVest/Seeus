@@ -1,6 +1,6 @@
 <div align="center">
 
-# SEEUS
+# ORAMA INTEL
 
 ### Predict Anything
 
@@ -14,7 +14,7 @@ Upload any document. Describe what you want to predict. Get a detailed simulatio
 
 ## What It Does
 
-**Seeus** transforms unstructured data into predictive simulations. It extracts "reality seeds" from your documents, builds a digital parallel world populated by thousands of AI agents, and simulates outcomes — giving you a rehearsal of the future.
+**ORAMA INTEL** transforms unstructured data into predictive simulations. It extracts "reality seeds" from your documents, builds a digital parallel world populated by thousands of AI agents, and simulates outcomes — giving you a rehearsal of the future.
 
 **Input:** Upload documents (reports, articles, data) + describe your prediction goal in natural language
 
