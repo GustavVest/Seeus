@@ -2212,9 +2212,6 @@ const tiers = [
       'Downloadable summary',
     ],
     cta: 'Unlock for €49',
-    // TODO: Connect to Stripe Checkout one-time payment.
-    // Env var: NEXT_PUBLIC_STRIPE_STARTER_PRICE_ID (or backend-driven price id).
-    action: 'starter',
     featured: false,
   },
   {
@@ -2232,9 +2229,6 @@ const tiers = [
       'Email support',
     ],
     cta: 'Start Growth Plan',
-    // TODO: Connect to Stripe subscription checkout (€299/month recurring).
-    // Env var: NEXT_PUBLIC_STRIPE_GROWTH_PRICE_ID.
-    action: 'growth',
     featured: true,
   },
   {
@@ -2252,16 +2246,14 @@ const tiers = [
       'Priority support',
     ],
     cta: 'Talk to us',
-    action: 'enterprise',
     featured: false,
   },
 ]
 
-// TODO: Wire these handlers to real Stripe Checkout flows server-side
-// (POST to /api/billing/create-checkout-session). For now they open the
-// existing upload modal so the conversion path stays continuous.
+// Tier CTA: enterprise → email inquiry; everything else opens the existing
+// upload flow. Payment/checkout integration is intentionally not wired.
 function handleTierCta(tier) {
-  if (tier.action === 'enterprise') {
+  if (tier.name === 'Enterprise') {
     window.location.href = 'mailto:hello@oramaintel.com?subject=Enterprise%20plan%20inquiry'
     return
   }
