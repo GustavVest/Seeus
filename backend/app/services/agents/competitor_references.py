@@ -656,6 +656,127 @@ _MOCK_REFERENCES: dict = {
             'Pick ONE visual lane (typographic / illustrative) — do not mix retro illustration with display blackletter',
         ],
     },
+
+    # ============== 6) Supplement entering Norway (ArcticUNI case study) ==============
+    # Hand-coded from a real before/after redesign: the original ArcticUNI
+    # Calcium label (dark green / gold / "Wild Arctic Maximum" hype copy) was
+    # adapted into a silver-and-navy premium Norwegian supplement aesthetic.
+    # The "after" is included as the reference product so the agents learn
+    # what a premium Norway-targeted supplement label looks like.
+    ('Supplement', 'Norway'): {
+        'referenceProducts': [
+            {
+                'brandName': 'ArcticUNI',
+                'productName': 'ArcticUNI Calcium (premium adaptation)',
+                'category': 'Supplement',
+                'market': 'Norway',
+                'channel': 'pharmacy',
+                'priceTier': 'premium',
+                'visibleClaims': [
+                    'The world\'s most sustainable calcium',
+                    'From Arctic sea urchin',
+                    '69°N (latitude credential)',
+                ],
+                'trustMarkers': [
+                    'Norwegian flag on front-of-pack',
+                    'Named origin: Tromsø / 69°N',
+                    'Sustainability as the headline claim',
+                    'Single named ingredient source (sea urchin)',
+                ],
+                'colorPalette': ['#C9CDD2', '#1F2937', '#1B4965', '#C9A36B', '#FFFFFF'],
+                'packagingStyle': 'Matte silver aluminum bottle with deep-navy gradient at the base; debossed sea-urchin engraving as the only illustration',
+                'hierarchyPattern': [
+                    'Latitude credential (69°N + compass star)',
+                    'Brand wordmark (ArcticUNI)',
+                    'Sustainability headline (small caps)',
+                    'Ingredient name in large display (CALCIUM, burnt-gold accent)',
+                    'Provenance line + Norwegian flag',
+                ],
+                'typographyStyle': 'Restrained sans for brand mark + small-caps editorial subhead + heavy display weight reserved for the single ingredient word',
+                'imageryStyle': 'No photography, no lifestyle. One debossed illustration (sea urchin) standing in for the active ingredient',
+                'sustainabilitySignals': [
+                    'Headline sustainability claim',
+                    'Single-ingredient transparency',
+                    'Aluminum recyclable bottle vs. plastic',
+                ],
+                'originSignals': ['69°N latitude credential', 'Norwegian flag', 'Tromsø / Arctic sea urchin'],
+                'functionalSignals': ['Named active (calcium)', 'Source ingredient explicit'],
+                'emotionalSignals': ['Quiet confidence', 'Arctic / cold-water premium', 'Restraint over hype'],
+                'riskNotes': [
+                    '"The world\'s most sustainable" is a superlative — must be substantiated under EU/Norwegian marketing law before production.',
+                ],
+                'sourceType': 'pharmacy',
+            },
+        ],
+        'commonPatterns': {
+            'claims': [
+                'Sustainability as the headline (not a footnote)',
+                'Geographic credential (latitude, named region)',
+                'Single named active + single named source ingredient',
+                'No quantified-dose shouting; the claim is the story, not the milligrams',
+            ],
+            'colors': [
+                'Matte silver / cool grey base',
+                'Deep navy or fjord blue gradient as secondary',
+                'One restrained warm accent (burnt gold) for the headline word',
+                'White / off-white never dominant — cool tones do the work',
+            ],
+            'trustMarkers': [
+                'Norwegian flag on front-of-pack',
+                'Named origin region (Tromsø, 69°N)',
+                'Recyclable aluminum signal',
+                'Norwegian-language ingredient list on back',
+            ],
+            'hierarchy': [
+                'Latitude / geographic credential first (tiny, top)',
+                'Brand wordmark second (restrained sans)',
+                'Sustainability headline third (small caps, editorial)',
+                'Named active in large display (single accent word)',
+                'Source ingredient + flag at the base',
+            ],
+            'packagingStyles': [
+                'Matte aluminum bottle with navy gradient base',
+                'Cool-palette primary; warm accent reserved for one word',
+                'Debossed engraving instead of printed illustration',
+            ],
+            'typography': [
+                'Editorial small-caps subhead',
+                'Heavy display reserved for one ingredient word',
+                'Restrained sans for the brand mark',
+            ],
+            'imagery': [
+                'No lifestyle photography',
+                'No stock nature shots',
+                'One debossed illustration standing in for the ingredient',
+            ],
+            'priceSignals': [
+                'Restraint = premium',
+                'Matte silver + cool navy = premium pharmacy/health-store',
+                'Saturated dark + hype words ("Wild", "Maximum") = budget or amateur',
+            ],
+        },
+        'whiteSpaceOpportunities': [
+            'Sustainability-as-headline for Norwegian-targeted supplements (most importers still lead with mg/IU)',
+            'Cold-water provenance (latitude, named fjord/region) as a defensible premium signal',
+            'Aluminum / recyclable packaging in a category dominated by plastic HDPE bottles',
+            'Single debossed illustration replacing photographic clutter',
+        ],
+        'overusedPatterns': [
+            'Hype words: "Wild", "Maximum", "Ultra", "Pure"',
+            'Dramatic dark green / flame backgrounds on supplement bottles',
+            'All-caps shouting hierarchies with no restraint',
+            'Generic gold-on-green amateur supplement aesthetic',
+            'Stock nature photography (snow, fjords, polar bears) as background',
+        ],
+        'adaptationImplications': [
+            'Strip hype words. Norwegian buyers read "Wild" and "Maximum" as amateur, not premium.',
+            'Lead with sustainability and named provenance, not milligram counts.',
+            'Move to a cool palette: matte silver + deep navy + one warm accent word.',
+            'Replace dark dramatic backgrounds with restrained material (matte metal, cream paper).',
+            'Add the Norwegian flag and a named region or latitude — origin is a premium signal in Norway, not a footnote.',
+            'Cut the hierarchy to five elements maximum: geographic credential, brand, sustainability headline, named active, source + flag.',
+        ],
+    },
 }
 
 

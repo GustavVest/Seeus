@@ -182,6 +182,126 @@ MARKET_CONTEXT = {
         ],
         'buyer_motivation': 'Measurable benefit + trust seals. US D2C rewards specificity over subtlety.',
     },
+    'Denmark': {
+        'palette_hint': {
+            'primary': '#1A1A1A', 'secondary': '#F4EFE8',
+            'accent': '#B83A2F', 'background': '#FAFAF7', 'warning': '#C24A4A',
+        },
+        'culture_themes': [
+            'Restrained Scandinavian palette with warm cream base',
+            'Hygge / quiet quality cues outperform marketing hype',
+            'Origin and provenance are explicit purchase drivers',
+            'Sustainability is expected, not premium-tier',
+        ],
+        'trust_markers': [
+            'EU Bio / Nyckelhålet label where applicable',
+            'Allergen panel in Danish, formatted to FIC norms',
+            'Origin badge (Made in Denmark or named EU country)',
+            'Single restrained accent color',
+        ],
+        'avoid': [
+            'US-style hype copy and superlatives',
+            'Generic stock food photography',
+            'Saturated primary colors at premium tier',
+        ],
+        'buyer_motivation': 'Quiet quality plus documented provenance. Restraint reads premium; loud hype reads cheap.',
+    },
+    'Norway': {
+        'palette_hint': {
+            'primary': '#1F2937', 'secondary': '#F8FAFC',
+            'accent': '#1B4965', 'background': '#FFFFFF', 'warning': '#C24A4A',
+        },
+        'culture_themes': [
+            'Cool palette: slate, fjord blue, ice white',
+            'Norwegian provenance is a premium signal in itself',
+            'Sustainability and fishery certifications carry weight',
+            'Restrained whitespace, like the broader Nordic tradition',
+        ],
+        'trust_markers': [
+            'Nyt Norge / Made in Norway badge when applicable',
+            'MSC / ASC for marine origin',
+            'Norwegian-language ingredient list',
+            'Restrained whitespace as a trust signal',
+        ],
+        'avoid': [
+            'US-style hype claims and superlatives',
+            'Bright saturated palettes at premium price tier',
+            'Generic stock-photo styling',
+        ],
+        'buyer_motivation': 'Norwegian buyers respond to documented origin, sustainability, and restrained design. Cool-palette premium reads well; hype does not.',
+    },
+    'Sweden': {
+        'palette_hint': {
+            'primary': '#1A1A1A', 'secondary': '#F5F2EC',
+            'accent': '#2C5F2D', 'background': '#FAFAF7', 'warning': '#C24A4A',
+        },
+        'culture_themes': [
+            'Functional design: clean typography over imagery',
+            'Plant-forward and organic cues are mainstream, not niche',
+            'Bilingual SE / EN front-of-pack is common',
+            'Restraint signals quality',
+        ],
+        'trust_markers': [
+            'KRAV / EU Bio / Svanen eco-labels',
+            'Nyckelhålet healthier-choice mark when applicable',
+            'Swedish-language ingredient list',
+            'Origin: Made in Sweden or named EU country',
+        ],
+        'avoid': [
+            'Saturated bold palettes at premium tier',
+            'Hyper-cute character mascots on adult food',
+            'Hype claims without third-party substantiation',
+        ],
+        'buyer_motivation': 'Swedish buyers reward restrained, functional, plant-forward design. Eco-labels and Nyckelhålet beat marketing copy.',
+    },
+    'Lithuania': {
+        'palette_hint': {
+            'primary': '#1A1A1A', 'secondary': '#F2EBD9',
+            'accent': '#B07A2F', 'background': '#FAF7EC', 'warning': '#C24A4A',
+        },
+        'culture_themes': [
+            'Warm Baltic palette: amber, honey, cream',
+            'Heritage and tradition cues outperform "modern wellness"',
+            'Local references work (rye, honey, dairy, amber)',
+            'Bilingual LT / EN is common in premium retail',
+        ],
+        'trust_markers': [
+            'Lithuanian-language ingredient list',
+            'Heritage / craft cues if substantiated',
+            'Origin: Made in Lithuania or named EU country',
+            'EU Bio when applicable',
+        ],
+        'avoid': [
+            'Generic Western stock photography',
+            'Hyper-modern minimalism that feels imported',
+            'English-only front-of-pack',
+        ],
+        'buyer_motivation': 'Lithuanian buyers respond to warm-palette heritage cues, local tradition, and clear bilingual labelling. Cold minimalism reads foreign.',
+    },
+    'United Kingdom': {
+        'palette_hint': {
+            'primary': '#1A1A1A', 'secondary': '#F2EFE8',
+            'accent': '#1F4A2C', 'background': '#FFFFFF', 'warning': '#C62828',
+        },
+        'culture_themes': [
+            'Heritage cues plus clean modern execution',
+            'Premium UK supermarket private label sets the bar',
+            'Source-traceable provenance carries strong weight',
+            'Plain English wins over American hype',
+        ],
+        'trust_markers': [
+            'Red Tractor / Soil Association badge',
+            'UK origin or named UK farm / region',
+            'Allergen panel formatted to FSA expectations',
+            'Plain-English ingredient names',
+        ],
+        'avoid': [
+            'American hype copy and superlatives',
+            'Saturated cartoon-style packaging at premium tier',
+            'Vague "natural" claims without certification',
+        ],
+        'buyer_motivation': 'UK buyers reward heritage, traceability, and plain language. Premium reads as restraint plus a single credible trust badge.',
+    },
 }
 
 # Generic fallback for markets not listed above.

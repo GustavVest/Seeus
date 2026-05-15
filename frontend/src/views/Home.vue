@@ -79,23 +79,19 @@
           </p>
         </div>
 
-        <!-- Hero before/after visual.
-             To swap in real photos: drop hero-before.png + hero-after.png
-             into frontend/public/. They'll fill the cards automatically. -->
+        <!-- Hero before/after visual: ArcticUNI Calcium (Norway market). -->
         <div class="lg:col-span-7">
           <div class="grid grid-cols-2 gap-4 lg:gap-5">
             <figure class="relative rounded-2xl border border-black/[0.08] bg-white overflow-hidden">
               <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-graphite/55 px-2.5 py-1 rounded-full bg-black/[0.05]">BEFORE</span>
-              <div class="aspect-[3/4] bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] flex items-center justify-center">
-                <img src="/hero-before.png" alt="Before label" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                <span class="font-mono text-[10px] text-graphite/35">hero-before.png</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] flex items-center justify-center p-6">
+                <img src="/hero-before.jpg" alt="Original ArcticUNI Calcium supplement label" class="max-w-full max-h-full w-auto h-auto object-contain" />
               </div>
             </figure>
             <figure class="relative rounded-2xl border border-signal-purple/30 bg-white overflow-hidden shadow-[0_24px_60px_-30px_rgba(124,58,237,0.4)]">
               <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-electric-violet px-2.5 py-1 rounded-full bg-signal-purple/10">AFTER</span>
-              <div class="aspect-[3/4] bg-gradient-to-b from-signal-purple/[0.04] to-electric-violet/[0.06] flex items-center justify-center">
-                <img src="/hero-after.png" alt="After label" class="absolute inset-0 w-full h-full object-cover" onerror="this.style.display='none'" />
-                <span class="font-mono text-[10px] text-graphite/35">hero-after.png</span>
+              <div class="aspect-[3/4] bg-gradient-to-b from-signal-purple/[0.04] to-electric-violet/[0.06] flex items-center justify-center p-6">
+                <img src="/hero-after.jpg" alt="Adapted ArcticUNI Calcium label for the Norwegian market" class="max-w-full max-h-full w-auto h-auto object-contain" />
               </div>
             </figure>
           </div>
