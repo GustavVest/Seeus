@@ -272,7 +272,7 @@
                   class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-primary-black placeholder:text-graphite/45 focus:outline-none focus:border-signal-purple"
                 />
                 <p class="mt-2 text-xs text-graphite/60">
-                  We send your free market-fit summary here.
+                  Required. We keep it on file. No marketing emails, no newsletter.
                 </p>
               </div>
             </div>
