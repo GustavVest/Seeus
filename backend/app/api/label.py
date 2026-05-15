@@ -167,6 +167,34 @@ def _validate_adaptation(data):
     return data
 
 
+@label_bp.route('/debug/keys', methods=['GET'])
+def debug_keys():
+    """
+    Returns metadata about which API keys the running container can see.
+    Never exposes the actual secret values — only length + prefix + suffix
+    so we can verify Railway stored the right thing. Safe to leave on
+    while we're diagnosing env var issues.
+    """
+    import os
+
+    def describe(value):
+        if not value:
+            return {'set': False}
+        return {
+            'set': True,
+            'length': len(value),
+            'prefix': value[:12],
+            'suffix': value[-6:],
+        }
+
+    return jsonify({
+        'OPENAI_API_KEY': describe(os.environ.get('OPENAI_API_KEY')),
+        'LLM_API_KEY':    describe(os.environ.get('LLM_API_KEY')),
+        'LLM_BASE_URL':   os.environ.get('LLM_BASE_URL') or None,
+        'LLM_MODEL_NAME': os.environ.get('LLM_MODEL_NAME') or None,
+    }), 200
+
+
 @label_bp.route('/adapt', methods=['POST'])
 def adapt_label():
     """
