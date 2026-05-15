@@ -37,7 +37,7 @@
           @click="openUpload"
           class="group inline-flex items-center gap-2 bg-primary-black text-ice-white px-4 py-2 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
         >
-          Upload your label
+          Create market-ready label
           <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
         </button>
       </div>
@@ -45,139 +45,186 @@
 
     <!-- ===== HERO ===== -->
     <section id="top" class="relative overflow-hidden">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-24 lg:pt-24 lg:pb-32 grid lg:grid-cols-12 gap-12 items-center">
-        <div class="lg:col-span-6">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-20 lg:pt-24 lg:pb-28 grid lg:grid-cols-12 gap-12 items-start">
+        <div class="lg:col-span-5 lg:sticky lg:top-28">
           <div class="inline-flex items-center gap-2 mb-6 px-3 py-1 rounded-full border border-signal-purple/30 bg-signal-purple/5 text-signal-purple text-xs font-mono tracking-wide">
             <span class="w-1.5 h-1.5 rounded-full bg-signal-purple"></span>
-            MARKET-FIT INTELLIGENCE
+            MARKET-READY LABEL ADAPTATION
           </div>
 
           <h1 class="font-display text-5xl lg:text-6xl leading-[1.05] tracking-tight text-primary-black font-medium">
-            Know if your packaging
-            <span class="block">will sell <span class="text-signal-purple">before</span> you launch.</span>
+            Launch-ready product labels
+            <span class="block">for any <span class="text-signal-purple">target market</span>.</span>
           </h1>
 
           <p class="mt-6 text-lg text-graphite/75 max-w-xl leading-relaxed">
-            AI-powered market-fit analysis for food, beverage, supplement, and export teams entering new international markets.
+            ORAMA INTEL helps food, beverage, supplement, and private-label companies adapt labels, product messaging, and retail positioning for new countries — with a premium, locally relevant format.
           </p>
 
-          <div class="mt-8 flex items-center gap-4">
-            <button
-              @click="openUpload"
+          <div class="mt-8 flex flex-wrap items-center gap-4">
+            <a
+              href="#configurator"
               class="group inline-flex items-center gap-2 bg-primary-black text-ice-white px-6 py-3.5 text-sm font-semibold rounded-md hover:bg-signal-purple transition-colors"
             >
-              Upload your label
+              Create market-ready label
               <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
-            </button>
+            </a>
             <a href="#how" class="text-sm font-medium text-graphite/70 hover:text-primary-black transition-colors">
               See how it works
             </a>
           </div>
 
           <p class="mt-6 text-sm text-graphite/60 max-w-md">
-            Get feedback on label copy, claims, colors, shelf impact, cultural fit, and market risk in minutes.
+            Localized label copy, claims direction, palette, hierarchy, and buyer-facing positioning — generated for the country your product is entering.
           </p>
         </div>
 
-        <!-- Dashboard mockup -->
-        <div class="lg:col-span-6">
+        <!-- 4-field configurator -->
+        <div id="configurator" class="lg:col-span-7">
           <div class="relative">
             <div class="absolute -inset-4 bg-gradient-to-tr from-signal-purple/10 via-transparent to-electric-violet/10 blur-2xl rounded-3xl"></div>
-            <div class="relative bg-white border border-black/8 rounded-xl shadow-[0_24px_60px_-20px_rgba(5,5,5,0.18)] overflow-hidden">
-              <!-- Dashboard chrome -->
-              <div class="flex items-center justify-between px-5 py-3 border-b border-black/5 bg-ice-white">
-                <div class="flex items-center gap-1.5">
-                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-black/10"></span>
-                </div>
-                <span class="font-mono text-[11px] text-graphite/50 tracking-wider">orama.intel / report</span>
-                <span class="font-mono text-[11px] text-market-green tracking-wider">LIVE</span>
+            <div class="relative bg-white border border-black/8 rounded-2xl shadow-[0_24px_60px_-20px_rgba(5,5,5,0.18)] overflow-hidden">
+              <div class="flex items-center justify-between px-6 py-3 border-b border-black/[0.06] bg-ice-white">
+                <span class="font-mono text-[11px] text-graphite/55 tracking-widest">CONFIGURATOR · 4 STEPS</span>
+                <span class="font-mono text-[11px] text-market-green tracking-widest flex items-center gap-1.5">
+                  <span class="w-1.5 h-1.5 rounded-full bg-market-green"></span>
+                  LIVE
+                </span>
               </div>
 
-              <div class="p-6 grid grid-cols-12 gap-4">
-                <!-- Label preview -->
-                <div class="col-span-4 bg-graphite/[0.04] border border-black/5 rounded-lg p-3 flex flex-col">
-                  <span class="font-mono text-[10px] text-graphite/50 tracking-wider mb-2">LABEL</span>
-                  <div class="flex-1 rounded-md bg-gradient-to-b from-white to-graphite/10 border border-black/5 aspect-[3/4] flex items-center justify-center">
-                    <div class="text-center">
-                      <div class="w-10 h-10 mx-auto mb-2 rounded-full border-2 border-graphite/30"></div>
-                      <div class="font-mono text-[9px] text-graphite/40 tracking-widest">PRODUCT.PNG</div>
-                    </div>
+              <div class="p-6 lg:p-8 space-y-7">
+
+                <!-- Step 1: Target Country (most prominent) -->
+                <div>
+                  <div class="flex items-center justify-between mb-2">
+                    <label class="font-display text-lg text-primary-black font-semibold">
+                      <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">01</span>
+                      Target country
+                    </label>
+                  </div>
+                  <select
+                    v-model="cfgTargetCountry"
+                    class="w-full px-4 py-4 bg-white border-2 border-black/10 rounded-lg text-base text-primary-black font-medium focus:outline-none focus:border-signal-purple transition-colors"
+                  >
+                    <option value="">Pick a country…</option>
+                    <option>Lithuania</option>
+                    <option>Norway</option>
+                    <option>Sweden</option>
+                    <option>Germany</option>
+                    <option>Denmark</option>
+                    <option>South Korea</option>
+                    <option>Japan</option>
+                    <option>United Kingdom</option>
+                    <option>USA</option>
+                    <option>EU</option>
+                    <option>Nordics</option>
+                  </select>
+                  <p class="mt-2 text-xs text-graphite/60">
+                    Choose the market you want the product to feel native to.
+                  </p>
+                </div>
+
+                <!-- Step 2: Product Style -->
+                <div>
+                  <label class="font-display text-base text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">02</span>
+                    Product style
+                  </label>
+                  <select
+                    v-model="cfgProductStyle"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                  >
+                    <option>Clean premium</option>
+                    <option>Nordic minimal</option>
+                    <option>Modern retail</option>
+                    <option>Natural / organic</option>
+                    <option>Scientific supplement</option>
+                    <option>Bold commercial</option>
+                    <option>Custom style</option>
+                  </select>
+                  <p class="mt-2 text-xs text-graphite/60">
+                    We adapt the label tone, claims style, and visual direction to the market and product category.
+                  </p>
+                </div>
+
+                <!-- Step 3: Tier (cards) -->
+                <div>
+                  <label class="font-display text-base text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">03</span>
+                    Tier
+                  </label>
+                  <div class="mt-3 grid sm:grid-cols-3 gap-2">
+                    <button
+                      v-for="t in tierOptions"
+                      :key="t.id"
+                      type="button"
+                      @click="cfgTier = t.id"
+                      :class="[
+                        'text-left p-3 rounded-lg border-2 transition-colors',
+                        cfgTier === t.id
+                          ? 'border-signal-purple bg-signal-purple/5'
+                          : 'border-black/[0.08] bg-white hover:border-black/30',
+                      ]"
+                    >
+                      <div class="flex items-center justify-between">
+                        <span class="font-display text-sm font-semibold text-primary-black">{{ t.name }}</span>
+                        <span v-if="cfgTier === t.id" class="text-signal-purple text-xs">✓</span>
+                      </div>
+                      <p class="mt-1 text-[11px] text-graphite/70 leading-snug">{{ t.tagline }}</p>
+                    </button>
                   </div>
                 </div>
 
-                <!-- Score column -->
-                <div class="col-span-8 flex flex-col gap-3">
-                  <div class="flex items-end justify-between">
-                    <div>
-                      <span class="font-mono text-[10px] text-graphite/50 tracking-wider">MARKET FIT SCORE</span>
-                      <div class="flex items-baseline gap-1 mt-1">
-                        <span class="font-display text-5xl font-medium text-primary-black tracking-tight">74</span>
-                        <span class="font-mono text-sm text-graphite/40">/100</span>
-                      </div>
-                    </div>
-                    <div class="text-right">
-                      <div class="font-mono text-[10px] text-graphite/50 tracking-wider">TARGET</div>
-                      <div class="text-sm font-semibold text-primary-black">Japan</div>
-                      <div class="font-mono text-[10px] text-graphite/50 tracking-wider mt-1">CATEGORY</div>
-                      <div class="text-sm font-semibold text-primary-black">Supplement</div>
-                    </div>
-                  </div>
-
-                  <!-- Sub-scores -->
-                  <div class="grid grid-cols-2 gap-2 mt-1">
-                    <div class="border border-black/5 rounded-md px-3 py-2">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs text-graphite/70">Trust</span>
-                        <span class="font-mono text-xs font-semibold text-market-green">82</span>
-                      </div>
-                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
-                        <div class="h-full bg-market-green" style="width: 82%"></div>
-                      </div>
-                    </div>
-                    <div class="border border-black/5 rounded-md px-3 py-2">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs text-graphite/70">Shelf impact</span>
-                        <span class="font-mono text-xs font-semibold text-warning-amber">68</span>
-                      </div>
-                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
-                        <div class="h-full bg-warning-amber" style="width: 68%"></div>
-                      </div>
-                    </div>
-                    <div class="border border-black/5 rounded-md px-3 py-2">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs text-graphite/70">Claims risk</span>
-                        <span class="font-mono text-xs font-semibold text-warning-amber">Medium</span>
-                      </div>
-                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
-                        <div class="h-full bg-warning-amber" style="width: 55%"></div>
-                      </div>
-                    </div>
-                    <div class="border border-black/5 rounded-md px-3 py-2">
-                      <div class="flex items-center justify-between">
-                        <span class="text-xs text-graphite/70">Cultural fit</span>
-                        <span class="font-mono text-xs font-semibold text-warning-amber">71</span>
-                      </div>
-                      <div class="mt-1.5 h-1 rounded-full bg-graphite/10 overflow-hidden">
-                        <div class="h-full bg-warning-amber" style="width: 71%"></div>
-                      </div>
-                    </div>
-                  </div>
+                <!-- Step 4: Buyer Type -->
+                <div>
+                  <label class="font-display text-base text-primary-black font-semibold">
+                    <span class="font-mono text-[10px] text-signal-purple tracking-widest mr-2">04</span>
+                    Buyer type
+                  </label>
+                  <select
+                    v-model="cfgBuyerType"
+                    class="mt-2 w-full px-3 py-3 bg-white border border-black/10 rounded-md text-sm text-graphite focus:outline-none focus:border-signal-purple"
+                  >
+                    <option>Food producer</option>
+                    <option>Supplement brand</option>
+                    <option>Beverage company</option>
+                    <option>Private label manufacturer</option>
+                    <option>Distributor / importer</option>
+                    <option>Other</option>
+                  </select>
+                  <p class="mt-2 text-xs text-graphite/60">
+                    This helps tailor the output to the person who needs to approve, sell, or distribute the product.
+                  </p>
                 </div>
 
-                <!-- Warnings -->
-                <div class="col-span-12 mt-2 rounded-md bg-warning-amber/5 border border-warning-amber/20 p-3">
-                  <div class="font-mono text-[10px] text-warning-amber tracking-wider mb-2 flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-warning-amber"></span>
-                    WARNINGS · 3
+                <!-- Advanced details accordion -->
+                <details class="rounded-lg border border-black/[0.08] group">
+                  <summary class="px-4 py-3 text-sm text-graphite/80 cursor-pointer select-none flex items-center justify-between hover:bg-black/[0.02] transition-colors">
+                    <span>Advanced details (optional)</span>
+                    <span class="text-graphite/40 group-open:rotate-90 transition-transform">›</span>
+                  </summary>
+                  <div class="px-4 pb-4 pt-1">
+                    <textarea
+                      v-model="cfgAdvancedDetails"
+                      rows="3"
+                      placeholder="Anything else we should know — ingredients, claims, certifications, brand notes, regulatory constraints…"
+                      class="w-full px-3 py-2 bg-ice-white border border-black/10 rounded-md text-xs text-graphite placeholder:text-graphite/40 focus:outline-none focus:border-signal-purple resize-none"
+                    />
                   </div>
-                  <ul class="space-y-1.5 text-xs text-graphite/85">
-                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Benefit hierarchy is unclear</li>
-                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Premium cues are weak for target market</li>
-                    <li class="flex gap-2"><span class="text-warning-amber">›</span> Claims should be softened for lower regulatory friction</li>
-                  </ul>
-                </div>
+                </details>
+
+                <!-- Submit -->
+                <button
+                  @click="submitConfigurator"
+                  :disabled="!cfgTargetCountry"
+                  class="w-full inline-flex items-center justify-center gap-2 bg-primary-black text-ice-white px-5 py-4 text-sm font-semibold rounded-md hover:bg-signal-purple disabled:bg-graphite/30 disabled:cursor-not-allowed transition-colors"
+                >
+                  Create market-ready label
+                  <span class="text-base leading-none">→</span>
+                </button>
+                <p class="text-[11px] text-graphite/55 text-center -mt-3">
+                  Next step: upload your existing label so we can adapt it.
+                </p>
               </div>
             </div>
           </div>
@@ -213,49 +260,67 @@
       </div>
     </section>
 
-    <!-- ===== PROBLEM ===== -->
+    <!-- ===== PROBLEM / SOLUTION ===== -->
     <section id="product" class="py-24 lg:py-32">
-      <div class="max-w-7xl mx-auto px-6 lg:px-10">
-        <div class="max-w-3xl">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-start">
+        <div>
           <span class="font-mono text-xs tracking-widest text-signal-purple">01 / PROBLEM</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
-            Translation is not localization.
+            Most products do not fail because of the ingredient.
           </h2>
           <p class="mt-5 text-lg text-graphite/75 leading-relaxed">
-            Packaging that works in one country can lose trust, shelf impact, or regulatory clarity in another.
+            They fail because the label, positioning, and product story do not match the market. A product that works in one country can look generic, confusing, or low-trust in another.
           </p>
         </div>
+        <div class="p-8 rounded-2xl bg-primary-black text-ice-white">
+          <span class="font-mono text-xs tracking-widest text-electric-violet">02 / SOLUTION</span>
+          <h2 class="mt-4 font-display text-3xl lg:text-4xl tracking-tight font-medium leading-tight">
+            We adapt the product to the market before it reaches the shelf.
+          </h2>
+          <p class="mt-5 text-base text-ice-white/75 leading-relaxed">
+            ORAMA INTEL turns product information into localized, premium, buyer-ready label and marketing material — tailored to the country, channel, and buyer you are targeting.
+          </p>
+        </div>
+      </div>
+    </section>
 
-        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          <div v-for="card in problems" :key="card.title" class="group p-6 bg-white rounded-xl border border-black/8 hover:border-signal-purple/40 transition-colors">
-            <div class="w-9 h-9 rounded-md bg-primary-black text-ice-white flex items-center justify-center font-mono text-sm group-hover:bg-signal-purple transition-colors">
-              {{ card.index }}
+    <!-- ===== HOW IT WORKS · 3 STEPS ===== -->
+    <section id="how" class="py-24 lg:py-32 bg-ice-white border-y border-black/[0.06]">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10">
+        <div class="max-w-3xl">
+          <span class="font-mono text-xs tracking-widest text-signal-purple">03 / HOW IT WORKS</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Three steps from product to market-ready package.
+          </h2>
+        </div>
+
+        <div class="mt-14 grid sm:grid-cols-3 gap-6">
+          <div v-for="(step, i) in howItWorks" :key="step.title" class="relative">
+            <div class="flex items-center gap-3 mb-5">
+              <span class="font-display text-5xl font-medium text-signal-purple tracking-tight">0{{ i + 1 }}</span>
+              <span v-if="i < howItWorks.length - 1" class="hidden sm:block flex-1 h-px bg-black/10"></span>
             </div>
-            <h3 class="mt-5 font-display text-lg text-primary-black font-semibold">{{ card.title }}</h3>
-            <p class="mt-2 text-sm text-graphite/70 leading-relaxed">{{ card.body }}</p>
+            <h3 class="font-display text-xl text-primary-black font-semibold">{{ step.title }}</h3>
+            <p class="mt-2 text-sm text-graphite/75 leading-relaxed">{{ step.body }}</p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== SOLUTION / HOW IT WORKS ===== -->
-    <section id="how" class="py-24 lg:py-32 bg-primary-black text-ice-white">
+    <!-- ===== WHO IT IS FOR ===== -->
+    <section class="py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-electric-violet">02 / SOLUTION</span>
-          <h2 class="mt-4 font-display text-4xl lg:text-5xl tracking-tight font-medium leading-tight">
-            Upload a label. Choose a market. Get a market-fit report.
+          <span class="font-mono text-xs tracking-widest text-signal-purple">04 / WHO IT IS FOR</span>
+          <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
+            Built for the teams shipping products across borders.
           </h2>
         </div>
 
-        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div v-for="(step, i) in steps" :key="step.title" class="relative">
-            <div class="flex items-center gap-3 mb-5">
-              <span class="font-display text-4xl font-medium text-electric-violet tracking-tight">0{{ i + 1 }}</span>
-              <span v-if="i < steps.length - 1" class="hidden lg:block flex-1 h-px bg-ice-white/15"></span>
-            </div>
-            <h3 class="font-display text-lg font-semibold">{{ step.title }}</h3>
-            <p class="mt-2 text-sm text-ice-white/65 leading-relaxed">{{ step.body }}</p>
+        <div class="mt-14 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div v-for="aud in audiences" :key="aud.title" class="p-6 bg-white rounded-xl border border-black/[0.08] hover:border-signal-purple/40 transition-colors">
+            <h3 class="font-display text-lg text-primary-black font-semibold">{{ aud.title }}</h3>
+            <p class="mt-2 text-sm text-graphite/75 leading-relaxed">{{ aud.body }}</p>
           </div>
         </div>
       </div>
@@ -397,7 +462,7 @@
                   : 'bg-primary-black text-ice-white hover:bg-signal-purple',
               ]"
             >
-              {{ tier.cta || 'Upload your label' }}
+              {{ tier.cta || 'Create market-ready label' }}
               <span class="text-base leading-none">→</span>
             </button>
           </div>
@@ -413,20 +478,20 @@
     <section class="py-24 lg:py-32 bg-primary-black text-ice-white">
       <div class="max-w-4xl mx-auto px-6 lg:px-10 text-center">
         <h2 class="font-display text-4xl lg:text-6xl tracking-tight font-medium leading-tight">
-          Before you redesign,
-          <span class="block">analyze the <span class="text-electric-violet">market fit</span>.</span>
+          Ready to adapt your product
+          <span class="block">for a <span class="text-electric-violet">new market</span>?</span>
         </h2>
         <p class="mt-6 text-lg text-ice-white/70 max-w-2xl mx-auto leading-relaxed">
-          Upload your product label and see what needs to change for your next country.
+          Start with the target country, product style, tier, and buyer type. We handle the localization logic from there.
         </p>
         <div class="mt-10">
-          <button
-            @click="openUpload"
+          <a
+            href="#configurator"
             class="group inline-flex items-center gap-2 bg-ice-white text-primary-black px-7 py-4 text-base font-semibold rounded-md hover:bg-electric-violet hover:text-ice-white transition-colors"
           >
-            Upload your label
+            Create market-ready label
             <span class="text-base leading-none transition-transform group-hover:translate-x-0.5">→</span>
-          </button>
+          </a>
         </div>
       </div>
     </section>
@@ -1013,6 +1078,62 @@ import { ref, computed } from 'vue'
 // (e.g. "https://seeus-backend.up.railway.app"). In dev it's empty, so
 // relative "/api/..." URLs hit Vite's proxy → localhost:5001.
 const API_BASE = import.meta.env.VITE_API_BASE || ''
+
+// ---- 4-step hero configurator (lightweight; pre-fills the upload modal) ----
+const cfgTargetCountry = ref('')
+const cfgProductStyle = ref('Clean premium')
+const cfgTier = ref('premium')
+const cfgBuyerType = ref('Food producer')
+const cfgAdvancedDetails = ref('')
+
+const tierOptions = [
+  { id: 'starter',     name: 'Starter',     tagline: 'For early validation. Localized label direction + key wording.' },
+  { id: 'premium',     name: 'Premium',     tagline: 'For serious launches. Full rewrite + positioning + risk notes.' },
+  { id: 'launch_pack', name: 'Launch Pack', tagline: 'For sales / distributor outreach. Label + page copy + pitch.' },
+]
+
+// Map the lightweight product-style label to the canonical visual style mode.
+const PRODUCT_STYLE_TO_STYLE_MODE = {
+  'Clean premium':         'Clean Premium',
+  'Nordic minimal':        'Luxury Minimal',
+  'Modern retail':         'Bold Retail',
+  'Natural / organic':     'Natural / Organic',
+  'Scientific supplement': 'Clinical / Scientific',
+  'Bold commercial':       'Bold Retail',
+  'Custom style':          'Keep current brand style',
+}
+
+// Map the lightweight buyer-type label to (brandType, productCategory).
+const BUYER_TYPE_TO_FIELDS = {
+  'Food producer':                { brandType: 'Own brand',                     category: 'Food' },
+  'Supplement brand':             { brandType: 'Own brand',                     category: 'Supplement' },
+  'Beverage company':             { brandType: 'Own brand',                     category: 'Beverage' },
+  'Private label manufacturer':   { brandType: 'Private label',                 category: '' },
+  'Distributor / importer':       { brandType: 'Distributor / importer brand',  category: '' },
+  'Other':                        { brandType: 'Own brand',                     category: '' },
+}
+
+const TIER_TO_PRICE_TIER = {
+  starter: 'mainstream',
+  premium: 'premium',
+  launch_pack: 'luxury',
+}
+
+function submitConfigurator() {
+  if (!cfgTargetCountry.value) return
+  // Pre-fill the existing upload modal with the configurator selections so
+  // the user only has to add a label image + product name from there.
+  country.value = cfgTargetCountry.value
+  visualStyleMode.value = PRODUCT_STYLE_TO_STYLE_MODE[cfgProductStyle.value] || 'Keep current brand style'
+  const buyerFields = BUYER_TYPE_TO_FIELDS[cfgBuyerType.value] || BUYER_TYPE_TO_FIELDS['Other']
+  brandType.value = buyerFields.brandType
+  if (buyerFields.category) category.value = buyerFields.category
+  priceTier.value = TIER_TO_PRICE_TIER[cfgTier.value] || 'premium'
+  if (cfgAdvancedDetails.value && !claimsOnPack.value) {
+    claimsOnPack.value = cfgAdvancedDetails.value
+  }
+  openUpload()
+}
 
 const uploadOpen = ref(false)
 const selectedFile = ref(null)
@@ -1672,18 +1793,19 @@ const navLinks = [
 const markets = ['Korea', 'Japan', 'EU', 'Nordics', 'USA']
 const categories = ['Food', 'Beverage', 'Supplements', 'Private Label']
 
-const problems = [
-  { index: '01', title: 'Wrong message', body: 'Claims and benefits do not match local buying psychology.' },
-  { index: '02', title: 'Wrong look', body: 'Colors, hierarchy, and design cues miss category expectations.' },
-  { index: '03', title: 'Wrong risk level', body: 'Label wording may create claims, allergen, or distributor friction.' },
-  { index: '04', title: 'Wrong launch decision', body: 'Brands redesign packaging without knowing what the target market expects.' },
+const howItWorks = [
+  { title: 'Choose the market', body: 'Select the target country and product category.' },
+  { title: 'Choose the positioning', body: 'Pick the style and launch tier that fits your product.' },
+  { title: 'Receive a market-ready package', body: 'Localized label copy, positioning, and retail-facing messaging adapted for the market.' },
 ]
 
-const steps = [
-  { title: 'Upload your current label', body: 'PDF, PNG, or JPG. One product at a time.' },
-  { title: 'Select category and target country', body: 'Food, beverage, supplement, or private label · 30+ markets.' },
-  { title: 'Receive AI scoring and feedback', body: 'Trust, shelf impact, claims risk, cultural fit, and concrete fixes.' },
-  { title: 'Generate market-specific direction', body: 'Optimized label copy, palette, and hierarchy ready for redesign.' },
+const audiences = [
+  { title: 'Food producers', body: 'For companies launching new SKUs or adapting existing products to new markets.' },
+  { title: 'Supplement companies', body: 'For brands that need clearer label wording, product claims structure, and premium positioning.' },
+  { title: 'Beverage brands', body: 'For drinks, functional beverages, and wellness products entering new retail environments.' },
+  { title: 'Private label manufacturers', body: 'For companies producing many SKUs where weak labeling reduces sell-through.' },
+  { title: 'Distributors and importers', body: 'For teams evaluating whether a product is ready for a local market.' },
+  { title: 'Export-ready teams', body: 'For brands moving from one market to several at once.' },
 ]
 
 const engineCards = [
@@ -1714,7 +1836,7 @@ const examples = [
 
 const tiers = [
   {
-    name: 'Free Score',
+    name: 'Starter',
     price: '€0',
     unit: '',
     description: 'For brands that want a first market-fit check.',
@@ -1725,17 +1847,17 @@ const tiers = [
       'Key risks and improvements',
       'Basic culture and shelf-impact feedback',
     ],
-    cta: 'Upload your label',
+    cta: 'Create market-ready label',
     featured: false,
   },
   {
-    name: 'Adaptation Concept',
+    name: 'Premium',
     price: '€149',
     unit: 'per product / market',
     description: 'For brands that want the fix, not just the feedback.',
     badge: 'Best for validation',
     features: [
-      'Everything in Free Score',
+      'Everything in Starter',
       'Improved label copy',
       'Palette and hierarchy direction',
       'AI-generated packaging mockup concept',
@@ -1745,7 +1867,7 @@ const tiers = [
     featured: true,
   },
   {
-    name: 'Export Pilot',
+    name: 'Launch Pack',
     price: '€499',
     unit: 'one target market',
     description: 'For teams testing multiple products or one target market seriously.',
