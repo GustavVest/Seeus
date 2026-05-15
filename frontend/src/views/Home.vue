@@ -582,7 +582,7 @@
     <section id="product" class="py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-14 items-start">
         <div>
-          <span class="font-mono text-xs tracking-widest text-signal-purple">01 / PROBLEM</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">PROBLEM</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
             Most products do not fail because of the ingredient.
           </h2>
@@ -591,7 +591,7 @@
           </p>
         </div>
         <div class="p-8 rounded-2xl bg-primary-black text-ice-white">
-          <span class="font-mono text-xs tracking-widest text-electric-violet">02 / SOLUTION</span>
+          <span class="font-mono text-xs tracking-widest text-electric-violet">SOLUTION</span>
           <h2 class="mt-4 font-display text-3xl lg:text-4xl tracking-tight font-medium leading-tight">
             We adapt the product to the market before it reaches the shelf.
           </h2>
@@ -606,7 +606,7 @@
     <section id="how" class="py-24 lg:py-32 bg-ice-white border-y border-black/[0.06]">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">03 / HOW IT WORKS</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">HOW IT WORKS</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
             Three steps from product to market-ready package.
           </h2>
@@ -629,7 +629,7 @@
     <section class="py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">04 / WHO IT IS FOR</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">WHO IT IS FOR</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
             Built for the teams shipping products across borders.
           </h2>
@@ -648,7 +648,7 @@
     <section class="py-24 lg:py-32">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">03 / ENGINE</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">ENGINE</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
             Concrete feedback, not vague design advice.
           </h2>
@@ -680,7 +680,7 @@
     <section id="examples" class="py-24 lg:py-32 bg-white border-y border-black/5">
       <div class="max-w-7xl mx-auto px-6 lg:px-10">
         <div class="max-w-3xl">
-          <span class="font-mono text-xs tracking-widest text-signal-purple">04 / EXAMPLES</span>
+          <span class="font-mono text-xs tracking-widest text-signal-purple">EXAMPLES</span>
           <h2 class="mt-4 font-display text-4xl lg:text-5xl text-primary-black tracking-tight font-medium leading-tight">
             One product. Different markets. Different buying logic.
           </h2>
