@@ -52,9 +52,9 @@
             LABEL ADAPTATION · NEW MARKETS
           </div>
 
-          <h1 class="font-display text-5xl lg:text-6xl leading-[1.05] tracking-tight text-primary-black font-medium">
+          <h1 class="font-warm text-5xl lg:text-6xl leading-[1.08] tracking-tight text-primary-black font-normal" style="font-variation-settings: 'SOFT' 50, 'opsz' 96;">
             Your product label may be
-            <span class="block">why buyers say <span class="text-signal-purple">no</span>.</span>
+            <span class="block">why buyers say <span class="text-signal-purple italic">no</span>.</span>
           </h1>
 
           <p class="mt-6 text-lg text-graphite/75 max-w-xl leading-relaxed">
@@ -79,19 +79,19 @@
           </p>
         </div>
 
-        <!-- Hero before/after visual: ArcticUNI Calcium (Norway market). -->
+        <!-- Hero before/after visual: protein bar lifestyle shots. -->
         <div class="lg:col-span-7">
           <div class="grid grid-cols-2 gap-4 lg:gap-5">
-            <figure class="relative rounded-2xl border border-black/[0.08] bg-white overflow-hidden">
-              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-graphite/55 px-2.5 py-1 rounded-full bg-black/[0.05]">BEFORE</span>
-              <div class="aspect-[3/4] bg-gradient-to-b from-graphite/[0.04] to-graphite/[0.08] flex items-center justify-center p-6">
-                <img src="/hero-before.webp" alt="Original ArcticUNI Calcium supplement label" class="max-w-full max-h-full w-auto h-auto object-contain" />
+            <figure class="relative rounded-2xl border border-black/[0.08] overflow-hidden">
+              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-ice-white/90 px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-sm">BEFORE</span>
+              <div class="aspect-[4/5] bg-black/[0.04]">
+                <img src="/hero-before.jpg" alt="Apex Fuel protein bar in its original US market design" class="w-full h-full object-cover" />
               </div>
             </figure>
-            <figure class="relative rounded-2xl border border-signal-purple/30 bg-white overflow-hidden shadow-[0_24px_60px_-30px_rgba(124,58,237,0.4)]">
-              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-electric-violet px-2.5 py-1 rounded-full bg-signal-purple/10">AFTER</span>
-              <div class="aspect-[3/4] bg-gradient-to-b from-signal-purple/[0.04] to-electric-violet/[0.06] flex items-center justify-center p-6">
-                <img src="/hero-after.webp" alt="Adapted ArcticUNI Calcium label for the Norwegian market" class="max-w-full max-h-full w-auto h-auto object-contain" />
+            <figure class="relative rounded-2xl border border-signal-purple/30 overflow-hidden shadow-[0_24px_60px_-30px_rgba(124,58,237,0.4)]">
+              <span class="absolute top-4 left-4 z-10 font-mono text-[10px] tracking-widest text-ice-white/95 px-2.5 py-1 rounded-full bg-signal-purple/80 backdrop-blur-sm">AFTER</span>
+              <div class="aspect-[4/5] bg-black/[0.04]">
+                <img src="/hero-after.jpg" alt="Harmony Health wellness bar adapted for the Asian market" class="w-full h-full object-cover" />
               </div>
             </figure>
           </div>
