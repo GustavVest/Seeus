@@ -20,6 +20,7 @@ from flask import request, jsonify
 
 from . import checklist_bp
 from ..utils.logger import get_logger
+from ..services.lead_store import add_lead, count_leads
 
 logger = get_logger('seeus.api.checklist')
 
@@ -35,22 +36,22 @@ def subscribe():
     if not email or not _EMAIL_RE.match(email):
         return jsonify({'error': 'Please enter a valid email address.'}), 400
 
+    # Local SQLite is the system of record — captures every lead even when
+    # Resend is unconfigured or down. Resend is just a downstream fan-out.
+    try:
+        is_new = add_lead(email=email, company=company, category=category, source='configurator')
+    except Exception:
+        logger.exception('lead_store.add_lead failed')
+        is_new = False
+
     api_key = os.environ.get('RESEND_API_KEY')
     if not api_key:
-        # No provider configured — capture to the log so the lead isn't lost.
-        logger.warning(
-            'RESEND_API_KEY not set — lead captured locally only: '
-            f'email={email} company={company!r} category={category!r}'
-        )
-        return jsonify({'ok': True, 'captured': False, 'reason': 'no_provider_configured'}), 200
+        # Lead is in SQLite already — Resend fan-out is just skipped.
+        return jsonify({'ok': True, 'captured': True, 'resend_synced': False, 'is_new': is_new}), 200
 
     audience_id = os.environ.get('RESEND_AUDIENCE_ID')
     if not audience_id:
-        logger.warning(
-            'RESEND_AUDIENCE_ID not set — lead captured locally only: '
-            f'email={email} company={company!r} category={category!r}'
-        )
-        return jsonify({'ok': True, 'captured': False, 'reason': 'no_audience_configured'}), 200
+        return jsonify({'ok': True, 'captured': True, 'resend_synced': False, 'is_new': is_new}), 200
 
     try:
         import resend
@@ -100,7 +101,7 @@ def _baseline() -> int:
 
 @checklist_bp.route('/count', methods=['GET'])
 def lead_count():
-    """Return the current number of captured leads. Public, cached, safe to embed."""
+    """Return baseline + local store count. Public, cached for 60s."""
     now = time.monotonic()
     baseline = _baseline()
 
@@ -110,25 +111,12 @@ def lead_count():
     ):
         return jsonify({'count': _count_cache['count'] + baseline, 'cached': True}), 200
 
-    api_key = os.environ.get('RESEND_API_KEY')
-    audience_id = os.environ.get('RESEND_AUDIENCE_ID')
-    if not api_key or not audience_id:
-        # Resend not configured — return just the baseline so the page still
-        # shows the onboarded-outside-Resend headcount until Resend is wired.
-        return jsonify({'count': baseline, 'configured': False}), 200
-
     try:
-        import resend
-        resend.api_key = api_key
-        result = resend.Contacts.list({'audience_id': audience_id})
-        data = result.get('data') if isinstance(result, dict) else list(result or [])
-        n = len(data or [])
-
-        _count_cache['count'] = n
-        _count_cache['ts'] = now
-        return jsonify({'count': n + baseline, 'configured': True}), 200
+        n = count_leads()
     except Exception as e:
-        logger.exception('Resend count failed')
-        # Don't blow up the homepage just because Resend is having a moment.
-        last = _count_cache.get('count') or 0
-        return jsonify({'count': last + baseline, 'configured': True, 'error': str(e)}), 200
+        logger.exception('lead_store.count_leads failed')
+        return jsonify({'count': (_count_cache.get('count') or 0) + baseline, 'error': str(e)}), 200
+
+    _count_cache['count'] = n
+    _count_cache['ts'] = now
+    return jsonify({'count': n + baseline, 'stored': n, 'baseline': baseline}), 200

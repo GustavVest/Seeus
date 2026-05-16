@@ -61,6 +61,11 @@ def create_app(config_class=Config):
         logger.debug(f"响应: {response.status_code}")
         return response
     
+    # Local lead store (SQLite) — single source of truth for captured emails.
+    # Idempotent: creates the table on first boot, no-op after that.
+    from .services.lead_store import init_db as init_lead_store
+    init_lead_store()
+
     # Register active blueprints. Legacy blueprints (graph/simulation/report)
     # are commented out — see app/api/__init__.py for details.
     from .api import label_bp, checklist_bp, admin_bp
