@@ -521,10 +521,6 @@
                 <p class="text-graphite/70 leading-relaxed">One-pager for distributor pitch: origin narrative, lab-testing record, target-channel match, daily-dose clarity.</p>
               </div>
               <div>
-                <div class="font-semibold text-primary-black mb-1">Before / after concept</div>
-                <p class="text-graphite/70 leading-relaxed">AI-generated label concept rendered onto the same package format, preserving brand mark and physical container.</p>
-              </div>
-              <div>
                 <div class="font-semibold text-primary-black mb-1">Compliance-risk notes</div>
                 <p class="text-graphite/70 leading-relaxed">Three flagged phrases requiring substantiation or rewording. Two market-specific allergen-panel adjustments.</p>
               </div>
@@ -538,7 +534,7 @@
               Unlock the full market adaptation report.
             </h3>
             <p class="mt-3 text-sm text-graphite/75 max-w-md">
-              Includes label rewrite, target-country wording, palette and hierarchy direction, before/after concept image, and compliance-risk notes.
+              Includes label rewrite, target-country wording, palette and hierarchy direction, and compliance-risk notes.
             </p>
             <a
               href="#pricing"
